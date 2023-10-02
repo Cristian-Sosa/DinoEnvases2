@@ -1,0 +1,10 @@
+<button
+  [type]="button.type"
+  [ngClass]="{
+    button: true,
+    primary: button.isPrimary,
+    secondary: !button.isPrimary
+  }"
+>
+  {{ button.text }}
+</button>

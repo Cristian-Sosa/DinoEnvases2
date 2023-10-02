@@ -1,0 +1,38 @@
+<form [formGroup]="authForm">
+  <svg
+    width="100"
+    height="78"
+    viewBox="0 0 100 78"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="100" height="78" rx="8" fill="#DDE1DF" />
+  </svg>
+  <app-input
+    formControlName="userControl"
+    [content]="{
+    label: 'Usuario',
+    type: 'text',
+    name: 'userControl'
+}"
+  ></app-input>
+
+  <app-input
+    formControlName="passControl"
+    [content]="{
+    label: 'Contraseña',
+    type: 'password',
+    name: 'passControl'
+}"
+  ></app-input>
+
+  <app-button
+    [button]="{
+    type: 'sumbit',
+    text: 'Iniciar sesión',
+    isPrimary: true
+  }"
+  ></app-button>
+</form>
+
+<span>Desarrollado por grupo dinosaurio v2.0-beta</span>
