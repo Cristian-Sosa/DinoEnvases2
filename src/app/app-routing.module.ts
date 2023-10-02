@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'DinoEnvases', pathMatch: 'full' },
-  {path: 'DinoEnvases', loadChildren: ()=> import('./index').then(m => m.AuthModule)},
+  {
+    path: 'DinoEnvases',
+    loadChildren: () => import('./index').then((m) => m.AuthModule),
+    title: 'auth'
+  },
 ];
 
 @NgModule({

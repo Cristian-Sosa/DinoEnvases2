@@ -10,6 +10,17 @@ button
     border-radius: 4px
     outline: none
 
+    transition: background-color .2s ease
+
     &.primary
         background-color: #295435
         color: #FEFEFE
+        &:hover
+            background-color: lighten(#295435, 4)
+            cursor: pointer
+        &:active
+            background-color: #295435
+            cursor: pointer
+        &:disabled
+            background-color: lighten(desaturate(#295435, 28), 16)
+            cursor: auto

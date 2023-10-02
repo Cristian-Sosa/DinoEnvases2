@@ -5,6 +5,7 @@
     primary: button.isPrimary,
     secondary: !button.isPrimary
   }"
+  [disabled]="button.isDisabled"
 >
   {{ button.text }}
 </button>
