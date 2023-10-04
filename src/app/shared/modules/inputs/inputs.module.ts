@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from '../../components';
+import { InputComponent, SelectComponent } from '../../components';
 
 @NgModule({
-  declarations: [InputComponent],
+  declarations: [InputComponent, SelectComponent],
   imports: [CommonModule],
-  exports: [InputComponent],
+  exports: [InputComponent, SelectComponent],
 })
 export class InputsModule {}

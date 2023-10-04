@@ -6,7 +6,6 @@ const routes: Routes = [
   {
     path: 'DinoEnvases',
     loadChildren: () => import('./index').then((m) => m.AuthModule),
-    title: 'auth'
   },
 ];
 
