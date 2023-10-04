@@ -57,3 +57,40 @@ app-auth
 
 app-input, app-select
     width: 100%
+
+app-toast
+    width: min(calc(100vw - 48px), calc(400px - 48px))
+    padding: 14px 26px
+
+    background-color: #C34747
+
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    gap: 4px
+
+    border-radius: 4px
+
+    position: absolute
+    top: 0
+    left: 50%
+
+    animation-name: fadeInDown-mobile
+    animation-duration: 2s
+    animation-fill-mode: forwards
+
+    box-shadow: 0px 8px 24px -6px rgba(73, 11, 11, 0.5)
+
+    opacity: 0
+
+    z-index: 95
+
+@keyframes fadeInDown-mobile
+    0%, 32%
+        opacity: 0
+        transform: translate3d(-50%, 20%, 0)
+
+    64%, 100%
+        opacity: 1
+        transform: translate3d(-50%, 150%, 0)
