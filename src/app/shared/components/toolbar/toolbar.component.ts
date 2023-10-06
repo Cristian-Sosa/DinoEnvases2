@@ -21,7 +21,7 @@ export class ToolbarComponent implements OnInit{
         console.log(lastRoute)
   
         // Verifica si la última ruta es igual a "DinoEnvases"
-        if (lastRoute === '/DinoEnvases') {
+        if (lastRoute === '/DinoEnvases' || lastRoute === '/') {
           this.showHamburgerMenu = false;
         } else {
           this.showHamburgerMenu = true;
