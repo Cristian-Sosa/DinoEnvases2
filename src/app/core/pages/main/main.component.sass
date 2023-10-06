@@ -1,8 +1,6 @@
 .main
     width: 100%
-    height: calc(100% - 56px - 50px)
-
-    padding: 24px 24px
+    height: 100%
 
     display: grid
     grid-template-columns: 1fr
@@ -21,10 +19,6 @@
 .content
     grid-area: content
 
-    display: flex
-    justify-content: center
-    align-items: center
-
     span
         color: #516156
         font-size: 12px
@@ -35,6 +29,8 @@
         opacity: .89
 
 .actions
+    padding-bottom: 48px
+
     display: grid
     grid-template-columns: 1fr 50px
     grid-template-rows: 1fr
@@ -47,7 +43,6 @@
         width: 100%
         height: 100%
 
-        // padding: 12px 32px
         background-color: #295435
         color: #FEFEFE
         font-size: 16px
@@ -65,7 +60,8 @@
         &:active
             background-color: #295435
             cursor: pointer
-
-@media (min-width: 768px)
+            
+    
+@media (min-width: 750px)
     .main
-        height: calc(100vh - 56px)
+        height: calc(100% - 56px)
