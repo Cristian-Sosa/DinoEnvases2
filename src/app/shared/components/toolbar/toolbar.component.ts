@@ -20,8 +20,8 @@ export class ToolbarComponent implements OnInit{
         const lastRoute = event.url;
         console.log(lastRoute)
   
-        // Verifica si la última ruta es igual a "DinoEnvases"
-        if (lastRoute === '/DinoEnvases' || lastRoute === '/') {
+        // Verifica si la última ruta es igual a "auth"
+        if (lastRoute === '/auth' || lastRoute === '/') {
           this.showHamburgerMenu = false;
         } else {
           this.showHamburgerMenu = true;

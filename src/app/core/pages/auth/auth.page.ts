@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, ToastService } from 'src/app/shared';
 import { ISelect, IToast, IUsuario } from 'src/app/shared/models';
 
@@ -11,6 +12,7 @@ import { ISelect, IToast, IUsuario } from 'src/app/shared/models';
 export class AuthPage {
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
+  private router = inject(Router)
 
   public selectContent: ISelect = {
     name: 'sucursalName',
@@ -47,11 +49,7 @@ export class AuthPage {
     let isUserRegistered: boolean = this.authService.userValidation(usuario);
 
     if (isUserRegistered) {
-      let toast: IToast = {
-        text: 'Fijate que ingresaste algo mal, manco',
-        show: true,
-      };
-      this.toastService.setToastState(toast);
+      this.router.navigate(['inicio'])
     } else {
       let toast: IToast = {
         text: 'Ingresaste algo mal, manco de mierda',

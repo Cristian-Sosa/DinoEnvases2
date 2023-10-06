@@ -1,0 +1,21 @@
+<main class="main">
+  <header class="header"><h2 class="title">Carga actual:</h2></header>
+
+  <section class="content">
+    <span>Vaya, parece que no tienes ninguna carga en proceso. Presiona en el botón “+” para iniciar una carga nueva</span>
+  </section>
+
+  <footer class="actions">
+    <app-button
+      [button]="{
+        type: 'sumbit',
+        text: 'Imprimir carga',
+        isPrimary: true,
+        isDisabled: true
+      }"
+    ></app-button>
+    <button class="plus">
+        <img src="assets/images/plus.svg" alt="">
+    </button>
+  </footer>
+</main>

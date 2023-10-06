@@ -2,10 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'DinoEnvases', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
-    path: 'DinoEnvases',
+    path: 'auth',
     loadChildren: () => import('./index').then((m) => m.AuthModule),
+    title: 'Dino Envases - inicio de sesión'
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./index').then((m) => m.MainModule),
+    title: 'Dino Envases'
   },
 ];
 
