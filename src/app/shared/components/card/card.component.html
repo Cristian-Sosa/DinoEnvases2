@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
     details: true,
+    remove: remove,
     verde: card.envase.color == 'verde',
     marron: card.envase.color == 'marron',
     quilmes:card.envase.color == 'quilmes 340',
@@ -17,6 +18,10 @@
       + {{ card.cajon.cantidad }} cajón {{ card.cajon.tipo | titlecase }}
     </span>
   </div>
-  <img class="cross" src="assets/images/x.svg" alt="" (click)="removeEnvase()">
+  <img
+    class="cross"
+    src="assets/images/x.svg"
+    alt=""
+    (click)="removeEnvase()"
+  />
 </div>
-

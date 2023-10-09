@@ -9,9 +9,15 @@ import { EnvaseService } from '../../services';
 export class CardComponent {
   private envaseService = inject(EnvaseService);
 
+  public remove: boolean = false;
+
   @Input() card!: any;
 
   removeEnvase = (): void => {
-    this.envaseService.removeEnvase(this.card)
-  }
+    this.remove = true;
+    let interval = setInterval(() => {
+      this.envaseService.removeEnvase(this.card);
+      clearInterval(interval);
+    }, 250);
+  };
 }

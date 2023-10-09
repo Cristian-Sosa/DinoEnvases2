@@ -12,6 +12,8 @@
 
     position: relative
 
+    transition: transform 2s ease, opacity .25s ease-in
+
     &.verde
         border-color: #2F9B3A
     &.marron
@@ -45,3 +47,7 @@
 
         &:hover
             cursor: pointer
+
+.details.remove
+    transform: translateX(150%)
+    opacity: 0
