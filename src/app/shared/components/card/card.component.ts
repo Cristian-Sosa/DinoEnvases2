@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
+import { EnvaseService } from '../../services';
 
 @Component({
   selector: 'app-card',
@@ -6,5 +7,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.sass'],
 })
 export class CardComponent {
+  private envaseService = inject(EnvaseService);
+
   @Input() card!: any;
+
+  removeEnvase = (): void => {
+    this.envaseService.removeEnvase(this.card)
+  }
 }

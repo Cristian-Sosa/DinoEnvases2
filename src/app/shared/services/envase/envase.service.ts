@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class EnvaseService {
   private envases: any[] = [
     {
+      id: 0,
       envase: {
         tipo: 'cerveza',
         color: 'verde',
@@ -18,6 +19,7 @@ export class EnvaseService {
       },
     },
     {
+      id: 1,
       envase: {
         tipo: 'cerveza',
         color: 'marron',
@@ -29,14 +31,16 @@ export class EnvaseService {
       },
     },
     {
+      id: 2,
       envase: {
         tipo: 'cerveza',
         color: 'quilmes 340',
         cantidad: '16u',
       },
-      cajon: null
+      cajon: null,
     },
     {
+      id: 3,
       envase: {
         tipo: 'gaseosa',
         color: null,
@@ -48,6 +52,7 @@ export class EnvaseService {
       },
     },
     {
+      id: 4,
       envase: {
         tipo: 'drago',
         peso: '1kg',
@@ -69,6 +74,15 @@ export class EnvaseService {
   currentEnvases = (): any[] | undefined => this.envases;
 
   setEnvases = (): void => {
-    this._envases.next(this.envases)
-  }
+    this._envases.next(this.envases);
+  };
+
+  removeEnvase = (envaseObj: any) => {
+    let index: number = this.envases.indexOf(envaseObj);
+
+    this.envases.splice(index, 1);
+    this._envases.next(this.envases);
+
+    localStorage.setItem('cargaPendiente', JSON.stringify(this.envases));
+  };
 }
