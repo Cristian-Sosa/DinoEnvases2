@@ -30,6 +30,14 @@ export class EnvaseService {
     },
     {
       envase: {
+        tipo: 'cerveza',
+        color: 'quilmes 340',
+        cantidad: '16u',
+      },
+      cajon: null
+    },
+    {
+      envase: {
         tipo: 'gaseosa',
         color: null,
         cantidad: '14u',

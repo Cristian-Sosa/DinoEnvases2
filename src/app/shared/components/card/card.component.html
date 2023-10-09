@@ -1,4 +1,13 @@
-<div class="details" style="border-left-color: aqua;">
+<div
+  [ngClass]="{
+    details: true,
+    verde: card.envase.color == 'verde',
+    marron: card.envase.color == 'marron',
+    quilmes:card.envase.color == 'quilmes 340',
+    drago:card.envase.tipo == 'drago',
+    gaseosa:card.envase.tipo == 'gaseosa',
+  }"
+>
   <h4 class="title">
     {{ card.envase.tipo | titlecase }} {{ card.envase.color }}
   </h4>
@@ -8,4 +17,6 @@
       + {{ card.cajon.cantidad }} cajón {{ card.cajon.tipo | titlecase }}
     </span>
   </div>
+  <img class="cross" src="assets/images/x.svg" alt="">
 </div>
+
