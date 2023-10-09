@@ -7,13 +7,16 @@ import { EnvaseService } from 'src/app/shared';
   styleUrls: ['./main.component.sass'],
 })
 export class MainComponent implements OnInit {
-  private EnvaseService = inject(EnvaseService);
+  private envaseService = inject(EnvaseService);
 
   public cargaExist: boolean = false;
 
   ngOnInit(): void {
-    this.EnvaseService.observableEnvases().subscribe((res) => {
-      res.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false);
-    });
+    this.envaseService
+      .observableEnvases()
+      .subscribe((res) =>
+        res.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false)
+      );
+    this.envaseService.checkCargaPendiente();
   }
 }

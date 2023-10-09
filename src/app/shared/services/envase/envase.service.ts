@@ -26,7 +26,7 @@ export class EnvaseService {
         cantidad: '8u',
       },
       cajon: {
-        tipo: 'quilmes',
+        tipo: 'CIA',
         cantidad: '1u',
       },
     },
@@ -73,16 +73,24 @@ export class EnvaseService {
 
   currentEnvases = (): any[] | undefined => this.envases;
 
-  setEnvases = (): void => {
+  setEnvases = (envase: any): void => {
+    this.envases.push(envase);
     this._envases.next(this.envases);
   };
 
-  removeEnvase = (envaseObj: any) => {
+  removeEnvase = (envaseObj: any): void => {
     let index: number = this.envases.indexOf(envaseObj);
 
     this.envases.splice(index, 1);
     this._envases.next(this.envases);
 
     localStorage.setItem('cargaPendiente', JSON.stringify(this.envases));
+  };
+
+  checkCargaPendiente = (): void => {
+    if (localStorage.getItem('cargaPendiente')) {
+      this.envases = JSON.parse(localStorage.getItem('cargaPendiente')!);
+      this._envases.next(this.envases);
+    }
   };
 }
