@@ -6,14 +6,12 @@ import { AppComponent } from './app.component';
 import { ToastComponent, ToolbarComponent } from './shared';
 import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { EmptyEnvasesComponent } from './core/components/empty-envases/empty-envases.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     ToastComponent,
-    EmptyEnvasesComponent,
   ],
   imports: [
     BrowserModule,

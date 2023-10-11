@@ -10,7 +10,6 @@ import { ButtonsModule, InputsModule } from 'src/app/shared';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     InputsModule,
     ButtonsModule

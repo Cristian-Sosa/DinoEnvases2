@@ -14,8 +14,10 @@
         isDisabled: !cargaExist,
       }"
     ></app-button>
-    <button class="plus">
+    <button (click)="newEnvase()" class="plus">
         <img src="assets/images/plus.svg" alt="">
     </button>
   </footer>
 </main>
+
+<router-outlet></router-outlet>

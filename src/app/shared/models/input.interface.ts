@@ -3,3 +3,13 @@ export interface IInput {
   type: 'text' | 'password' | 'number';
   name: string;
 }
+
+export interface IInputRadio {
+  title: string;
+  options: IRadioOption[]
+}
+
+interface IRadioOption {
+  id: string;
+  title: string;
+}
