@@ -49,7 +49,7 @@ export class AuthPage {
     let isUserRegistered: boolean = this.authService.userValidation(usuario);
 
     if (isUserRegistered) {
-      this.router.navigate(['inicio'])
+      this.router.navigate(['carga'])
     } else {
       let toast: IToast = {
         text: 'Ingresaste algo mal, manco de mierda',

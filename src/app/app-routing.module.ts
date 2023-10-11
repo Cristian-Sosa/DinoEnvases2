@@ -9,7 +9,7 @@ const routes: Routes = [
     title: 'Dino Envases - inicio de sesión'
   },
   {
-    path: 'inicio',
+    path: 'carga',
     loadChildren: () => import('./index').then((m) => m.MainModule),
     title: 'Dino Envases'
   },
