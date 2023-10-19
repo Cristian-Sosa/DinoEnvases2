@@ -2,7 +2,7 @@
   <input
     [id]="option.id"
     type="radio"
-    name="envase"
+    [name]="option.name"
     [value]="option.id"
     [(ngModel)]="selectedEnvase"
     (ngModelChange)="selectGenero($event)"

@@ -6,10 +6,11 @@ export interface IInput {
 
 export interface IInputRadio {
   title: string;
-  options: IRadioOption[]
+  options: IRadioOption[];
 }
 
 interface IRadioOption {
   id: string;
   title: string;
+  name: string;
 }
