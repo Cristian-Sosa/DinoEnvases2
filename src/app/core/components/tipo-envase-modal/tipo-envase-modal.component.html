@@ -12,11 +12,29 @@
           options: [
             { id: 'cerveza', title: 'Cerveza', name: 'envase' },
             { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
-            { id: 'drago', title: 'Drago', name: 'envase' },
+            { id: 'drago', title: 'Drago', name: 'envase' }
           ]
         }"
       ></app-input-radio>
       <app-input-check></app-input-check>
     </section>
+    <app-button
+      [button]="{
+        type: 'sumbit',
+        text: 'Avanzar',
+        isPrimary: true,
+        isDisabled: false,
+      }"
+
+    ></app-button>
+    <app-button
+      [button]="{
+        type: 'reset',
+        text: 'Cancelar',
+        isPrimary: false,
+        isDisabled: false,
+      }"
+      (click)="forwardProcess()"
+    ></app-button>
   </form>
 </div>

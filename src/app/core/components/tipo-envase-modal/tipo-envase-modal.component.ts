@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tipo-envase-modal',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./tipo-envase-modal.component.sass']
 })
 export class TipoEnvaseModalComponent {
-
+  private location = inject(Location)
+  forwardProcess = (): void => {
+    this.location.back()
+  }
 }
