@@ -12,6 +12,7 @@ const routes: Routes = [
         path: 'nuevo-envase',
         children: [
           { path: 'tipo-envase', component: TipoEnvaseModalComponent },
+          { path: 'tipo-cajon', component: TipoEnvaseModalComponent },
         ],
       },
     ],

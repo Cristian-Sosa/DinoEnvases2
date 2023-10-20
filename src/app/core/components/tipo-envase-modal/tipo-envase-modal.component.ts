@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tipo-envase-modal',
@@ -8,8 +9,11 @@ import { Location } from '@angular/common';
 })
 export class TipoEnvaseModalComponent {
   private location = inject(Location);
-  
-  forwardProcess = (): void => {
-    this.location.back();
-  };
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  returnProcess = (): void => this.location.back();
+
+  forwardProcess = (): Promise<boolean> =>
+    this.router.navigate(['..', 'tipo-cajon'], { relativeTo: this.route });
 }

@@ -3,7 +3,7 @@
     <h3 class="title">Nueva carga de envase</h3>
     <span class="subtitle">Tipo</span>
   </header>
-  <form class="modal_form">
+  <form class="modal_form" (submit)="forwardProcess()">
     <h4 class="title">Tipo de envase</h4>
     <section class="form_options">
       <app-input-radio
@@ -33,7 +33,7 @@
         isPrimary: false,
         isDisabled: false,
       }"
-      (click)="forwardProcess()"
+      (click)="returnProcess()"
     ></app-button>
   </form>
 </div>
