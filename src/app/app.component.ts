@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       .getToastObservable()
       .subscribe((newState) => (this.isToast = newState.show));
       
-      navigator.serviceWorker.getRegistration().then((reg) => reg?.showNotification('asdad'))
+      navigator.serviceWorker.getRegistration().then((reg) => reg?.showNotification('Ma´ que lo´ que estás buscando? Quere´ que yo te azote? Pide que le meta fuegote. Cachetazo en la nalga y beso para el escote'))
   }
 
 }
