@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ToastService } from './shared';
+import {SwPush} from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { ToastService } from './shared';
 })
 export class AppComponent implements OnInit {
   public isToast: boolean = true;
+  private readonly swPush = inject(SwPush);
 
   private toastService = inject(ToastService);
 
@@ -15,5 +17,8 @@ export class AppComponent implements OnInit {
     this.toastService
       .getToastObservable()
       .subscribe((newState) => (this.isToast = newState.show));
+      
+      navigator.serviceWorker.getRegistration().then((reg) => reg?.showNotification('asdad'))
   }
+
 }
