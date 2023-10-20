@@ -29,7 +29,9 @@ export class AuthService {
 
     // this.getUser(usuario).subscribe((res) => (tempUser = res));
 
-    if (tempUser) {
+    console.error(tempUser)
+
+    if (tempUser.Usuario === 'csosa' && tempUser.Password === '123') {
       this.usuario = tempUser;
       this._usuario.next(this.usuario);
       return true;

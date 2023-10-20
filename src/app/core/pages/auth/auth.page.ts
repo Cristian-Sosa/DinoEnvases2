@@ -49,12 +49,20 @@ export class AuthPage {
     let isUserRegistered: boolean = this.authService.userValidation(usuario);
 
     if (isUserRegistered) {
-      this.router.navigate(['carga'])
-    } else {
       let toast: IToast = {
-        text: 'Ingresaste algo mal, manco de mierda',
+        text: 'Se está validando al conexión',
         show: false,
       };
+
+      this.router.navigate(['carga'])
+
+      this.toastService.setToastState(toast);
+    } else {
+      let toast: IToast = {
+        text: 'El usuario no existe',
+        show: true,
+      };
+      
       this.toastService.setToastState(toast);
     }
   };
