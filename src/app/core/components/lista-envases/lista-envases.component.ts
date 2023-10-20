@@ -18,12 +18,27 @@ export class ListaEnvasesComponent implements OnInit {
       .observableEnvases()
       .subscribe((envases) => (this.envases = envases));
 
-    navigator.serviceWorker
-      .getRegistration()
-      .then((reg) =>
-        reg?.showNotification(
-          'Ma´ que lo´ que estás buscando? Quere´ que yo te azote? Pide que le meta fuegote. Cachetazo en la nalga y beso para el escote'
-        )
-      );
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('¡Permiso para notificaciones push concedido!');
+          navigator.serviceWorker
+            .getRegistration()
+            .then((reg) =>
+              reg?.showNotification(
+                'Ma´ que lo´ que estás buscando? Quere´ que yo te azote? Pide que le meta fuegote. Cachetazo en la nalga y beso para el escote'
+              )
+            );
+        } else if (permission === 'denied') {
+          console.warn(
+            'El usuario ha denegado el permiso para notificaciones push.'
+          );
+        } else if (permission === 'default') {
+          console.warn(
+            'El usuario cerró el diálogo de solicitud de permisos sin tomar una decisión.'
+          );
+        }
+      });
+    }
   }
 }
