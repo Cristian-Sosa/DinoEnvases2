@@ -14,3 +14,8 @@ interface IRadioOption {
   title: string;
   name: string;
 }
+
+export interface IInputCheck {
+  id: string;
+  label: string;
+}

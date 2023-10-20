@@ -1,5 +1,11 @@
-<input type="checkbox" name="" id="cajon" />
-<label for="cajon" data-box="box">
+<input
+  type="checkbox"
+  [name]="input.id"
+  [id]="input.id"
+  [checked]="isChecked"
+  (change)="changeCheck($event)"
+/>
+<label [for]="input.id" data-box="box">
   <svg
     width="11"
     height="10"
@@ -15,4 +21,4 @@
     />
   </svg>
 </label>
-<label for="cajon">Incluye cajón</label>
+<label [for]="input.id">{{ input.label }}</label>

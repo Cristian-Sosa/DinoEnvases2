@@ -16,7 +16,7 @@
           ]
         }"
       ></app-input-radio>
-      <app-input-check></app-input-check>
+      <app-input-check [input]="{ id: 'cajon', label: 'Incluye cajón' }"></app-input-check>
     </section>
     <app-button
       [button]="{
@@ -25,7 +25,6 @@
         isPrimary: true,
         isDisabled: false,
       }"
-
     ></app-button>
     <app-button
       [button]="{
