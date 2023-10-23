@@ -4,6 +4,7 @@
   [id]="input.id"
   [checked]="isChecked"
   (change)="changeCheck($event)"
+  [disabled]="input.disabled"
 />
 <label [for]="input.id" data-box="box">
   <svg

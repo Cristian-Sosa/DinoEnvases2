@@ -10,6 +10,7 @@ import {
 } from 'src/app/shared';
 import { ListaEnvasesComponent } from '../../components/lista-envases/lista-envases.component';
 import { TipoEnvaseModalComponent } from '../../components';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,14 @@ import { TipoEnvaseModalComponent } from '../../components';
     ListaEnvasesComponent,
     TipoEnvaseModalComponent,
   ],
-  imports: [CommonModule, MainRoutingModule, ButtonsModule, InputsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MainRoutingModule,
+    ButtonsModule,
+    InputsModule,
+  ],
   providers: [EnvaseService],
   exports: [MainComponent],
 })

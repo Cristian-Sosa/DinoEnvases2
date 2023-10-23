@@ -11,6 +11,7 @@ import { ButtonsModule, InputsModule } from 'src/app/shared';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     InputsModule,
     ButtonsModule
   ], exports: [

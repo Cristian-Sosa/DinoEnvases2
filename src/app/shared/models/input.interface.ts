@@ -18,4 +18,5 @@ interface IRadioOption {
 export interface IInputCheck {
   id: string;
   label: string;
+  disabled: boolean
 }
