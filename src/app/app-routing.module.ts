@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'carga',
     loadChildren: () => import('./index').then((m) => m.MainModule),
-    title: 'Dino Envases'
+    title: 'Dino Envases - Vales'
   },
 ];
 
