@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IToast } from 'src/app/shared';
-import { ToastService } from 'src/app/shared';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastService, IToast } from 'src/app/shared';
 
 @Component({
-  selector: 'app-tipo-envase-modal',
-  templateUrl: './tipo-envase-modal.component.html',
-  styleUrls: ['./tipo-envase-modal.component.sass'],
+  selector: 'app-cantidad-envase-modal',
+  templateUrl: './cantidad-envase-modal.component.html',
+  styleUrls: ['./cantidad-envase-modal.component.sass'],
 })
-export class TipoEnvaseModalComponent {
+export class CantidadEnvaseModalComponent {
   private location = inject(Location);
   private router = inject(Router);
   private route = inject(ActivatedRoute);

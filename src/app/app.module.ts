@@ -12,7 +12,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   declarations: [
     AppComponent,
     ToolbarComponent,
-    ToastComponent
+    ToastComponent,
   ],
   imports: [
     BrowserModule,

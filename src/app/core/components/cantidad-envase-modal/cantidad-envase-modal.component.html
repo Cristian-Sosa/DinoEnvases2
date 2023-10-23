@@ -1,0 +1,42 @@
+<div class="modal">
+    <header class="modal_header">
+      <h3 class="title">Nueva carga de envase</h3>
+      <span class="subtitle">Tipo</span>
+    </header>
+    <form class="modal_form" (submit)="forwardProcess()" [formGroup]="tipoEnvaseForm">
+      <h4 class="title">Tipo de envase</h4>
+      <section class="form_options">
+        <app-input-radio
+        formControlName="envaseControl"
+          [optionData]="{
+            title: '',
+            options: [
+              { id: 'cerveza', title: 'Cerveza', name: 'envase' },
+              { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
+              { id: 'drago', title: 'Drago', name: 'envase' }
+            ]
+          }"
+          (ngModelChange)="changeDisabled()"
+        ></app-input-radio>
+        <app-input-check formControlName="cajonControl" [input]="{ id: 'cajon', label: 'Incluye cajón', disabled: isCajonDisabled }"></app-input-check>
+      </section>
+      <app-button
+        [button]="{
+          type: 'sumbit',
+          text: 'Avanzar',
+          isPrimary: true,
+          isDisabled: false,
+        }"
+      ></app-button>
+      <app-button
+        [button]="{
+          type: 'reset',
+          text: 'Cancelar',
+          isPrimary: false,
+          isDisabled: false,
+        }"
+        (click)="returnProcess()"
+      ></app-button>
+    </form>
+  </div>
+  

@@ -9,7 +9,10 @@ import {
   InputsModule,
 } from 'src/app/shared';
 import { ListaEnvasesComponent } from '../../components/lista-envases/lista-envases.component';
-import { TipoEnvaseModalComponent } from '../../components';
+import {
+  CantidadEnvaseModalComponent,
+  TipoEnvaseModalComponent,
+} from '../../components';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,6 +21,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CardComponent,
     ListaEnvasesComponent,
     TipoEnvaseModalComponent,
+    CantidadEnvaseModalComponent,
   ],
   imports: [
     CommonModule,
