@@ -1,4 +1,5 @@
 export * from './button.interface';
+export * from './envase.interface';
 export * from './input.interface';
 export * from './select.interface';
 export * from './toast.interface';

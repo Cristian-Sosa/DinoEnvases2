@@ -20,22 +20,24 @@
       ></app-input-radio>
       <app-input-check formControlName="cajonControl" [input]="{ id: 'cajon', label: 'Incluye cajón', disabled: isCajonDisabled }"></app-input-check>
     </section>
-    <app-button
-      [button]="{
-        type: 'sumbit',
-        text: 'Avanzar',
-        isPrimary: true,
-        isDisabled: false,
-      }"
-    ></app-button>
-    <app-button
-      [button]="{
-        type: 'reset',
-        text: 'Cancelar',
-        isPrimary: false,
-        isDisabled: false,
-      }"
-      (click)="returnProcess()"
-    ></app-button>
+    <footer class="modal_footer">
+      <app-button
+        [button]="{
+          type: 'sumbit',
+          text: 'Avanzar',
+          isPrimary: true,
+          isDisabled: false,
+        }"
+      ></app-button>
+      <app-button
+        [button]="{
+          type: 'reset',
+          text: 'Cancelar',
+          isPrimary: false,
+          isDisabled: false,
+        }"
+        (click)="returnProcess()"
+      ></app-button>
+    </footer>
   </form>
 </div>

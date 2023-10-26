@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastService, IToast } from 'src/app/shared';
+import { ToastService, IToast, ISelect } from 'src/app/shared';
 
 @Component({
   selector: 'app-cantidad-envase-modal',
@@ -17,15 +17,25 @@ export class CantidadEnvaseModalComponent {
 
   public isCajonDisabled: boolean = false;
 
+  public colorContent: ISelect = {
+    name: 'color',
+    options: [
+      { value: 'verde', description: 'Verde' },
+      { value: 'marron', description: 'Marrón' },
+    ],
+  };
+
   tipoEnvaseForm = new FormGroup({
-    envaseControl: new FormControl(null, [
+    colorControl: new FormControl(null, [
       Validators.required,
       Validators.nullValidator,
     ]),
-    cajonControl: new FormControl(
-      { value: false, disabled: this.isCajonDisabled },
-      [Validators.required, Validators.nullValidator]
-    ),
+    cantidadControl: new FormControl(null, [
+      Validators.required,
+      Validators.nullValidator,
+      Validators.min(1),
+      Validators.max(5000),
+    ]),
   });
 
   returnProcess = (): void => this.location.back();
@@ -40,14 +50,12 @@ export class CantidadEnvaseModalComponent {
   };
 
   forwardProcess = (): void => {
-    let envase: string | null | undefined =
-      this.tipoEnvaseForm.get('envaseControl')?.value;
-    let isCajon: boolean = this.tipoEnvaseForm.get('cajonControl')?.value!;
+    let cantidad: string | null | undefined =
+      this.tipoEnvaseForm.get('cantidadControl')?.value;
 
-    console.log(envase);
-    if (!envase) {
+    if (!cantidad) {
       let toast: IToast = {
-        text: 'Seleccioná un envase para seguir',
+        text: 'Cantidad inválida',
         show: true,
       };
 
@@ -57,8 +65,8 @@ export class CantidadEnvaseModalComponent {
         () => ((toast.show = false), this.toastService.setToastState(toast)),
         3000
       );
-    } else if (isCajon) {
-      this.router.navigate(['..', 'tipo-cajon'], { relativeTo: this.route });
+    } else {
+      // this.router.navigate(['..', 'URL_CAJON'])
     }
   };
 }

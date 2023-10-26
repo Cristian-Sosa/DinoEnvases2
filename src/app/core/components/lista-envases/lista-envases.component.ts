@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { EnvaseService } from 'src/app/shared';
+import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
 import { SwPush } from '@angular/service-worker';
 
 @Component({
@@ -8,13 +8,13 @@ import { SwPush } from '@angular/service-worker';
   styleUrls: ['./lista-envases.component.sass'],
 })
 export class ListaEnvasesComponent implements OnInit {
-  private envaseService = inject(EnvaseService);
+  private cargaEnvaseService = inject(CargaEnvaseService);
   private readonly swPush = inject(SwPush);
 
   public envases: any[] = [];
 
   ngOnInit(): void {
-    this.envaseService
+    this.cargaEnvaseService
       .observableEnvases()
       .subscribe((envases) => (this.envases = envases));
 

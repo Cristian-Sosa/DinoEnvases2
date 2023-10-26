@@ -58,8 +58,10 @@ export class TipoEnvaseModalComponent {
         () => ((toast.show = false), this.toastService.setToastState(toast)),
         3000
       );
-    } else if (isCajon) {
-      this.router.navigate(['..', 'tipo-cajon'], { relativeTo: this.route });
+    } else {
+      this.router.navigate(['..', 'cantidad-envase'], {
+        relativeTo: this.route,
+      });
     }
   };
 }

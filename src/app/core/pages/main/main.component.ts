@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { EnvaseService } from 'src/app/shared';
+import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
 
 @Component({
   selector: 'app-main',
@@ -8,21 +8,21 @@ import { EnvaseService } from 'src/app/shared';
   styleUrls: ['./main.component.sass'],
 })
 export class MainComponent implements OnInit {
-  private envaseService = inject(EnvaseService);
+  private cargaEnvaseService = inject(CargaEnvaseService);
   private router = inject(Router);
 
   public cargaExist: boolean = false;
 
   ngOnInit(): void {
-    this.envaseService
+    this.cargaEnvaseService
       .observableEnvases()
       .subscribe((res) =>
         res.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false)
       );
-    this.envaseService.checkCargaPendiente();
+    this.cargaEnvaseService.checkCargaPendiente();
   }
 
   newEnvase = (): void => {
-    this.router.navigate(['carga/nuevo-envase/tipo-envase'])
-  }
+    this.router.navigate(['carga/nuevo-envase/tipo-envase']);
+  };
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from '../../pages';
-import { TipoEnvaseModalComponent } from '../../components';
+import { CantidadEnvaseModalComponent, TipoEnvaseModalComponent } from '../../components';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
         path: 'nuevo-envase',
         children: [
           { path: 'tipo-envase', component: TipoEnvaseModalComponent },
-          { path: 'tipo-cajon', component: TipoEnvaseModalComponent },
+          { path: 'cantidad-envase', component: CantidadEnvaseModalComponent },
         ],
       },
     ],
