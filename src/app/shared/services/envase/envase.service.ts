@@ -46,7 +46,7 @@ export class EnvaseService {
     this.nextObservable();
   };
   setContenido = (
-    contenido: '1l' | '330ml' | '500g' | '2kg' | '2l' | '2.5l'
+    contenido: '1l' | '330ml' | '250g' | '2kg' | '2l' | '2.5l'
   ): void => {
     this.envaseTemp.contenido = contenido;
     this.nextObservable();

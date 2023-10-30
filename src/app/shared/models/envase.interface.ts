@@ -31,5 +31,5 @@ export interface IEnvaseTransfer {
       | '';
   };
   Unidades: number;
-  contenido: '1l' | '330ml' | '500g' | '2kg' | '2l' | '2.5l' | '';
+  contenido: '1l' | '330ml' | '250g' | '2kg' | '2l' | '2.5l' | '';
 }
