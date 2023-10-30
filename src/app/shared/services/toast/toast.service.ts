@@ -19,10 +19,13 @@ export class ToastService {
 
   getToastObservable = (): Observable<IToast> => this._toast.asObservable();
 
-  setToastState = (newState: IToast): void => {
-    
-
-    this.toast = newState;
+  setToastState = (newState: boolean, title = 'as' ): void => {
+    this.toast.text = title;
+    this.toast.show = newState;
     this._toast.next(this.toast);
   };
+  // setToastState = (newState: IToast): void => {
+  //   this.toast = newState;
+  //   this._toast.next(this.toast);
+  // };
 }

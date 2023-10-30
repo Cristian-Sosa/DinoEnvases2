@@ -10,15 +10,9 @@
       formControlName="envaseControl"
         [optionData]="{
           title: '',
-          options: [
-            { id: 'cerveza', title: 'Cerveza', name: 'envase' },
-            { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
-            { id: 'drago', title: 'Drago', name: 'envase' }
-          ]
+          options: tipoEnvases
         }"
-        (ngModelChange)="changeDisabled()"
       ></app-input-radio>
-      <app-input-check formControlName="cajonControl" [input]="{ id: 'cajon', label: 'Incluye cajón', disabled: isCajonDisabled }"></app-input-check>
     </section>
     <footer class="modal_footer">
       <app-button

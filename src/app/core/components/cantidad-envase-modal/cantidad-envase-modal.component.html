@@ -1,14 +1,14 @@
 <div class="modal">
   <header class="modal_header">
     <h3 class="title">Nueva carga de envase</h3>
-    <span class="subtitle">Tipo</span>
+    <span class="subtitle">Tipo > Cantidad</span>
   </header>
   <form
     class="modal_form"
     (submit)="forwardProcess()"
     [formGroup]="tipoEnvaseForm"
   >
-    <h4 class="title">Tipo de envase</h4>
+
     <app-select
       [select]="colorContent"
       formControlName="colorControl"

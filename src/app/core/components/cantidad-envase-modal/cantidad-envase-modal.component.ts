@@ -1,28 +1,31 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastService, IToast, ISelect } from 'src/app/shared';
+import {
+  ToastService,
+  ISelect,
+  CargaEnvaseService,
+  EnvaseService,
+} from 'src/app/shared';
 
 @Component({
   selector: 'app-cantidad-envase-modal',
   templateUrl: './cantidad-envase-modal.component.html',
   styleUrls: ['./cantidad-envase-modal.component.sass'],
 })
-export class CantidadEnvaseModalComponent {
+export class CantidadEnvaseModalComponent implements OnInit {
   private location = inject(Location);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private toastService = inject(ToastService);
 
-  public isCajonDisabled: boolean = false;
+  private cargaEnvaseService = inject(CargaEnvaseService);
+  private EnvaseService = inject(EnvaseService);
 
   public colorContent: ISelect = {
     name: 'color',
-    options: [
-      { value: 'verde', description: 'Verde' },
-      { value: 'marron', description: 'Marrón' },
-    ],
+    options: this.cargaEnvaseService.getStaticData().tipoEnvase.tipo.cerveza,
   };
 
   tipoEnvaseForm = new FormGroup({
@@ -38,35 +41,46 @@ export class CantidadEnvaseModalComponent {
     ]),
   });
 
+  ngOnInit(): void {
+    this.EnvaseService.getEnvaseObservable().subscribe((envase) => {
+      switch (envase.TipoEnvase.Nombre) {
+        case 'cerveza':
+          this.colorContent.options =
+            this.cargaEnvaseService.getStaticData().tipoEnvase.tipo.cerveza;
+          break;
+
+        case 'gaseosa':
+          this.colorContent.options =
+            this.cargaEnvaseService.getStaticData().tipoEnvase.tipo.gaseosa;
+          break;
+
+        case 'drago':
+          this.colorContent.options =
+            this.cargaEnvaseService.getStaticData().tipoEnvase.tipo.drago;
+          break;
+
+        case 'cajon':
+          this.colorContent.options =
+            this.cargaEnvaseService.getStaticData().tipoEnvase.tipo.cajones;
+          break;
+
+        default:
+          
+          break;
+      }
+    });
+  }
+
   returnProcess = (): void => this.location.back();
-
-  changeDisabled = (): void => {
-    let envase: string | null | undefined =
-      this.tipoEnvaseForm.get('envaseControl')?.value;
-
-    envase! == 'drago'
-      ? (this.isCajonDisabled = true)
-      : (this.isCajonDisabled = false);
-  };
 
   forwardProcess = (): void => {
     let cantidad: string | null | undefined =
       this.tipoEnvaseForm.get('cantidadControl')?.value;
 
     if (!cantidad) {
-      let toast: IToast = {
-        text: 'Cantidad inválida',
-        show: true,
-      };
+      this.toastService.setToastState(true, 'Cantidad inválida');
 
-      this.toastService.setToastState(toast);
-
-      setTimeout(
-        () => ((toast.show = false), this.toastService.setToastState(toast)),
-        3000
-      );
-    } else {
-      // this.router.navigate(['..', 'URL_CAJON'])
+      setTimeout(() => this.toastService.setToastState(false), 3000);
     }
   };
 }

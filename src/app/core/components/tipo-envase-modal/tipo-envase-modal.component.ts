@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IToast } from 'src/app/shared';
+import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
 import { ToastService } from 'src/app/shared';
 
 @Component({
@@ -10,55 +10,43 @@ import { ToastService } from 'src/app/shared';
   templateUrl: './tipo-envase-modal.component.html',
   styleUrls: ['./tipo-envase-modal.component.sass'],
 })
-export class TipoEnvaseModalComponent {
+export class TipoEnvaseModalComponent implements OnInit {
+  private envase: any = undefined;
   private location = inject(Location);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private toastService = inject(ToastService);
+  private cargaEnvaseService = inject(CargaEnvaseService);
+  private envaseService = inject(EnvaseService);
 
-  public isCajonDisabled: boolean = false;
+  public tipoEnvases: Array<any> =
+    this.cargaEnvaseService.getStaticData().tipoEnvase.nombre;
 
   tipoEnvaseForm = new FormGroup({
     envaseControl: new FormControl(null, [
       Validators.required,
       Validators.nullValidator,
     ]),
-    cajonControl: new FormControl(
-      { value: false, disabled: this.isCajonDisabled },
-      [Validators.required, Validators.nullValidator]
-    ),
   });
 
+  ngOnInit(): void {
+    this.envaseService
+      .getEnvaseObservable()
+      .subscribe((envase) => (this.envase = envase));
+  }
+
   returnProcess = (): void => this.location.back();
-
-  changeDisabled = (): void => {
-    let envase: string | null | undefined =
-      this.tipoEnvaseForm.get('envaseControl')?.value;
-
-    envase! == 'drago'
-      ? (this.isCajonDisabled = true)
-      : (this.isCajonDisabled = false);
-  };
 
   forwardProcess = (): void => {
     let envase: string | null | undefined =
       this.tipoEnvaseForm.get('envaseControl')?.value;
-    let isCajon: boolean = this.tipoEnvaseForm.get('cajonControl')?.value!;
 
-    console.log(envase);
     if (!envase) {
-      let toast: IToast = {
-        text: 'Seleccioná un envase para seguir',
-        show: true,
-      };
+      this.toastService.setToastState(true, 'Seleccioná un envase para seguir');
 
-      this.toastService.setToastState(toast);
-
-      setTimeout(
-        () => ((toast.show = false), this.toastService.setToastState(toast)),
-        3000
-      );
+      setTimeout(() => this.toastService.setToastState(false), 3000);
     } else {
+      this.envaseService.setNombreEnvase(envase);
       this.router.navigate(['..', 'cantidad-envase'], {
         relativeTo: this.route,
       });

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ToastService } from 'src/app/shared';
-import { ISelect, IToast, IUsuario } from 'src/app/shared/models';
+import { ISelect, IUsuario } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +12,7 @@ import { ISelect, IToast, IUsuario } from 'src/app/shared/models';
 export class AuthPage {
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
-  private router = inject(Router)
+  private router = inject(Router);
 
   public selectContent: ISelect = {
     name: 'sucursalName',
@@ -49,21 +49,11 @@ export class AuthPage {
     let isUserRegistered: boolean = this.authService.userValidation(usuario);
 
     if (isUserRegistered) {
-      let toast: IToast = {
-        text: 'Se está validando al conexión',
-        show: false,
-      };
+      this.toastService.setToastState(false, 'Se está validando al conexión');
 
-      this.router.navigate(['carga'])
-
-      this.toastService.setToastState(toast);
+      this.router.navigate(['carga']);
     } else {
-      let toast: IToast = {
-        text: 'El usuario no existe',
-        show: true,
-      };
-      
-      this.toastService.setToastState(toast);
+      this.toastService.setToastState(true, 'El usuario no existe');
     }
   };
 }
