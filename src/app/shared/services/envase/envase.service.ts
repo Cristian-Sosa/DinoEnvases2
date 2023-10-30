@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IEnvaseTransfer } from '../../models';
+import { CargaEnvaseService } from './carga-envase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,8 @@ import { IEnvaseTransfer } from '../../models';
 export class EnvaseService {
   private envaseTemp: IEnvaseTransfer;
   private _envaseTemp: BehaviorSubject<IEnvaseTransfer>;
+
+  private cargaEnvaseService = inject(CargaEnvaseService)
 
   constructor() {
     this.envaseTemp = {
@@ -70,4 +73,9 @@ export class EnvaseService {
 
   getEnvaseObservable = (): Observable<IEnvaseTransfer> =>
     this._envaseTemp.asObservable();
+
+    createNewEnvase = (): void => {
+      this.cargaEnvaseService.setEnvases(this.envaseTemp);
+      this.resetEnvase()
+    }
 }

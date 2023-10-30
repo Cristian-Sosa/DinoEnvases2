@@ -6,32 +6,7 @@ import { IEnvaseTransfer } from '../../models';
   providedIn: 'root',
 })
 export class CargaEnvaseService {
-  private envases: IEnvaseTransfer[] = [
-    {
-      TipoEnvase: {
-        Nombre: 'cerveza',
-        Tipo: 'Verde'
-      },
-      Unidades: 2,
-      contenido: '1l'
-    },
-    {
-      TipoEnvase: {
-        Nombre: 'gaseosa',
-        Tipo: 'Coca Cola'
-      },
-      Unidades: 6,
-      contenido: '2.5l'
-    },
-    {
-      TipoEnvase: {
-        Nombre: 'gaseosa',
-        Tipo: 'Coca Cola'
-      },
-      Unidades: 4,
-      contenido: '2l'
-    },
-  ];
+  private envases: IEnvaseTransfer[] = [];
   private _envases: BehaviorSubject<any[]>;
 
   private StaticData: any = {
@@ -80,6 +55,8 @@ export class CargaEnvaseService {
   setEnvases = (envase: any): void => {
     this.envases.push(envase);
     this._envases.next(this.envases);
+
+    console.log(envase)
   };
 
   removeEnvase = (envaseObj: any): void => {
@@ -98,5 +75,5 @@ export class CargaEnvaseService {
     }
   };
 
-  getStaticData = (): any => this.StaticData
+  getStaticData = (): any => this.StaticData;
 }

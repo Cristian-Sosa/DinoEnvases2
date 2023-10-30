@@ -2,28 +2,20 @@
   [ngClass]="{
     details: true,
     remove: remove,
-    verde: card.envase.color == 'verde',
-    marron: card.envase.color == 'marron',
-    quilmes:card.envase.color == 'quilmes 340',
-    drago:card.envase.tipo == 'drago',
-    gaseosa:card.envase.tipo == 'gaseosa',
+    verde: card.TipoEnvase.Tipo == 'verde',
+    marron: card.TipoEnvase.Tipo == 'marron',
+    quilmes:card.TipoEnvase.Tipo == 'quilmes 340',
+    drago:card.TipoEnvase.Tipo == 'drago',
+    gaseosa:card.TipoEnvase.Tipo == 'gaseosa',
+    cajon:card.TipoEnvase.Nombre == 'cajon',
   }"
 >
   <h4 class="title">
-    {{ card.envase.tipo | titlecase }} {{ card.envase.color }}
+    {{ card.TipoEnvase.Tipo | titlecase }} {{ card.TipoEnvase.Tipo }}
   </h4>
   <div class="subtitle">
-    <span class="envase">{{ card.envase.cantidad }}</span>
-    <span class="cajon" *ngIf="card.cajon">
-      + {{ card.cajon.cantidad }} cajón {{ card.cajon.tipo | titlecase }}
-    </span>
+    <span class="envase">{{ card.Unidades }}</span>
   </div>
-  <!-- <img
-    class="cross"
-    src="assets/images/x.svg"
-    alt=""
-    
-  /> -->
   <figure (click)="removeEnvase()" class="cross">
     <svg
       width="16"

@@ -16,8 +16,6 @@ import {
 })
 export class CantidadEnvaseModalComponent implements OnInit {
   private location = inject(Location);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
   private toastService = inject(ToastService);
 
   private cargaEnvaseService = inject(CargaEnvaseService);
@@ -29,7 +27,7 @@ export class CantidadEnvaseModalComponent implements OnInit {
   };
 
   tipoEnvaseForm = new FormGroup({
-    colorControl: new FormControl(null, [
+    colorControl: new FormControl('verde', [
       Validators.required,
       Validators.nullValidator,
     ]),
@@ -74,13 +72,23 @@ export class CantidadEnvaseModalComponent implements OnInit {
   returnProcess = (): void => this.location.back();
 
   forwardProcess = (): void => {
+    let color: any =
+    this.tipoEnvaseForm.get('colorControl')?.value;
     let cantidad: string | null | undefined =
       this.tipoEnvaseForm.get('cantidadControl')?.value;
 
+      console.log({
+        color: color,
+        cantidad: cantidad
+      })
     if (!cantidad) {
       this.toastService.setToastState(true, 'Cantidad inválida');
 
       setTimeout(() => this.toastService.setToastState(false), 3000);
+    } else {
+      this.EnvaseService.setTipoEnvase(color!);
+      this.EnvaseService.setUnidades(cantidad);
+      this.EnvaseService.createNewEnvase()
     }
   };
 }
