@@ -22,11 +22,17 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      envases.length > 0
-        ? (this.cargaExist = true)
-        : (this.cargaExist = false);
+      envases.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false);
     });
   }
+
+  notificacionPush = (): void => {
+    navigator.serviceWorker
+      .getRegistration()
+      .then((reg) =>
+        reg?.showNotification(`Se recuperó una carga pendiente de imprimir`)
+      );
+  };
 
   newEnvase = (): string => (this.showModal = 'tipoEnvase');
 

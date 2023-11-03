@@ -17,13 +17,5 @@ export class ListaEnvasesComponent implements OnInit {
     this.cargaEnvaseService
       .observableEnvases()
       .subscribe((envases) => (this.envases = envases));
-
-    navigator.serviceWorker
-      .getRegistration()
-      .then((reg) =>
-        reg?.showNotification(
-          `El usuario csosa tenía vales pendientes de imprimir`
-        )
-      );
   }
 }
