@@ -22,7 +22,12 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      envases.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false);
+      if (envases.length > 0) {
+        this.cargaExist = true;
+        this.notificacionPush();
+      } else {
+        this.cargaExist = false;
+      }
     });
   }
 
