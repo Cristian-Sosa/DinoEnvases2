@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IEnvaseTransfer } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +7,7 @@ import { IEnvaseTransfer } from '../../models';
 export class CargaEnvaseService {
   private envaseTemp: any = {};
 
-  private envases: IEnvaseTransfer[] = [];
+  private envases: any[] = [];
   private _envases: BehaviorSubject<any[]>;
 
   private StaticData: any = {
@@ -68,12 +67,22 @@ export class CargaEnvaseService {
   };
 
   removeEnvase = (envaseObj: any): void => {
-    let index: number = this.envases.indexOf(envaseObj);
+    let index: number = 0;
 
+    for (let i = 0; i < this.envases.length; i++) {
+      const element = this.envases[i];
+      if (
+        element.cardEnvase.nombre == envaseObj.nombre &&
+        element.cardEnvase.tipo == envaseObj.tipo &&
+        element.cardEnvase.cantidad == envaseObj.cantidad
+      ) {
+        index = i;
+      }
+    }
     this.envases.splice(index, 1);
     this._envases.next(this.envases);
 
-    localStorage.setItem('cargaPendiente', JSON.stringify(this.envases));
+    localStorage.setItem('carga', JSON.stringify(this.envases));
   };
 
   checkCargaPendiente = (): boolean => {
