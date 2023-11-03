@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
+import { CargaEnvaseService } from 'src/app/shared';
 import { SwPush } from '@angular/service-worker';
 
 @Component({

@@ -5,7 +5,6 @@ import { MainRoutingModule } from './main-routing.module';
 import {
   ButtonsModule,
   CardComponent,
-  EnvaseService,
   InputsModule,
 } from 'src/app/shared';
 import { ListaEnvasesComponent } from '../../components/lista-envases/lista-envases.component';
@@ -31,7 +30,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ButtonsModule,
     InputsModule,
   ],
-  providers: [EnvaseService],
+  providers: [],
   exports: [MainComponent],
 })
 export class MainModule {}

@@ -2,19 +2,19 @@
   [ngClass]="{
     details: true,
     remove: remove,
-    verde: card.TipoEnvase.Tipo == 'verde',
-    marron: card.TipoEnvase.Tipo == 'marron',
-    quilmes:card.TipoEnvase.Tipo == 'quilmes 340',
-    drago:card.TipoEnvase.Tipo == 'drago',
-    gaseosa:card.TipoEnvase.Tipo == 'gaseosa',
-    cajon:card.TipoEnvase.Nombre == 'cajon',
+    verde: card.tipo == 'Verde',
+    marron: card.tipo == 'Marrón',
+    quilmes:card.tipo == 'Quilmes 340',
+    drago:card.tipo.includes('Drago'),
+    gaseosa:card.tipo.includes('Coca Cola'),
+    cajon:card.tipo.includes('(Verde)') || card.tipo.includes('(Marrón)'),
   }"
 >
   <h4 class="title">
-    {{ card.TipoEnvase.Tipo | titlecase }} {{ card.TipoEnvase.Tipo }}
+    {{ card.nombre | titlecase }} {{ card.tipo }}
   </h4>
   <div class="subtitle">
-    <span class="envase">{{ card.Unidades }}</span>
+    <span class="envase">{{ card.cantidad.concat(' unidades') }}</span>
   </div>
   <figure (click)="removeEnvase()" class="cross">
     <svg

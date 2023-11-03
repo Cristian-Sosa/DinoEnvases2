@@ -1,8 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
+import { CargaEnvaseService } from 'src/app/shared';
 import { ToastService } from 'src/app/shared';
 
 @Component({
@@ -10,17 +8,14 @@ import { ToastService } from 'src/app/shared';
   templateUrl: './tipo-envase-modal.component.html',
   styleUrls: ['./tipo-envase-modal.component.sass'],
 })
-export class TipoEnvaseModalComponent implements OnInit {
-  private envase: any = undefined;
-  private location = inject(Location);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+export class TipoEnvaseModalComponent {
   private toastService = inject(ToastService);
   private cargaEnvaseService = inject(CargaEnvaseService);
-  private envaseService = inject(EnvaseService);
 
   public tipoEnvases: Array<any> =
-    this.cargaEnvaseService.getStaticData().tipoEnvase.nombre;
+    this.cargaEnvaseService.getNombreEnvases();
+
+  @Output() tipoEnvase: EventEmitter<string | null> = new EventEmitter();
 
   tipoEnvaseForm = new FormGroup({
     envaseControl: new FormControl(null, [
@@ -29,13 +24,7 @@ export class TipoEnvaseModalComponent implements OnInit {
     ]),
   });
 
-  ngOnInit(): void {
-    this.envaseService
-      .getEnvaseObservable()
-      .subscribe((envase) => (this.envase = envase));
-  }
-
-  returnProcess = (): void => this.location.back();
+  returnProcess = (): void => this.tipoEnvase.emit(null);
 
   forwardProcess = (): void => {
     let envase: string | null | undefined =
@@ -46,10 +35,7 @@ export class TipoEnvaseModalComponent implements OnInit {
 
       setTimeout(() => this.toastService.setToastState(false), 3000);
     } else {
-      this.envaseService.setNombreEnvase(envase);
-      this.router.navigate(['..', 'cantidad-envase'], {
-        relativeTo: this.route,
-      });
+      this.tipoEnvase.emit(envase);
     }
   };
 }

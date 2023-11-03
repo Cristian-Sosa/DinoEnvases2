@@ -10,8 +10,8 @@
   >
 
     <app-select
-      [select]="colorContent"
-      formControlName="colorControl"
+      [select]="{name: 'envase', options: tipoEnvase}"
+      formControlName="tipoControl"
     ></app-select>
 
     <app-input

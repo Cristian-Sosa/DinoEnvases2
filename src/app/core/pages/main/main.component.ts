@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
+import { CargaEnvaseService } from 'src/app/shared';
 
 @Component({
   selector: 'app-main',
@@ -9,20 +8,74 @@ import { CargaEnvaseService, EnvaseService } from 'src/app/shared';
 })
 export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
-  private router = inject(Router);
+
+  public showModal: string = 'none';
 
   public cargaExist: boolean = false;
+  public tipoEnvase: any;
+  private nombreEnvase!: string;
+  public envases: any;
 
-  ngOnInit(): void {
-    this.cargaEnvaseService
-      .observableEnvases()
-      .subscribe((res) =>
-        res.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false)
-      );
-    this.cargaEnvaseService.checkCargaPendiente();
+  constructor() {
+    this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
 
-  newEnvase = (): void => {
-    this.router.navigate(['carga/nuevo-envase/tipo-envase']);
+  ngOnInit(): void {
+    this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
+      envases
+        ? (this.cargaExist = true)
+        : (this.cargaExist = false);
+    });
+  }
+
+  newEnvase = (): string => (this.showModal = 'tipoEnvase');
+
+  tipoEnvaseSelected = (envase: string | null): void => {
+    this.tipoEnvase = {};
+    switch (envase) {
+      case 'cerveza':
+        this.tipoEnvase = this.envases.cerveza;
+        this.showModal = 'cantidadEnvase';
+        this.nombreEnvase = envase!;
+        break;
+
+      case 'gaseosa':
+        this.tipoEnvase = this.envases.gaseosa;
+        this.showModal = 'cantidadEnvase';
+        this.nombreEnvase = envase!;
+        break;
+
+      case 'drago':
+        this.tipoEnvase = this.envases.drago;
+        this.showModal = 'cantidadEnvase';
+        this.nombreEnvase = envase!;
+        break;
+
+      case 'cajon':
+        this.tipoEnvase = this.envases.cajones;
+        this.showModal = 'cantidadEnvase';
+        this.nombreEnvase = envase!;
+        break;
+
+      default:
+        this.showModal = 'none';
+        break;
+    }
+  };
+
+  cantidadEnvaseSelected = (
+    obj: { tipo: any; cantidad: string | number } | null
+  ): void => {
+    if (obj) {
+      let envaseDTO: any = {
+        nombre: this.nombreEnvase,
+        tipo: obj?.tipo,
+        cantidad: obj.cantidad,
+      };
+      this.cargaEnvaseService.setEnvase(envaseDTO);
+      this.showModal = 'none';
+    } else {
+      this.showModal = 'tipoEnvase';
+    }
   };
 }

@@ -6,6 +6,8 @@ import { IEnvaseTransfer } from '../../models';
   providedIn: 'root',
 })
 export class CargaEnvaseService {
+  private envaseTemp: any = {};
+
   private envases: IEnvaseTransfer[] = [];
   private _envases: BehaviorSubject<any[]>;
 
@@ -15,12 +17,13 @@ export class CargaEnvaseService {
         { id: 'cerveza', title: 'Cerveza', name: 'envase' },
         { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
         { id: 'drago', title: 'Drago', name: 'envase' },
-        { id: 'cajon', title: 'Cajón', name: 'cajon' },
+        { id: 'cajon', title: 'Cajón', name: 'envase' },
       ],
       tipo: {
         cerveza: [
           { value: 'verde', description: 'Verde' },
           { value: 'marron', description: 'Marrón' },
+          { value: 'quilmes-340', description: 'Quilmes 340' },
         ],
         gaseosa: [{ value: 'coca-cola', description: 'Coca Cola 2 / 2.5l' }],
         drago: [
@@ -48,7 +51,10 @@ export class CargaEnvaseService {
     this._envases = new BehaviorSubject(this.envases);
   }
 
-  observableEnvases = (): Observable<any[]> => this._envases.asObservable();
+  observableEnvases = (): Observable<any[]> => {
+    this.checkCargaPendiente();
+    return this._envases.asObservable();
+  };
 
   currentEnvases = (): any[] | undefined => this.envases;
 
@@ -56,7 +62,9 @@ export class CargaEnvaseService {
     this.envases.push(envase);
     this._envases.next(this.envases);
 
-    console.log(envase)
+    this.envaseTemp = {};
+
+    localStorage.setItem('carga', JSON.stringify(this.envases));
   };
 
   removeEnvase = (envaseObj: any): void => {
@@ -68,12 +76,68 @@ export class CargaEnvaseService {
     localStorage.setItem('cargaPendiente', JSON.stringify(this.envases));
   };
 
-  checkCargaPendiente = (): void => {
-    if (localStorage.getItem('cargaPendiente')) {
-      this.envases = JSON.parse(localStorage.getItem('cargaPendiente')!);
+  checkCargaPendiente = (): boolean => {
+    if (localStorage.getItem('carga')) {
+      this.envases = JSON.parse(localStorage.getItem('carga')!);
       this._envases.next(this.envases);
+      return true;
     }
+    return false;
   };
 
-  getStaticData = (): any => this.StaticData;
+  getTipoEnvases = (): any => this.StaticData.tipoEnvase.tipo;
+
+  getNombreEnvases = (): any => this.StaticData.tipoEnvase.nombre;
+
+  getContenidoEnvases = (): any => this.StaticData.tipoEnvase.contenido;
+
+  setEnvase = (envaseDTO: any): void => {
+    this.envaseTemp = {
+      envaseDTO: {
+        envase: envaseDTO['nombre'],
+        tipoEnvase: envaseDTO['tipo'],
+        cantidad: envaseDTO['cantidad'],
+      },
+      cardEnvase: {
+        nombre: envaseDTO['nombre'],
+        tipo: envaseDTO['tipo'],
+        cantidad: envaseDTO['cantidad'],
+      },
+    };
+
+    this.setContenidoEnvase(envaseDTO.tipo);
+  };
+
+  setContenidoEnvase = (tipo: string): void => {
+    let propiedadTemp: any = {};
+
+    switch (tipo) {
+      case 'Marrón':
+        propiedadTemp = { contenido: this.getContenidoEnvases().cerveza[0] };
+        break;
+      case 'Verde':
+        propiedadTemp = { contenido: this.getContenidoEnvases().cerveza[0] };
+        break;
+      case 'Drago 250g':
+        propiedadTemp = { contenido: this.getContenidoEnvases().drago[0] };
+        break;
+      case 'Drago 1kg':
+        propiedadTemp = { contenido: this.getContenidoEnvases().drago[1] };
+        break;
+      case 'Coca Cola 2 / 2.5l':
+        propiedadTemp = { contenido: this.getContenidoEnvases().gaseosa[0] };
+        break;
+      case 'Quilmes 340':
+        propiedadTemp = { contenido: this.getContenidoEnvases().cerveza[1] };
+        break;
+
+      default:
+        propiedadTemp = { contenido: this.getContenidoEnvases().gaseosa[0] };
+        break;
+    }
+
+    Object.assign(this.envaseTemp.envaseDTO, propiedadTemp);
+
+    this.setEnvases(this.envaseTemp);
+  };
 }
