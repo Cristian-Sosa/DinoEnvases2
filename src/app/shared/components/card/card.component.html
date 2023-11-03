@@ -10,11 +10,11 @@
     cajon:card.tipo.includes('(Verde)') || card.tipo.includes('(Marrón)'),
   }"
 >
-  <h4 class="title">
-    {{ card.nombre | titlecase }} {{ card.tipo }}
-  </h4>
+  <h4 class="title">{{ card.nombre | titlecase }} {{ card.tipo }}</h4>
   <div class="subtitle">
-    <span class="envase">{{ card.cantidad.concat(' unidades') }}</span>
+    <span class="envase">{{
+      card.cantidad == 1 ? card.cantidad.concat(" unidad") : card.cantidad.concat(" unidades")
+    }}</span>
   </div>
   <figure (click)="removeEnvase()" class="cross">
     <svg
