@@ -44,7 +44,7 @@ export class CantidadEnvaseModalComponent {
     let cantidad: string | null | undefined =
       this.tipoEnvaseForm.get('cantidadControl')?.value;
 
-    if (!cantidad) {
+    if (this.tipoEnvaseForm.get('cantidadControl')?.invalid) {
       this.toastService.setToastState(true, 'Cantidad inválida');
 
       setTimeout(() => this.toastService.setToastState(false), 3000);
