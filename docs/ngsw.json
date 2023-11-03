@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699035552994,
+  "timestamp": 1699040679962,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,13 @@
         "ignoreVary": true
       },
       "urls": [
-        "/626.bf41390db1d5c78a.js",
+        "/626.5c0f877b400908e7.js",
         "/favicon.ico",
         "/index.html",
         "/main.9e500b3dca29d912.js",
         "/manifest.webmanifest",
         "/polyfills.71f351df1e6a6e7c.js",
-        "/runtime.d44cb5dbea4a1564.js",
+        "/runtime.4270ffd518c2cb37.js",
         "/styles.6753abd1fa2c3a10.css"
       ],
       "patterns": []
@@ -53,7 +53,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/626.bf41390db1d5c78a.js": "e9dcf2147f44f72511d909a7be7d549a1d0fe6ac",
+    "/626.5c0f877b400908e7.js": "5c440ce63a6bdce2351fb05b149afc127299066d",
     "/Ebony-Bold.cf22107714ecfb8a.woff": "a592dbc9ee68e40042da0e4f31f1aece8ab367ed",
     "/Ebony-Light.2daf9aa32f699367.woff": "8f786ebc52a12c0a769e58c82d9acd7506217e85",
     "/Ebony-Regular.843f228b3e7915a0.woff": "48b167e332ca92b538d3b1ef0a04f87544c71ab2",
@@ -72,11 +72,11 @@
     "/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
     "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
     "/favicon.ico": "04c278dba3e54393c4c980f7fd4dcd43796ef813",
-    "/index.html": "f61fe3de474b95f8eb0d90212566e670e52ffb7c",
+    "/index.html": "1f54a8163ff48ff65c5963841fb8ae4080c3b9ab",
     "/main.9e500b3dca29d912.js": "403ba68aef236c1b5767bcf5f85d9ea728028e64",
     "/manifest.webmanifest": "9bcbbe83934fb18b6151ebe2b3f0d3f31223384a",
     "/polyfills.71f351df1e6a6e7c.js": "0af18f1ef5ce199e69aae9a330dae27671eb6afe",
-    "/runtime.d44cb5dbea4a1564.js": "b788cb7135a550e0bf97536077bb9e9f5029208e",
+    "/runtime.4270ffd518c2cb37.js": "9862a52fd5afe82dc7312cc51a0cf15d40219d9c",
     "/styles.6753abd1fa2c3a10.css": "af36db089728977c336d4f2db9d7526bc88512e4"
   },
   "navigationUrls": [
