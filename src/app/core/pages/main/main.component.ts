@@ -33,6 +33,7 @@ export class MainComponent implements OnInit {
 
   print = (): void => {
     // const printContents = document.getElementById('CargaEnvases')?.innerHTML;
+    let carga = JSON.parse(localStorage.getItem('carga')!)
     const popupWin = window.open('', '_blank', 'width=600,height=auto');
     popupWin!.document.open();
     popupWin!.document.write(`
@@ -101,12 +102,15 @@ export class MainComponent implements OnInit {
       </thead>
       <tbody>
         <tr>
-        ${this.envases.forEach((item: any) => {
-          return `<td class="tg-0lax">${item.cardEnvase.cantidad}</td>
-            <td class="tg-0lax">${item.cardEnvase.nombre}</td>
-            <td class="tg-0lax">${item.cardEnvase.tipo}</td>`;
-        })}
-          
+        ${carga.map((item: any) => {
+          return `
+            <tr>
+              <td class="tg-0lax">${item.cardEnvase.cantidad}</td>
+              <td class="tg-0lax">${item.cardEnvase.nombre}</td>
+              <td class="tg-0lax">${item.cardEnvase.tipo}</td>
+            </tr>
+          `;
+        }).join('')}
         </tr>
       </tbody>
     </table>
