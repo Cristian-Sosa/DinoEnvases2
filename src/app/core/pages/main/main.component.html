@@ -32,8 +32,6 @@
   </footer>
 </main>
 
-<!-- <router-outlet></router-outlet> -->
-
 <app-tipo-envase-modal *ngIf="showModal === 'tipoEnvase'" (tipoEnvase)="tipoEnvaseSelected($event)"></app-tipo-envase-modal>
 
 <app-cantidad-envase-modal *ngIf="showModal === 'cantidadEnvase'" [tipoEnvase]="tipoEnvase" (cantidadEnvase)="cantidadEnvaseSelected($event)"></app-cantidad-envase-modal>
