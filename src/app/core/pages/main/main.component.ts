@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
   print = (): void => {
     // const printContents = document.getElementById('CargaEnvases')?.innerHTML;
     let carga = JSON.parse(localStorage.getItem('carga')!)
-    const popupWin = window.open('', '_blank', 'width=600,height=auto');
+    const popupWin = window.open('', '_blank');
     popupWin!.document.open();
     popupWin!.document.write(`
     <html>
