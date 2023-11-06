@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CargaEnvaseService } from 'src/app/shared';
-import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-lista-envases',
@@ -9,7 +8,6 @@ import { SwPush } from '@angular/service-worker';
 })
 export class ListaEnvasesComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
-  private readonly swPush = inject(SwPush);
 
   public envases: any[] = [];
 

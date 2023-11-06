@@ -5,6 +5,20 @@
   >
 </div>
 
-<div *ngIf="envases">
-    <app-card *ngFor="let item of envases" [card]="item.cardEnvase"></app-card>
+<div *ngIf="envases" id="CargaEnvases">
+  <app-card *ngFor="let item of envases" [card]="item.cardEnvase"></app-card>
+  <table style="margin: 0 auto;">
+    <tbody>
+      <tr>
+        <td>Descripción</td>
+        <td>Color</td>
+        <td>Cantidad</td>
+      </tr>
+      <tr *ngFor="let item of envases">
+        <td>{{ item.cardEnvase.nombre }}</td>
+        <td>{{ item.cardEnvase.tipo }}</td>
+        <td>{{ item.cardEnvase.cantidad }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
