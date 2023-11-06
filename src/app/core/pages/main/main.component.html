@@ -32,6 +32,32 @@
   </footer>
 </main>
 
-<app-tipo-envase-modal *ngIf="showModal === 'tipoEnvase'" (tipoEnvase)="tipoEnvaseSelected($event)"></app-tipo-envase-modal>
+<app-tipo-envase-modal
+  *ngIf="showModal === 'tipoEnvase'"
+  (tipoEnvase)="tipoEnvaseSelected($event)"
+></app-tipo-envase-modal>
 
-<app-cantidad-envase-modal *ngIf="showModal === 'cantidadEnvase'" [tipoEnvase]="tipoEnvase" (cantidadEnvase)="cantidadEnvaseSelected($event)"></app-cantidad-envase-modal>
+<app-cantidad-envase-modal
+  *ngIf="showModal === 'cantidadEnvase'"
+  [tipoEnvase]="tipoEnvase"
+  (cantidadEnvase)="cantidadEnvaseSelected($event)"
+></app-cantidad-envase-modal>
+
+<div class="tg-wrap" id="CargaEnvases" #printableArea>
+  <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0lax">Cant.</th>
+        <th class="tg-0lax">Descripción</th>
+        <th class="tg-0lax">Tipo / Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carga">
+        <td class="tg-0lax">{{ item.cardEnvase.cantidad }}</td>
+        <td class="tg-0lax">{{ item.cardEnvase.nombre }}</td>
+        <td class="tg-0lax">{{ item.cardEnvase.tipo }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

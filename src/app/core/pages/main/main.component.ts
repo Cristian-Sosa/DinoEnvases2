@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
 import { CargaEnvaseService } from 'src/app/shared';
 
 @Component({
@@ -16,6 +16,11 @@ export class MainComponent implements OnInit {
   private nombreEnvase!: string;
   public envases: any;
 
+  public carga = JSON.parse(localStorage.getItem('carga')!);
+
+  @ViewChild('printableArea', { static: false }) printableArea!: ElementRef;
+
+
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -32,90 +37,70 @@ export class MainComponent implements OnInit {
   }
 
   print = (): void => {
-    // const printContents = document.getElementById('CargaEnvases')?.innerHTML;
-    let carga = JSON.parse(localStorage.getItem('carga')!)
+    const printContents = this.printableArea.nativeElement.innerHTML;
+    this.carga = JSON.parse(localStorage.getItem('carga')!);
     const popupWin = window.open('', '_blank');
     popupWin!.document.open();
     popupWin!.document.write(`
     <html>
     <head>
       <title>Vale de envases</title>
-      <style type="text/css" media="all">
+      <style>
       @media print {
-      .tg {
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin: 0px auto;
-        text-align: center;
-      }
-      .tg td {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        text-align: center;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-      }
-      .tg th {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        font-weight: normal;
-        text-align: center;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-      }
-      .tg .tg-0lax {
-        text-align: center;
-        vertical-align: top;
-      }
+        .tg {
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0px auto;
+          text-align: center;
+        }
 
-      .tg .tg-0lax:nth-child(2) {
-        text-align: left;
-      }
+        .tg td {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          text-align: center;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
 
-      .tg .tg-0lax:nth-child(3) {
-        text-align: left;
+        .tg th {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          font-weight: normal;
+          text-align: center;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+          
+
+        .tg .tg-0lax {
+          text-align: center;
+          vertical-align: top;
+        }
+
+        .tg .tg-0lax:nth-child(2) {
+          text-align: left;
+        }
+
+        .tg .tg-0lax:nth-child(3) {
+          text-align: left;
+        }
+
+        thead tr th.tg-0lax {
+          text-align: center;
+        }
       }
-      thead tr th.tg-0lax {
-        text-align: center;
-      }
-  }
-  </style>
+    </style>
     </head>
     <body onload="window.print();window.close()">
-
-    <div class="tg-wrap">
-    <table class="tg">
-      <thead>
-        <tr>
-          <th class="tg-0lax">Cant.</th>
-          <th class="tg-0lax">Descripción</th>
-          <th class="tg-0lax">Tipo / Color</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        ${carga.map((item: any) => {
-          return `
-            <tr>
-              <td class="tg-0lax">${item.cardEnvase.cantidad}</td>
-              <td class="tg-0lax">${item.cardEnvase.nombre}</td>
-              <td class="tg-0lax">${item.cardEnvase.tipo}</td>
-            </tr>
-          `;
-        }).join('')}
-        </tr>
-      </tbody>
-    </table>
-  </div>
-    
+      ${printContents}
     </body>
     </html>
   `);
