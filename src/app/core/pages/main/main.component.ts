@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
   }
 
   print = (): void => {
-    const printContents = document.getElementById('CargaEnvases')?.innerHTML;
+    // const printContents = document.getElementById('CargaEnvases')?.innerHTML;
     const popupWin = window.open('', '_blank', 'width=600,height=600');
     popupWin!.document.open();
     popupWin!.document.write(`
@@ -41,7 +41,7 @@ export class MainComponent implements OnInit {
       <title>Impresión</title>
     </head>
     <body onload="window.print();window.close()">
-      ${printContents}
+      <h1>Lorem ipsum dolor sit amet</h1>
     </body>
     </html>
   `);
