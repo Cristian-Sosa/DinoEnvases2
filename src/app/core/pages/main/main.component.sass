@@ -62,14 +62,17 @@
       background-color: #295435
       cursor: pointer
 
-  #CargaEnvases
-    display: none
+#CargaEnvases
+  display: none
 
 @media (min-width: 750px)
   .main
     height: calc(100% - 56px)
 
 @media print
+  #CargaEnvases
+    display: block
+
   .tg
     border-collapse: collapse
     border-spacing: 0

@@ -34,8 +34,12 @@ export class MainComponent implements OnInit {
   }
 
   print = async () => {
-    const printContent = document.getElementById("CargaEnvases");
-    const WindowPrt = window.open('', '', 'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+    const printContent = document.getElementById('CargaEnvases');
+    const WindowPrt = window.open(
+      '',
+      '',
+      'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0'
+    );
     WindowPrt?.document.write(`
     <html>
     <head>
@@ -53,12 +57,16 @@ export class MainComponent implements OnInit {
   };
 
   generateDynamicHTML = () => {
-    const printContent = document.getElementById("CargaEnvases")?.innerHTML;
+    // const printContent = document.getElementById("CargaEnvases")?.innerHTML.toString();
+    // const printContent = `<html><head><title>Vale</title></head><body><div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody>${this.carga.forEach((item: any) => {return `<tr><td>${item.cardEnvase.cantidad}</td><td>${item.cardEnvase.nombre}</td><td>${item.cardEnvase.tipo}</td></tr>`;})}</tbody></table></div></body></html>`;
+    const printContent = `<html><head><title>Vale</title></head><body><div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody><tr><td>2u</td><td>Cerveza</td><td>Verde</td></tr></tbody></table></div></body></html>`;
+
     let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
-    dynHtml += '<h1>Prueba</h1>';
-    dynHtml += "'";
-    window.location.href = dynHtml;
-    }
+    dynHtml = dynHtml.concat(printContent)
+    // dynHtml += "'";
+    console.log(dynHtml);
+        // window.location.href = dynHtml;
+  };
 
   notificacionPush = (): void => {
     navigator.serviceWorker
