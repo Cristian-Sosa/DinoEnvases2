@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CargaEnvaseService } from 'src/app/shared';
+import { CargaEnvaseService, ToastService } from 'src/app/shared';
 
-import ConectorPluginV3 from "./ConectorPluginV3";
+import ConectorPluginV3 from './ConectorPluginV3';
 
 @Component({
   selector: 'app-main',
@@ -10,6 +10,7 @@ import ConectorPluginV3 from "./ConectorPluginV3";
 })
 export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
+  private toastService = inject(ToastService)
 
   public showModal: string = 'none';
 
@@ -34,37 +35,37 @@ export class MainComponent implements OnInit {
       }
     });
 
-    this.getImpresoras()
+    this.getImpresoras();
   }
 
   getImpresoras = async () => {
     let impresoras = await ConectorPluginV3.obtenerImpresoras();
 
-    console.log(impresoras)
-  }
+    this.toastService.setToastState(true, JSON.stringify(impresoras))
+  };
 
   generateDynamicHTML = async () => {
     const conector = new ConectorPluginV3();
-  conector
-    .Iniciar()
-    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
-    .EscribirTexto('Vale de envases')
-    .Feed(1)
-    .EscribirTexto('Descripción:')
-    .Feed(2)
-    .EscribirTexto('Cerveza Verde 2u')
-    .Feed(1)
-    .EscribirTexto('Gaseosa Coca Cola 2/2.5L 15u')
-    .Feed(1)
-    .EscribirTexto('Cajòn Coca Cola 2/2.5L 1u')
-    .Iniciar()
-    .Feed(1);
-  const respuesta = await conector.imprimirEn("SOL54_E437");
-  if (respuesta == true) {
-    console.log("Impresión correcta");
-  } else {
-    console.log("Error: " + respuesta);
-  }
+    conector
+      .Iniciar()
+      .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
+      .EscribirTexto('Vale de envases')
+      .Feed(1)
+      .EscribirTexto('Descripción:')
+      .Feed(2)
+      .EscribirTexto('Cerveza Verde 2u')
+      .Feed(1)
+      .EscribirTexto('Gaseosa Coca Cola 2/2.5L 15u')
+      .Feed(1)
+      .EscribirTexto('Cajòn Coca Cola 2/2.5L 1u')
+      .Iniciar()
+      .Feed(1);
+    const respuesta = await conector.imprimirEn('SOL54_E437');
+    if (respuesta == true) {
+      this.toastService.setToastState(true, ' Impreso correctamente')
+    } else {
+      this.toastService.setToastState(true, respuesta)
+    }
   };
 
   notificacionPush = (): void => {
