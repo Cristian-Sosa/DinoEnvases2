@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CargaEnvaseService } from 'src/app/shared';
 
+import ConectorPluginV3 from "./ConectorPluginV3";
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -31,38 +33,38 @@ export class MainComponent implements OnInit {
         this.cargaExist = false;
       }
     });
+
+    this.getImpresoras()
   }
 
-  print = async () => {
-    const printContent = document.getElementById('CargaEnvases');
-    const WindowPrt = window.open(
-      '',
-      '',
-      'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0'
-    );
-    WindowPrt?.document.write(`
-    <html>
-    <head>
-    <title>asdasdasd</title>
-    </head>
-    <body>
-    ${printContent}
-    </body>
-    </html>
-    `);
-    WindowPrt?.document.close();
-    WindowPrt?.focus();
-    WindowPrt?.print();
-    WindowPrt?.close();
-  };
+  getImpresoras = async () => {
+    let impresoras = await ConectorPluginV3.obtenerImpresoras();
 
-  generateDynamicHTML = () => {
-    var ficha = document.getElementById('CargaEnvasesImprimir');
-	  var ventimp = window.open(' ', 'popimpr');
-	  ventimp?.document.write( ficha!.innerHTML );
-	  ventimp?.document.close();
-	  ventimp?.print( );
-	  ventimp?.close();
+    console.log(impresoras)
+  }
+
+  generateDynamicHTML = async () => {
+    const conector = new ConectorPluginV3();
+  conector
+    .Iniciar()
+    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
+    .EscribirTexto('Vale de envases')
+    .Feed(1)
+    .EscribirTexto('Descripción:')
+    .Feed(2)
+    .EscribirTexto('Cerveza Verde 2u')
+    .Feed(1)
+    .EscribirTexto('Gaseosa Coca Cola 2/2.5L 15u')
+    .Feed(1)
+    .EscribirTexto('Cajòn Coca Cola 2/2.5L 1u')
+    .Iniciar()
+    .Feed(1);
+  const respuesta = await conector.imprimirEn("SOL54_E437");
+  if (respuesta == true) {
+    console.log("Impresión correcta");
+  } else {
+    console.log("Error: " + respuesta);
+  }
   };
 
   notificacionPush = (): void => {
