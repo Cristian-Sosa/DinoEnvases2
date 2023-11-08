@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
   generateDynamicHTML = () => {
     const printContent = document.getElementById("CargaEnvases")?.innerHTML;
     let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
-    dynHtml += printContent;
+    dynHtml += '<h1>Prueba</h1>';
     dynHtml += "'";
     window.location.href = dynHtml;
     }
