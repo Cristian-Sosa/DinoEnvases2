@@ -13,7 +13,7 @@
         isPrimary: true,
         isDisabled: !cargaExist,
       }"
-      (click)="print()"
+      (click)="generateDynamicHTML()"
     ></app-button>
     <button (click)="newEnvase()" class="plus">
       <svg
@@ -43,7 +43,7 @@
   (cantidadEnvase)="cantidadEnvaseSelected($event)"
 ></app-cantidad-envase-modal>
 
-<div class="tg-wrap" id="CargaEnvases" #printableArea>
+<div class="tg-wrap" id="CargaEnvases">
   <table class="tg">
     <thead>
       <tr>

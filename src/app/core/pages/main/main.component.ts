@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CargaEnvaseService } from 'src/app/shared';
 
 @Component({
@@ -18,9 +18,6 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  @ViewChild('printableArea', { static: false }) printableArea!: ElementRef;
-
-
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -36,76 +33,32 @@ export class MainComponent implements OnInit {
     });
   }
 
-  print = (): void => {
-    const printContents = this.printableArea.nativeElement.innerHTML;
-    this.carga = JSON.parse(localStorage.getItem('carga')!);
-    const popupWin = window.open('', '_blank');
-    popupWin!.document.open();
-    popupWin!.document.write(`
+  print = async () => {
+    const printContent = document.getElementById("CargaEnvases");
+    const WindowPrt = window.open('', '', 'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+    WindowPrt?.document.write(`
     <html>
     <head>
-      <title>Vale de envases</title>
-      <style>
-      @media print {
-        .tg {
-          border-collapse: collapse;
-          border-spacing: 0;
-          margin: 0px auto;
-          text-align: center;
-        }
-
-        .tg td {
-          border-color: black;
-          border-style: solid;
-          border-width: 1px;
-          font-family: Arial, sans-serif;
-          font-size: 14px;
-          text-align: center;
-          overflow: hidden;
-          padding: 10px 5px;
-          word-break: normal;
-        }
-
-        .tg th {
-          border-color: black;
-          border-style: solid;
-          border-width: 1px;
-          font-family: Arial, sans-serif;
-          font-size: 14px;
-          font-weight: normal;
-          text-align: center;
-          overflow: hidden;
-          padding: 10px 5px;
-          word-break: normal;
-        }
-          
-
-        .tg .tg-0lax {
-          text-align: center;
-          vertical-align: top;
-        }
-
-        .tg .tg-0lax:nth-child(2) {
-          text-align: left;
-        }
-
-        .tg .tg-0lax:nth-child(3) {
-          text-align: left;
-        }
-
-        thead tr th.tg-0lax {
-          text-align: center;
-        }
-      }
-    </style>
+    <title>asdasdasd</title>
     </head>
-    <body onload="window.print();window.close()">
-      ${printContents}
+    <body>
+    ${printContent}
     </body>
     </html>
-  `);
-    popupWin!.document.close();
+    `);
+    WindowPrt?.document.close();
+    WindowPrt?.focus();
+    WindowPrt?.print();
+    WindowPrt?.close();
   };
+
+  generateDynamicHTML = () => {
+    const printContent = document.getElementById("CargaEnvases")?.innerHTML;
+    let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
+    dynHtml += printContent;
+    dynHtml += "'";
+    window.location.href = dynHtml;
+    }
 
   notificacionPush = (): void => {
     navigator.serviceWorker
