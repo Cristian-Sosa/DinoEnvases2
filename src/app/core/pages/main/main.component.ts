@@ -59,13 +59,13 @@ export class MainComponent implements OnInit {
   generateDynamicHTML = () => {
     // const printContent = document.getElementById("CargaEnvases")?.innerHTML.toString();
     // const printContent = `<html><head><title>Vale</title></head><body><div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody>${this.carga.forEach((item: any) => {return `<tr><td>${item.cardEnvase.cantidad}</td><td>${item.cardEnvase.nombre}</td><td>${item.cardEnvase.tipo}</td></tr>`;})}</tbody></table></div></body></html>`;
-    const printContent = `<html><head><title>Vale</title></head><body><div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody><tr><td>2u</td><td>Cerveza</td><td>Verde</td></tr></tbody></table></div></body></html>`;
+    const printContent = `<div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody><tr><td>2u</td><td>Cerveza</td><td>Verde</td></tr></tbody></table></div>`;
 
     let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
     dynHtml = dynHtml.concat(printContent)
     // dynHtml += "'";
     console.log(dynHtml);
-        // window.location.href = dynHtml;
+        window.location.href = dynHtml;
   };
 
   notificacionPush = (): void => {
