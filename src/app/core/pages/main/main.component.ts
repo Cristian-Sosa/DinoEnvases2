@@ -63,7 +63,7 @@ export class MainComponent implements OnInit {
 
     let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
     dynHtml = dynHtml.concat(printContent)
-    // dynHtml += "'";
+    dynHtml += "'";
     console.log(dynHtml);
         window.location.href = dynHtml;
   };
