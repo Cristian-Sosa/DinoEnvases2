@@ -57,15 +57,12 @@ export class MainComponent implements OnInit {
   };
 
   generateDynamicHTML = () => {
-    // const printContent = document.getElementById("CargaEnvases")?.innerHTML.toString();
-    // const printContent = `<html><head><title>Vale</title></head><body><div><table><thead><tr><th>Cant.</th><th>Descripción</th><th>Tipo</th></tr></thead><tbody>${this.carga.forEach((item: any) => {return `<tr><td>${item.cardEnvase.cantidad}</td><td>${item.cardEnvase.nombre}</td><td>${item.cardEnvase.tipo}</td></tr>`;})}</tbody></table></div></body></html>`;
-    // const printContent = `<h1>Color%20Verde</h1>`;
-
-    // let dynHtml = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,<h1>Color%20Verde</h1>'";
-    // dynHtml = dynHtml.concat(printContent)
-    // dynHtml += "'";
-    // console.log(dynHtml);
-    window.location.href = "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,<h1>Color%20Verde</h1>'";
+    var ficha = document.getElementById('CargaEnvasesImprimir');
+	  var ventimp = window.open(' ', 'popimpr');
+	  ventimp?.document.write( ficha!.innerHTML );
+	  ventimp?.document.close();
+	  ventimp?.print( );
+	  ventimp?.close();
   };
 
   notificacionPush = (): void => {
