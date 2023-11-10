@@ -22,8 +22,6 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  private exampleDevice!: BluetoothDevice;
-
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -41,16 +39,18 @@ export class MainComponent implements OnInit {
     // this.getImpresoras();
   }
 
-  getImpresoras = async () => {
+  getImpresoras = () => {
     navigator.bluetooth
-      .requestDevice({acceptAllDevices: true})
+      .requestDevice({ filters: [{ services: ['battery_service'] }] })
       .then((device) => {
-        this.toastService.setToastState(true, device.name);
+        // Lógica cuando la Promesa se resuelve
+        this.toastService.setToastState(true, device.name)
       })
       .catch((error) => {
-        console.error(error);
+        // Lógica cuando la Promesa se rechaza
+        this.toastService.setToastState(true, `Error con el ${error}`)
       });
-
+      
     // this.toastService.setToastState(true, JSON.stringify(impresoras))
   };
 
