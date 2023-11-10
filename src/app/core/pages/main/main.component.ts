@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CargaEnvaseService, ToastService } from 'src/app/shared';
 
 import ConectorPluginV3 from './ConectorPluginV3';
+import 'web-bluetooth';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ import ConectorPluginV3 from './ConectorPluginV3';
 })
 export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
-  private toastService = inject(ToastService)
+  private toastService = inject(ToastService);
 
   public showModal: string = 'none';
 
@@ -20,6 +21,8 @@ export class MainComponent implements OnInit {
   public envases: any;
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
+
+  private exampleDevice!: BluetoothDevice;
 
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
@@ -39,32 +42,33 @@ export class MainComponent implements OnInit {
   }
 
   getImpresoras = async () => {
-    let impresoras = await ConectorPluginV3.obtenerImpresoras();
+     console.log(this.exampleDevice.gatt?.device)
 
-    this.toastService.setToastState(true, JSON.stringify(impresoras))
+    // this.toastService.setToastState(true, JSON.stringify(impresoras))
   };
 
   generateDynamicHTML = async () => {
     const conector = new ConectorPluginV3();
     conector
       .Iniciar()
-      .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
+      .EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA)
       .EscribirTexto('Vale de envases')
       .Feed(1)
-      .EscribirTexto('Descripción:')
       .Feed(2)
-      .EscribirTexto('Cerveza Verde 2u')
+      .EscribirTexto('Cerveza | Verde | 5u')
       .Feed(1)
-      .EscribirTexto('Gaseosa Coca Cola 2/2.5L 15u')
+      .EscribirTexto('Cerveza | Marrón | 3u')
       .Feed(1)
-      .EscribirTexto('Cajòn Coca Cola 2/2.5L 1u')
+      .EscribirTexto('Gaseosa | Coca Cola | 12u')
+      .Feed(1)
+      .EscribirTexto('Cajón | Coca Cola | 3u')
       .Iniciar()
       .Feed(1);
     const respuesta = await conector.imprimirEn('SOL54_E437');
     if (respuesta == true) {
-      this.toastService.setToastState(true, ' Impreso correctamente')
+      this.toastService.setToastState(true, ' Impreso correctamente');
     } else {
-      this.toastService.setToastState(true, respuesta)
+      this.toastService.setToastState(true, respuesta);
     }
   };
 
