@@ -41,7 +41,7 @@ export class MainComponent implements OnInit {
 
   generateDynamicHTML = () => {
     navigator.bluetooth
-      .requestDevice({ filters: [{ services: ['SOL58_E437'] }] })
+      .requestDevice({ acceptAllDevices: true })
       .then((device) => {
         this.toastService.setToastState(true, device.id);
 
