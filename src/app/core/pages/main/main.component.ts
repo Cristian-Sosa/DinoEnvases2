@@ -43,10 +43,9 @@ export class MainComponent implements OnInit {
     navigator.bluetooth
       .requestDevice({ filters: [{ services: ['printer'] }] })
       .then((device) => {
-        this.toastService.setToastState(true, device.name);
+        this.toastService.setToastState(true, device.id);
 
         // let deviceUUID = device.id
-        let deviceUUID = device.gatt?.device
 
         let printable = document.getElementById(
           'CargaEnvasesImprimir'
