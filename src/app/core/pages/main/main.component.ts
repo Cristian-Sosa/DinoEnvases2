@@ -22,6 +22,8 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
+  private exampleDevice!: BluetoothDevice;
+
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -36,32 +38,36 @@ export class MainComponent implements OnInit {
       }
     });
 
-    // this.getImpresoras();
+    this.getImpresoras();
   }
 
-  getImpresoras = () => {
+  getImpresoras = async () => {
     navigator.bluetooth
-      .requestDevice({ filters: [{ services: ['battery_service'] }] })
+      .requestDevice({
+        acceptAllDevices: true,
+        optionalServices: ['battery_service'], // Required to access service later.
+      })
       .then((device) => {
-        // Lógica cuando la Promesa se resuelve
-        this.toastService.setToastState(true, device.name)
+        this.toastService.setToastState(true, device.name);
       })
       .catch((error) => {
-        // Lógica cuando la Promesa se rechaza
-        this.toastService.setToastState(true, `Error con el ${error}`)
+        this.toastService.setToastState(true, error);
       });
-      
+
     // this.toastService.setToastState(true, JSON.stringify(impresoras))
   };
 
   generateDynamicHTML = async () => {
     navigator.bluetooth
-      .requestDevice()
+      .requestDevice({
+        acceptAllDevices: true,
+        optionalServices: ['battery_service'], // Required to access service later.
+      })
       .then((device) => {
         this.toastService.setToastState(true, device.name);
       })
       .catch((error) => {
-        console.error(error);
+        this.toastService.setToastState(true, error);
       });
     // const conector = new ConectorPluginV3();
     // conector
