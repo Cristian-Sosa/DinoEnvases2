@@ -41,7 +41,7 @@ export class MainComponent implements OnInit {
     this.getImpresoras();
   }
 
-  getImpresoras = async () => {
+  getImpresoras = () => {
     navigator.bluetooth
       .requestDevice({
         acceptAllDevices: true,
@@ -57,7 +57,7 @@ export class MainComponent implements OnInit {
     // this.toastService.setToastState(true, JSON.stringify(impresoras))
   };
 
-  generateDynamicHTML = async () => {
+  generateDynamicHTML = () => {
     navigator.bluetooth
       .requestDevice({
         acceptAllDevices: true,
