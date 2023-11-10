@@ -41,9 +41,12 @@ export class MainComponent implements OnInit {
 
   generateDynamicHTML = () => {
     navigator.bluetooth
-      .requestDevice({ filters: [{ services: ['print_service_uuid'] }] })
+      .requestDevice({ filters: [{ services: ['06d10322-7de0-4cef-8e25-197d0e7442e2'] }] })
       .then((device) => {
         this.toastService.setToastState(true, device.name);
+
+        // let deviceUUID = device.id
+        let deviceUUID = device.gatt?.device
 
         let printable = document.getElementById(
           'CargaEnvasesImprimir'
