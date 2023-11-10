@@ -42,7 +42,14 @@ export class MainComponent implements OnInit {
   }
 
   getImpresoras = async () => {
-     console.log(this.exampleDevice.gatt?.device)
+    navigator.bluetooth
+      .requestDevice({ filters: [{ services: ['battery_service'] }] })
+      .then((device) => {
+        this.toastService.setToastState(true, device.name)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     // this.toastService.setToastState(true, JSON.stringify(impresoras))
   };
