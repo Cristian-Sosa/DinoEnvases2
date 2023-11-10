@@ -37,25 +37,7 @@ export class MainComponent implements OnInit {
         this.cargaExist = false;
       }
     });
-
-    this.getImpresoras();
   }
-
-  getImpresoras = () => {
-    navigator.bluetooth
-      .requestDevice({
-        acceptAllDevices: true,
-        optionalServices: ['battery_service'], // Required to access service later.
-      })
-      .then((device) => {
-        this.toastService.setToastState(true, device.name);
-      })
-      .catch((error) => {
-        this.toastService.setToastState(true, error);
-      });
-
-    // this.toastService.setToastState(true, JSON.stringify(impresoras))
-  };
 
   generateDynamicHTML = () => {
     navigator.bluetooth
