@@ -59,38 +59,15 @@ export class MainComponent implements OnInit {
 
   generateDynamicHTML = () => {
     navigator.bluetooth
-      .requestDevice({
-        acceptAllDevices: true,
-        optionalServices: ['battery_service'], // Required to access service later.
-      })
+      .requestDevice({ filters: [{ services: ['print_service_uuid'] }]})
       .then((device) => {
         this.toastService.setToastState(true, device.name);
+
+        let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML
       })
       .catch((error) => {
         this.toastService.setToastState(true, error);
       });
-    // const conector = new ConectorPluginV3();
-    // conector
-    //   .Iniciar()
-    //   .EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA)
-    //   .EscribirTexto('Vale de envases')
-    //   .Feed(1)
-    //   .Feed(2)
-    //   .EscribirTexto('Cerveza | Verde | 5u')
-    //   .Feed(1)
-    //   .EscribirTexto('Cerveza | Marrón | 3u')
-    //   .Feed(1)
-    //   .EscribirTexto('Gaseosa | Coca Cola | 12u')
-    //   .Feed(1)
-    //   .EscribirTexto('Cajón | Coca Cola | 3u')
-    //   .Iniciar()
-    //   .Feed(1);
-    // const respuesta = await conector.imprimirEn('SOL54_E437');
-    // if (respuesta == true) {
-    //   this.toastService.setToastState(true, ' Impreso correctamente');
-    // } else {
-    //   this.toastService.setToastState(true, respuesta);
-    // }
   };
 
   notificacionPush = (): void => {
