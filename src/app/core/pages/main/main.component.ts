@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
 
   getImpresoras = async () => {
     navigator.bluetooth
-      .requestDevice({ filters: [{ services: ['battery_service'] }] })
+      .requestDevice()
       .then((device) => {
         this.toastService.setToastState(true, device.name)
       })
