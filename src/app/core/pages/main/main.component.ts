@@ -55,12 +55,8 @@ export class MainComponent implements OnInit {
         popupWin!.document.write('<html><head><title>Imprimir</title></head><body>');
         popupWin!.document.write(printable!);
         popupWin!.document.write('</body></html>');
+        popupWin!.print();
         popupWin!.document.close();
-
-        popupWin!.onload = () => {
-          popupWin!.print();
-          popupWin!.close()
-        }
       })
       .catch((error) => {
         this.toastService.setToastState(true, error);
