@@ -61,12 +61,16 @@ export class MainComponent implements OnInit {
     let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
 
     this.popupWin = window;
-    this.popupWin.open('', '_blank', 'width=600,height=auto');
+    this.popupWin.open('', '_blank');
     this.popupWin.document.write(
-      '<html><head><title>Imprimir</title></head><body>'
+      '<html><head><title>Imprimir</title></head><body styles="width=600px;height=auto">'
     );
     this.popupWin.document.write(printable!);
     this.popupWin.document.write('</body></html>');
+
+    this.popupWin.onload! = () => {
+      this.printVale()
+    }
   };
 
   printVale = () => {
