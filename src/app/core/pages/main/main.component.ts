@@ -22,6 +22,8 @@ export class MainComponent implements OnInit {
 
   private device!: BluetoothDevice;
 
+  private popupWin: Window | null = null;
+
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -37,8 +39,8 @@ export class MainComponent implements OnInit {
     });
   }
 
-  generateDynamicHTML = () => {
-    navigator.bluetooth
+  generateDynamicHTML = async () => {
+    await navigator.bluetooth
       .requestDevice({ acceptAllDevices: true })
       .then((device) => {
         this.toastService.setToastState(
@@ -56,19 +58,20 @@ export class MainComponent implements OnInit {
   };
 
   print = () => {
-    // let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
+    let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
 
-    // const popupWin = window.open('', '_blank', 'width=600,height=auto');
-    // popupWin!.document.write(
-    //   '<html><head><title>Imprimir</title></head><body>'
-    // );
-    // popupWin!.document.write(printable!);
-    // popupWin!.document.write('</body></html>');
-    // popupWin!.print();
-    // popupWin!.document.close();
+    this.popupWin = window;
+    this.popupWin.open('', '_blank', 'width=600,height=auto');
+    this.popupWin.document.write(
+      '<html><head><title>Imprimir</title></head><body>'
+    );
+    this.popupWin.document.write(printable!);
+    this.popupWin.document.write('</body></html>');
+  };
 
-
-    window.print()
+  printVale = () => {
+    this.popupWin?.print();
+    this.popupWin?.close();
   };
 
   notificacionPush = (): void => {
