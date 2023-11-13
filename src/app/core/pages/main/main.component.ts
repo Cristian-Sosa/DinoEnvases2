@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  private exampleDevice!: BluetoothDevice;
+  private device!: BluetoothDevice;
 
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
@@ -37,30 +37,32 @@ export class MainComponent implements OnInit {
     });
   }
 
-  generateDynamicHTML = () => {
-    navigator.bluetooth
+  generateDynamicHTML =  async () => {
+    await navigator.bluetooth
       .requestDevice({ acceptAllDevices: true })
       .then((device) => {
-        this.toastService.setToastState(true, device.id);
+        // this.toastService.setToastState(true, device.id);
 
-        console.log(device)
-
-        // let deviceUUID = device.id
-
-        let printable = document.getElementById(
-          'CargaEnvasesImprimir'
-        )?.innerHTML;
-
-        const popupWin = window.open('', '_blank', 'width=600,height=auto');
-        popupWin!.document.write('<html><head><title>Imprimir</title></head><body>');
-        popupWin!.document.write(printable!);
-        popupWin!.document.write('</body></html>');
-        popupWin!.print();
-        popupWin!.document.close();
+        this.device = device;
       })
       .catch((error) => {
         this.toastService.setToastState(true, error);
       });
+
+    await this.device.gatt?.connect().then(() => {
+      let printable = document.getElementById(
+        'CargaEnvasesImprimir'
+      )?.innerHTML;
+
+      const popupWin = window.open('', '_blank', 'width=600,height=auto');
+      popupWin!.document.write(
+        '<html><head><title>Imprimir</title></head><body>'
+      );
+      popupWin!.document.write(printable!);
+      popupWin!.document.write('</body></html>');
+      popupWin!.print();
+      popupWin!.document.close();
+    });
   };
 
   notificacionPush = (): void => {
