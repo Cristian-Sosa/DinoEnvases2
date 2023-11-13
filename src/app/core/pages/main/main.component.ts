@@ -41,7 +41,10 @@ export class MainComponent implements OnInit {
     navigator.bluetooth
       .requestDevice({ acceptAllDevices: true })
       .then((device) => {
-        // this.toastService.setToastState(true, device.id);
+        this.toastService.setToastState(
+          true,
+          BluetoothUUID.getService(this.device.name!)
+        );
 
         this.device = device;
       })
@@ -49,22 +52,23 @@ export class MainComponent implements OnInit {
         this.toastService.setToastState(true, error);
       });
 
-    this.device.gatt?.connect().then(() => {this.print()});
-
-    BluetoothUUID.getService(this.device.name!);
+    this.print();
   };
 
   print = () => {
     // let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
 
-    const popupWin = window.open('', '_blank', 'width=600,height=auto');
+    // const popupWin = window.open('', '_blank', 'width=600,height=auto');
     // popupWin!.document.write(
     //   '<html><head><title>Imprimir</title></head><body>'
     // );
     // popupWin!.document.write(printable!);
     // popupWin!.document.write('</body></html>');
-    popupWin!.print();
-    popupWin!.document.close();
+    // popupWin!.print();
+    // popupWin!.document.close();
+
+
+    window.print()
   };
 
   notificacionPush = (): void => {
