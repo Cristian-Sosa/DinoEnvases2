@@ -58,19 +58,29 @@ export class MainComponent implements OnInit {
   };
 
   print = () => {
-    let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
+    // let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
 
-    this.popupWin = window.open('', '_blank');
-    this.popupWin!.document.write(
-      '<html><head><title>Imprimir</title></head><body styles="width=600px;height=auto">'
-    );
-    this.popupWin!.document.write(printable!);
-    this.popupWin!.document.write('</body></html>');
+    // this.popupWin = window.open('', '_blank');
+    // this.popupWin!.document.write(
+    //   '<html><head><title>Imprimir</title></head><body styles="width=600px;height=auto">'
+    // );
+    // this.popupWin!.document.write(printable!);
+    // this.popupWin!.document.write('</body></html>');
 
-    this.popupWin!.onload! = () => {
-      this.popupWin?.print();
-      this.popupWin?.close();
-    };
+    // this.popupWin!.onload! = () => {
+    //   this.popupWin?.print();
+    //   this.popupWin?.close();
+    // };
+
+    let dynHtml =
+      "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
+    dynHtml +=
+      "<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>";
+    dynHtml += "'";
+
+    const enlace = document.createElement('a');
+    enlace.href = dynHtml
+    enlace.click();
   };
 
   notificacionPush = (): void => {
