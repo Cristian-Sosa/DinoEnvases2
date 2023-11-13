@@ -1,7 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CargaEnvaseService, ToastService } from 'src/app/shared';
-
-import ConectorPluginV3 from './ConectorPluginV3';
 import 'web-bluetooth';
 
 @Component({
@@ -44,6 +42,8 @@ export class MainComponent implements OnInit {
       .requestDevice({ acceptAllDevices: true })
       .then((device) => {
         this.toastService.setToastState(true, device.id);
+
+        console.log(device)
 
         // let deviceUUID = device.id
 
