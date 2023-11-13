@@ -69,13 +69,9 @@ export class MainComponent implements OnInit {
     this.popupWin.document.write('</body></html>');
 
     this.popupWin.onload! = () => {
-      this.printVale()
-    }
-  };
-
-  printVale = () => {
-    this.popupWin?.print();
-    this.popupWin?.close();
+      this.popupWin?.print();
+      this.popupWin?.close();
+    };
   };
 
   notificacionPush = (): void => {
