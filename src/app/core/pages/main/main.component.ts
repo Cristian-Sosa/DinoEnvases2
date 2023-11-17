@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import 'web-bluetooth';
@@ -40,14 +41,14 @@ export class MainComponent implements OnInit {
   }
 
   generateMessageToPrint = () => {
-    this.cargaToPrint = `Fecha: ${new Date()} \n Guardia: ${this.authService.getUsuarioLogged()} \n Sucursal: ${this.authService.getSucursal()} \n \n`;
+    this.cargaToPrint = `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\nSucursal: ${this.authService.getSucursal()}\n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
         console.log(envase)
-        this.cargaToPrint += `${envase.cardEnvase.nombre ? envase.cardEnvase.nombre : ''} ${envase.cardEnvase.tipo} x ${envase.cardEnvase.cantidad}u \n \n `;
+        this.cargaToPrint += `${envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''} ${envase.cardEnvase.tipo.toUpperCase()} x ${envase.cardEnvase.cantidad}u \n \n `;
       });
 
-    this.cargaToPrint += '\n \n \n'
+    this.cargaToPrint += '\n \n'
     });
 
     this.sendTextData();
@@ -88,10 +89,10 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = () => {
-    let encoder = new TextEncoder();
+    let encoder = new TextEncoder;
     let text = encoder.encode(this.cargaToPrint + '\u000A\u000D');
 
-    return this.printCharacteristic.writeValue(text).then(() => {
+    this.printCharacteristic.writeValue(text).then(() => {
       this.toastService.setToastState(true, 'Vale impreso');
     });
   };
