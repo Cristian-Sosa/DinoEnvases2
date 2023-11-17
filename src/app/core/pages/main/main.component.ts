@@ -39,12 +39,13 @@ export class MainComponent implements OnInit {
     });
   }
 
-  generateMessageToPrint = () => {
-    this.cargaToPrint = `SUPER MAMI ${this.authService.getSucursal()}\n`;
-    this.cargaToPrint += `VALE PARA ENVASE\n`;
-    this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
-    this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
+  generateMessageToPrint = async () => {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
+      this.cargaToPrint = `\n\nSUPER MAMI ${this.authService.getSucursal()}\n`;
+      this.cargaToPrint += `VALE PARA ENVASE\n`;
+      this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
+      this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
+
       envases.forEach((envase) => {
         console.log(envase);
         this.cargaToPrint += `${
@@ -59,13 +60,14 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `\n\n\n`;
 
       this.cargaToPrint += `N° PV: \n`;
-      this.cargaToPrint += `N° Ticket: \n`;
+      this.cargaToPrint += `N° Ticket: \n\n`;
+      // this.printImage();
+      this.sendTextData(this.cargaToPrint);
     });
-    // this.printImage();
-    this.sendTextData(this.cargaToPrint);
   };
 
   print = () => {
+    this.printCharacteristic = null;
     if (this.printCharacteristic == null) {
       navigator.bluetooth
         .requestDevice({
@@ -128,7 +130,7 @@ export class MainComponent implements OnInit {
 
     // Envía cada trozo por separado
     chunks
-      .reduce(async(prevPromise, chunk) => {
+      .reduce(async (prevPromise, chunk) => {
         await prevPromise.then(() => {
           return this.printCharacteristic.writeValue(encoder.encode(chunk));
         });
