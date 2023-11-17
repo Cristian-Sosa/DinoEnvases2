@@ -41,21 +41,23 @@ export class MainComponent implements OnInit {
 
   generateMessageToPrint = () => {
     this.cargaToPrint = `SUPER MAMI ${this.authService.getSucursal()}\n`;
-    this.cargaToPrint = `VALE PARA ENVASE\n`;
-    this.cargaToPrint = `VALIDO POR EL DÍA DE EMISION\n\n`;
+    this.cargaToPrint += `VALE PARA ENVASE\n`;
+    this.cargaToPrint += `VALIDO POR EL DÍA DE EMISION\n\n`;
     this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
         console.log(envase);
         this.cargaToPrint += `${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
-        } ${envase.cardEnvase.tipo.toUpperCase()} x${
-          envase.cardEnvase.cantidad
-        }u\n`;
+        } ${
+          envase.cardEnvase.tipo.toUpperCase() != envase.cardEnvase.nombre
+            ? envase.cardEnvase.tipo.toUpperCase()
+            : ''
+        } x${envase.cardEnvase.cantidad}u\n`;
       });
 
       this.cargaToPrint += `\n\n\n`;
-      
+
       this.cargaToPrint += `N° PV: \n`;
       this.cargaToPrint += `N° Ticket: \n`;
     });
