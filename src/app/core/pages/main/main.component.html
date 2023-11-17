@@ -13,7 +13,7 @@
         isPrimary: true,
         isDisabled: !cargaExist,
       }"
-      (click)="generateDynamicHTML()"
+      (click)="print()"
     ></app-button>
 
     <button (click)="newEnvase()" class="plus">
@@ -43,23 +43,4 @@
   [tipoEnvase]="tipoEnvase"
   (cantidadEnvase)="cantidadEnvaseSelected($event)"
 ></app-cantidad-envase-modal>
-
-<div class="tg-wrap" id="CargaEnvasesImprimir">
-  <table class="tg">
-    <thead>
-      <tr>
-        <th class="tg-0lax">Cant.</th>
-        <th class="tg-0lax">Descripción</th>
-        <th class="tg-0lax">Tipo / Color</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of carga">
-        <td class="tg-0lax">{{ item.cardEnvase.cantidad }}</td>
-        <td class="tg-0lax">{{ item.cardEnvase.nombre }}</td>
-        <td class="tg-0lax">{{ item.cardEnvase.tipo }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 

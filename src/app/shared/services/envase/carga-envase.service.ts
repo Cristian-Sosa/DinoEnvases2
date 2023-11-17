@@ -61,8 +61,6 @@ export class CargaEnvaseService {
     this.envases.push(envase);
     this._envases.next(this.envases);
 
-    this.envaseTemp = {};
-
     localStorage.setItem('carga', JSON.stringify(this.envases));
   };
 

@@ -15,14 +15,14 @@ export class MainComponent implements OnInit {
 
   public cargaExist: boolean = false;
   public tipoEnvase: any;
-  private nombreEnvase!: string;
   public envases: any;
+
+  private nombreEnvase: any;
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  private device!: BluetoothDevice;
-
-  private popupWin: Window | null = null;
+  private printCharacteristic: any;
+  private cargaToPrint: any;
 
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
@@ -32,55 +32,66 @@ export class MainComponent implements OnInit {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       if (envases.length > 0) {
         this.cargaExist = true;
-        this.notificacionPush();
       } else {
         this.cargaExist = false;
       }
     });
   }
 
-  generateDynamicHTML = async () => {
-    await navigator.bluetooth
-      .requestDevice({ acceptAllDevices: true })
-      .then((device) => {
-        this.toastService.setToastState(
-          true,
-          BluetoothUUID.getService(this.device.name!)
-        );
-
-        this.device = device;
-      })
-      .catch((error) => {
-        this.toastService.setToastState(true, error);
+  generateMessageToPrint = () => {
+    this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
+      envases.forEach((envase) => {
+        this.cargaToPrint += `${envase.cardEnvase.nombre} ${envase.cardEnvase.tipo} | ${envase.cardEnvase.cantidad}u\n`;
       });
+    });
 
-    this.print();
+    this.sendTextData();
   };
 
   print = () => {
-    // let printable = document.getElementById('CargaEnvasesImprimir')?.innerHTML;
+    if (this.printCharacteristic == null) {
+      navigator.bluetooth
+        .requestDevice({
+          filters: [
+            {
+              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+            },
+          ],
+        })
+        .then((device) => {
+          console.log('Found ' + device.name);
+          console.log('Connecting to GATT Server...');
+          return device?.gatt?.connect();
+        })
+        .then((server) =>
+          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+        )
+        .then((service) =>
+          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+        )
+        .then((characteristic) => {
+          // Cache the characteristic
+          this.printCharacteristic = characteristic;
+          this.generateMessageToPrint();
+        })
+        .catch(() =>
+          this.toastService.setToastState(true, 'Error Imprimiendo')
+        );
+    } else {
+      this.generateMessageToPrint();
+    }
+  };
 
-    // this.popupWin = window.open('', '_blank');
-    // this.popupWin!.document.write(
-    //   '<html><head><title>Imprimir</title></head><body styles="width=600px;height=auto">'
-    // );
-    // this.popupWin!.document.write(printable!);
-    // this.popupWin!.document.write('</body></html>');
-
-    // this.popupWin!.onload! = () => {
-    //   this.popupWin?.print();
-    //   this.popupWin?.close();
-    // };
-
-    let dynHtml =
-      "print://escpos.org/escpos/bt/print/?srcTp=uri&srcObj=html&src='data:text/html,";
-    dynHtml +=
-      "<h1 style='text-align:center'>PRINTING DYNAMICALLY GENERATED HTML</h1>";
-    dynHtml += "'";
-
-    const enlace = document.createElement('a');
-    enlace.href = dynHtml
-    enlace.click();
+  sendTextData = () => {
+    // Get the bytes for the text
+    let encoder = new TextEncoder();
+    // Add line feed + carriage return chars to text
+    // let text = encoder.encode(HTMLDataListElement<message> + '\u000A\u000D');
+    let text = encoder.encode(this.cargaToPrint + '\u000A\u000D');
+    return this.printCharacteristic.writeValue(text).then(() => {
+      console.log('Write done.');
+      console.log(text);
+    });
   };
 
   notificacionPush = (): void => {
