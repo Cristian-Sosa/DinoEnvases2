@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
   generateMessageToPrint = () => {
     this.cargaToPrint = `SUPER MAMI ${this.authService.getSucursal()}\n`;
     this.cargaToPrint += `VALE PARA ENVASE\n`;
-    this.cargaToPrint += `VALIDO POR EL DÍA DE EMISION\n\n`;
+    this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
     this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
@@ -128,8 +128,8 @@ export class MainComponent implements OnInit {
 
     // Envía cada trozo por separado
     chunks
-      .reduce((prevPromise, chunk) => {
-        return prevPromise.then(() => {
+      .reduce(async(prevPromise, chunk) => {
+        await prevPromise.then(() => {
           return this.printCharacteristic.writeValue(encoder.encode(chunk));
         });
       }, Promise.resolve())
