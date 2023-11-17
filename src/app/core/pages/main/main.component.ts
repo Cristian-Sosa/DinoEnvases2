@@ -43,6 +43,7 @@ export class MainComponent implements OnInit {
     this.cargaToPrint = `Fecha: ${new Date()} \n Guardia: ${this.authService.getUsuarioLogged()} \n Sucursal: ${this.authService.getSucursal()} \n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
+        console.log(envase)
         this.cargaToPrint += `${envase.cardEnvase.nombre} ${envase.cardEnvase.tipo} x ${envase.cardEnvase.cantidad}u \n \n `;
       });
 
