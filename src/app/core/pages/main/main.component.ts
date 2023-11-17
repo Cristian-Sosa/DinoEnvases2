@@ -95,7 +95,7 @@ export class MainComponent implements OnInit {
   };
 
   printImage() {
-    this.http.get('https://www.dinoonline.com.ar/super/images/logo-super-mami.png', { responseType: 'blob' })
+    this.http.get('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJrau1JYGjkbcnZKJ9KmvBYtdrDlx6etC0yQ&usqp=CAU', { responseType: 'blob' })
       .subscribe((blob: Blob) => {
         this.printBlob(blob);
       });
