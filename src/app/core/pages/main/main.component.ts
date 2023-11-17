@@ -47,7 +47,6 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
 
       envases.forEach((envase) => {
-        console.log(envase);
         this.cargaToPrint += `${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } ${
@@ -57,7 +56,7 @@ export class MainComponent implements OnInit {
         } x${envase.cardEnvase.cantidad}u\n`;
       });
 
-      this.cargaToPrint += `\n\n\n`;
+      this.cargaToPrint += `\n`;
 
       this.cargaToPrint += `N° PV: \n`;
       this.cargaToPrint += `N° Ticket: \n\n`;
