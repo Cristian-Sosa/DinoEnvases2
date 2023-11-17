@@ -56,7 +56,7 @@ export class MainComponent implements OnInit {
         }u\n`;
       });
     });
-    this.sendTextData(this.imagenSuperMami)
+    this.printImage();
     this.sendTextData(this.cargaToPrint);
   };
 
