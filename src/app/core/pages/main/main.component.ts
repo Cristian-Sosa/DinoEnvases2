@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import 'web-bluetooth';
@@ -12,7 +11,6 @@ export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
   private toastService = inject(ToastService);
   private authService = inject(AuthService);
-  private http = inject(HttpClient);
 
   public showModal: string = 'none';
 
@@ -26,8 +24,6 @@ export class MainComponent implements OnInit {
 
   private printCharacteristic: any;
   private cargaToPrint: any;
-
-  private imagenSuperMami: string = ``;
 
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
@@ -44,8 +40,10 @@ export class MainComponent implements OnInit {
   }
 
   generateMessageToPrint = () => {
-    this.cargaToPrint = `${this.imagenSuperMami}\n\n`;
-    this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\nSucursal: ${this.authService.getSucursal()}\n \n`;
+    this.cargaToPrint = `SUPER MAMI ${this.authService.getSucursal()}\n`;
+    this.cargaToPrint = `VALE PARA ENVASE\n`;
+    this.cargaToPrint = `VALIDO POR EL DÍA DE EMISION\n\n`;
+    this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
         console.log(envase);
@@ -55,8 +53,13 @@ export class MainComponent implements OnInit {
           envase.cardEnvase.cantidad
         }u\n`;
       });
+
+      this.cargaToPrint += `\n\n\n`;
+      
+      this.cargaToPrint += `N° PV: \n`;
+      this.cargaToPrint += `N° Ticket: \n`;
     });
-    this.printImage();
+    // this.printImage();
     this.sendTextData(this.cargaToPrint);
   };
 
@@ -94,21 +97,21 @@ export class MainComponent implements OnInit {
     }
   };
 
-  printImage() {
-    this.http.get('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJrau1JYGjkbcnZKJ9KmvBYtdrDlx6etC0yQ&usqp=CAU', { responseType: 'blob' })
-      .subscribe((blob: Blob) => {
-        this.printBlob(blob);
-      });
-  }
+  // printImage() {
+  //   this.http.get('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJrau1JYGjkbcnZKJ9KmvBYtdrDlx6etC0yQ&usqp=CAU', { responseType: 'blob' })
+  //     .subscribe((blob: Blob) => {
+  //       this.printBlob(blob);
+  //     });
+  // }
 
-  printBlob(blob: Blob) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageContent = reader.result as string;
-      this.sendTextData(imageContent);
-    };
-    reader.readAsDataURL(blob);
-  }
+  // printBlob(blob: Blob) {
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     const imageContent = reader.result as string;
+  //     this.sendTextData(imageContent);
+  //   };
+  //   reader.readAsDataURL(blob);
+  // }
 
   sendTextData = (value: any) => {
     const encoder = new TextEncoder();
