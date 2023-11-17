@@ -44,7 +44,7 @@ export class MainComponent implements OnInit {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
         console.log(envase)
-        this.cargaToPrint += `${envase.cardEnvase.nombre} ${envase.cardEnvase.tipo} x ${envase.cardEnvase.cantidad}u \n \n `;
+        this.cargaToPrint += `${envase.cardEnvase.nombre ? envase.cardEnvase.nombre : ''} ${envase.cardEnvase.tipo} x ${envase.cardEnvase.cantidad}u \n \n `;
       });
 
     this.cargaToPrint += '\n \n \n'
