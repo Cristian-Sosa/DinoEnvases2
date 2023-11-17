@@ -58,8 +58,8 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `\n`;
 
-      this.cargaToPrint += `N° PV: \n`;
-      this.cargaToPrint += `N° Ticket: \n\n`;
+      this.cargaToPrint += `Nro PV: \n`;
+      this.cargaToPrint += `Nro Ticket: \n\n`;
       // this.printImage();
       this.sendTextData();
     });
