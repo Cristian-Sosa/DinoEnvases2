@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CargaEnvaseService, ToastService } from 'src/app/shared';
+import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import 'web-bluetooth';
 
 @Component({
@@ -10,6 +10,7 @@ import 'web-bluetooth';
 export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
   private toastService = inject(ToastService);
+  private authService = inject(AuthService);
 
   public showModal: string = 'none';
 
@@ -39,10 +40,13 @@ export class MainComponent implements OnInit {
   }
 
   generateMessageToPrint = () => {
+    this.cargaToPrint = `Fecha: ${new Date()} \n Guardia: ${this.authService.getUsuarioLogged()} \n Sucursal: ${this.authService.getSucursal()} \n \n`;
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
-        this.cargaToPrint += `${envase.cardEnvase.nombre} ${envase.cardEnvase.tipo} | ${envase.cardEnvase.cantidad}u\n`;
+        this.cargaToPrint += `${envase.cardEnvase.nombre} ${envase.cardEnvase.tipo} x ${envase.cardEnvase.cantidad}u \n \n `;
       });
+
+    this.cargaToPrint += '\n \n \n'
     });
 
     this.sendTextData();
@@ -83,14 +87,11 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = () => {
-    // Get the bytes for the text
     let encoder = new TextEncoder();
-    // Add line feed + carriage return chars to text
-    // let text = encoder.encode(HTMLDataListElement<message> + '\u000A\u000D');
     let text = encoder.encode(this.cargaToPrint + '\u000A\u000D');
+
     return this.printCharacteristic.writeValue(text).then(() => {
-      console.log('Write done.');
-      console.log(text);
+      this.toastService.setToastState(true, 'Vale impreso');
     });
   };
 

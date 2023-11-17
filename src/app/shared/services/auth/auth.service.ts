@@ -39,4 +39,8 @@ export class AuthService {
       return false;
     }
   };
+
+  getUsuarioLogged = (): string => this.usuario?.Usuario!
+  
+  getSucursal = (): string => this.usuario?.Sucursal!
 }
