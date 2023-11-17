@@ -62,7 +62,7 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `N° PV: \n`;
       this.cargaToPrint += `N° Ticket: \n\n`;
       // this.printImage();
-      this.sendTextData(this.cargaToPrint);
+      this.sendTextData();
     });
   };
 
@@ -117,9 +117,9 @@ export class MainComponent implements OnInit {
   //   reader.readAsDataURL(blob);
   // }
 
-  sendTextData = (value: any) => {
+  sendTextData = () => {
     const encoder = new TextEncoder();
-    const cargaToPrint = value + '\u000A\u000D';
+    const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     const chunkSize = 512;
     const chunks = [];
 
@@ -137,9 +137,11 @@ export class MainComponent implements OnInit {
       }, Promise.resolve())
       .then(() => {
         this.toastService.setToastState(true, 'Vale impreso');
+        this.cargaToPrint = '';
       })
       .catch((error) => {
         console.error('Error al enviar por trozos:', error);
+        this.cargaToPrint = '';
       });
   };
 
