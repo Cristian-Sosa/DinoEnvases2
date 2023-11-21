@@ -87,20 +87,17 @@ export class MainComponent implements OnInit {
       this.cargaToPrint = `\n\nSUPER MAMI\n`;
       this.cargaToPrint += `VALE PARA ENVASE\n`;
       this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
+
       this.cargaToPrint += `NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
       )}\n`;
       this.cargaToPrint += `Sucursal ${this.authService.getSucursal()}\n`;
-      this.cargaToPrint += `FECHA: ${date.toLocaleString(
-        DateTime.DATETIME_SHORT
-      )}\nGUARDIA: ${this.authService.getUsuarioLogged()}\n\n`;
 
       this.cargaToPrint += `FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
       )}\nGUARDIA: ${this.authService.getUsuarioLogged()}\n\n`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `${Math.floor(1000000 + Math.random() * 9000000)}  `;
         this.cargaToPrint += `${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         }  `;
