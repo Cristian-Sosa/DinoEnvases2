@@ -84,10 +84,10 @@ export class MainComponent implements OnInit {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `<font size='1.5,3'>Texto a imprimir</font>\n`;
-      this.cargaToPrint = `<b>Texto en negrita</b>\n`;
+      this.cargaToPrint = `$big$SUPER MAMI\n`;
+      this.cargaToPrint += `$small$VALE PARA ENVASÉS\n`;
       // this.cargaToPrint = `\nSUPER MAMI\n`;
-      this.cargaToPrint += `VALE PARA ENVASE\n\n`;
+      // this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
       this.cargaToPrint += `NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
