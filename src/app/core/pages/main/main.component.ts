@@ -103,7 +103,7 @@ export class MainComponent implements OnInit {
         this.cargaToPrint += `${Math.floor(1000000 + Math.random() * 9000000)}  `;
         this.cargaToPrint += `${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
-        }`;
+        }  `;
 
         this.cargaToPrint += `${
           envase.cardEnvase.tipo != envase.cardEnvase.nombre
