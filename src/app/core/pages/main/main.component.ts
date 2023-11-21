@@ -128,6 +128,8 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `$intro$$intro$$cutt$`;
 
       this.sendTextData();
+
+      console.log(this.cargaToPrint)
     });
   };
 
