@@ -94,22 +94,25 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
-      )}$intro$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
+      )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `$big$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
-        }  `;
+        } `;
 
         this.cargaToPrint += `${
           envase.cardEnvase.tipo.toUpperCase() != envase.cardEnvase.nombre.toUpperCase()
             ? envase.cardEnvase.tipo.toUpperCase()
             : ''
-        }  `;
+        } `;
         this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
       });
 
-      this.cargaToPrint += `$intro$`;
+      this.cargaToPrint += `$intro$$intro$`;
+      this.cargaToPrint += `$small$ -----------------------------$intro$`;
+      this.cargaToPrint += `$small$ ----Válido solo en el día----$intro$`;
+      this.cargaToPrint += `$small$ -----------------------------$intro$$intro$`;
 
       this.cargaToPrint += `$big$NRO PV: $intro$`;
       this.cargaToPrint += `$big$NRO TICKET: $intro$$intro$$intro$`;
