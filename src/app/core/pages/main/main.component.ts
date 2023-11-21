@@ -84,13 +84,13 @@ export class MainComponent implements OnInit {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `SUPER MAMI 2` + '\x1B\x21\x00\n';
+      this.cargaToPrint = `$big$SUPER MAMI 2$intro$`;
       // this.cargaToPrint = `\nSUPER MAMI\n`;
       // this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
       this.cargaToPrint += `NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
-      )}\n`;
+      )}$intro$`;
       this.cargaToPrint += `Sucursal: ${this.authService.getSucursal()}\n`;
 
       this.cargaToPrint += `FECHA: ${date.toLocaleString(
@@ -120,9 +120,6 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = async () => {
-    // const encoder = new TextEncoder();
-    // await this.printCharacteristic.writeValue(encoder.encode(base64Image))
-
     const encoder2 = new TextEncoder();
     const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     const chunkSize = 512;
