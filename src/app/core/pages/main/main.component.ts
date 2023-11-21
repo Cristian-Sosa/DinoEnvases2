@@ -25,6 +25,8 @@ export class MainComponent implements OnInit {
   private printCharacteristic: any;
   private cargaToPrint: any;
 
+  private bluetooth = (navigator as any).bluetooth;
+
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -38,6 +40,75 @@ export class MainComponent implements OnInit {
       }
     });
   }
+
+  print = async (): Promise<any> => {
+    try {
+      this.printCharacteristic = await this.connectToBluetooth();
+      await this.generateMessageToPrint();
+      this.toastService.setToastState(true, 'Vale impreso');
+      this.cargaToPrint = '';
+    } catch (error) {
+      console.error('Error al imprimir:', error);
+      this.toastService.setToastState(true, 'Error Imprimiendo');
+      this.cargaToPrint = '';
+    }
+  };
+
+  connectToBluetooth = async (): Promise<any> => {
+    if (!('bluetooth' in navigator)) {
+      throw new Error('Bluetooth no está disponible en este navegador.');
+    }
+    try {
+      const device = await this.bluetooth.requestDevice({
+        filters: [{ services: ['000018f0-0000-1000-8000-00805f9b34fb'] }],
+      });
+
+      console.log('Found ' + device.name);
+      console.log('Connecting to GATT Server...');
+      const server = await device.gatt?.connect();
+      return await server
+        ?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+        ?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb');
+    } catch (error) {
+      this.toastService.setToastState(true, 'Error al conectar con Bluetooth');
+    }
+  };
+
+  // print = () => {
+  //   this.printCharacteristic = null;
+
+  //   if (this.printCharacteristic == null) {
+  //     this.bluetooth
+  //       .requestDevice({
+  //         filters: [
+  //           {
+  //             services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+  //           },
+  //         ],
+  //       })
+  //       .then((device: any) => {
+  //         console.log('Found ' + device.name);
+  //         console.log('Connecting to GATT Server...');
+  //         return device?.gatt?.connect();
+  //       })
+  //       .then((server: any) =>
+  //         server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+  //       )
+  //       .then((service: any) =>
+  //         service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+  //       )
+  //       .then((characteristic: any) => {
+  //         // Cache the characteristic
+  //         this.printCharacteristic = characteristic;
+  //         this.generateMessageToPrint();
+  //       })
+  //       .catch(() =>
+  //         this.toastService.setToastState(true, 'Error Imprimiendo')
+  //       );
+  //   } else {
+  //     this.generateMessageToPrint();
+  //   }
+  // };
 
   generateMessageToPrint = async () => {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
@@ -60,89 +131,20 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `Nro PV: \n`;
       this.cargaToPrint += `Nro Ticket: \n\n`;
-      // this.printImage();
       this.sendTextData();
     });
   };
 
-  print = () => {
-    this.printCharacteristic = null;
-    if (this.printCharacteristic == null) {
-      navigator.bluetooth
-        .requestDevice({
-          filters: [
-            {
-              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-            },
-          ],
-        })
-        .then((device) => {
-          console.log('Found ' + device.name);
-          console.log('Connecting to GATT Server...');
-          return device?.gatt?.connect();
-        })
-        .then((server) =>
-          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-        )
-        .then((service) =>
-          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-        )
-        .then((characteristic) => {
-          // Cache the characteristic
-          this.printCharacteristic = characteristic;
-          this.generateMessageToPrint();
-        })
-        .catch(() =>
-          this.toastService.setToastState(true, 'Error Imprimiendo')
-        );
-    } else {
-      this.generateMessageToPrint();
-    }
-  };
-
-  // printImage() {
-  //   this.http.get('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJrau1JYGjkbcnZKJ9KmvBYtdrDlx6etC0yQ&usqp=CAU', { responseType: 'blob' })
-  //     .subscribe((blob: Blob) => {
-  //       this.printBlob(blob);
-  //     });
-  // }
-
-  // printBlob(blob: Blob) {
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     const imageContent = reader.result as string;
-  //     this.sendTextData(imageContent);
-  //   };
-  //   reader.readAsDataURL(blob);
-  // }
-
-  sendTextData = () => {
+  async sendTextData() {
     const encoder = new TextEncoder();
     const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     const chunkSize = 512;
-    const chunks = [];
 
-    // Divide la cargaToPrint en trozos más pequeños
     for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
-      chunks.push(cargaToPrint.slice(i, i + chunkSize));
+      const chunk = cargaToPrint.slice(i, i + chunkSize);
+      await this.printCharacteristic.writeValue(encoder.encode(chunk));
     }
-
-    // Envía cada trozo por separado
-    chunks
-      .reduce(async (prevPromise, chunk) => {
-        await prevPromise.then(() => {
-          return this.printCharacteristic.writeValue(encoder.encode(chunk));
-        });
-      }, Promise.resolve())
-      .then(() => {
-        this.toastService.setToastState(true, 'Vale impreso');
-        this.cargaToPrint = '';
-      })
-      .catch((error) => {
-        console.error('Error al enviar por trozos:', error);
-        this.cargaToPrint = '';
-      });
-  };
+  }
 
   notificacionPush = (): void => {
     navigator.serviceWorker
