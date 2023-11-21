@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  // private printCharacteristic: any;
+  private printCharacteristic: any;
   private cargaToPrint: any;
 
   private bluetooth = (navigator as any).bluetooth;
@@ -42,37 +42,34 @@ export class MainComponent implements OnInit {
   }
 
   print = (): void => {
-    // this.printCharacteristic = null;
+    this.printCharacteristic = null;
 
-    // if (this.printCharacteristic == null) {
-    if (false) {
-      // this.bluetooth
-      //   .requestDevice({
-      //     filters: [
-      //       {
-      //         services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-      //       },
-      //     ],
-      //   })
-      //   .then((device: any) => {
-      //     console.log('Found ' + device.name);
-      //     console.log('Connecting to GATT Server...');
-      //     return device?.gatt?.connect();
-      //   })
-      //   .then((server: any) =>
-      //     server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-      //   )
-      //   .then((service: any) =>
-      //     service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-      //   )
-      //   .then((characteristic: any) => {
-      //     // Cache the characteristic
-      //     this.printCharacteristic = characteristic;
-      //     this.generateMessageToPrint();
-      //   })
-      //   .catch(() =>
-      //     this.toastService.setToastState(true, 'Error Imprimiendo')
-      //   );
+    if (this.printCharacteristic == null) {
+      this.bluetooth
+        .requestDevice({
+          filters: [
+            {
+              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+            },
+          ],
+        })
+        .then((device: any) => {
+          console.log('Conectando a ' + device.name);
+          return device?.gatt?.connect();
+        })
+        .then((server: any) =>
+          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+        )
+        .then((service: any) =>
+          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+        )
+        .then((characteristic: any) => {
+          this.printCharacteristic = characteristic;
+          this.generateMessageToPrint();
+        })
+        .catch(() =>
+          this.toastService.setToastState(true, 'Error Imprimiendo')
+        );
     } else {
       this.generateMessageToPrint();
     }
