@@ -41,74 +41,41 @@ export class MainComponent implements OnInit {
     });
   }
 
-  print = async (): Promise<any> => {
-    try {
-      this.printCharacteristic = await this.connectToBluetooth();
-      await this.generateMessageToPrint();
-      this.toastService.setToastState(true, 'Vale impreso');
-      this.cargaToPrint = '';
-    } catch (error) {
-      console.error('Error al imprimir:', error);
-      this.toastService.setToastState(true, 'Error Imprimiendo');
-      this.cargaToPrint = '';
+  print = () => {
+    this.printCharacteristic = null;
+
+    if (this.printCharacteristic == null) {
+      this.bluetooth
+        .requestDevice({
+          filters: [
+            {
+              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+            },
+          ],
+        })
+        .then((device: any) => {
+          console.log('Found ' + device.name);
+          console.log('Connecting to GATT Server...');
+          return device?.gatt?.connect();
+        })
+        .then((server: any) =>
+          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+        )
+        .then((service: any) =>
+          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+        )
+        .then((characteristic: any) => {
+          // Cache the characteristic
+          this.printCharacteristic = characteristic;
+          this.generateMessageToPrint();
+        })
+        .catch(() =>
+          this.toastService.setToastState(true, 'Error Imprimiendo')
+        );
+    } else {
+      this.generateMessageToPrint();
     }
   };
-
-  connectToBluetooth = async (): Promise<any> => {
-    if (!('bluetooth' in navigator)) {
-      throw new Error('Bluetooth no está disponible en este navegador.');
-    }
-    try {
-      const device = await this.bluetooth.requestDevice({
-        filters: [{ services: ['000018f0-0000-1000-8000-00805f9b34fb'] }],
-      });
-
-      console.log('Found ' + device.name);
-      console.log('Connecting to GATT Server...');
-      const printCharacteristic = await device.gatt?.connect();
-      return await printCharacteristic
-        ?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-        ?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb');
-    } catch (error) {
-      this.toastService.setToastState(true, 'Error al conectar con Bluetooth');
-    }
-  };
-
-  // print = () => {
-  //   this.printCharacteristic = null;
-
-  //   if (this.printCharacteristic == null) {
-  //     this.bluetooth
-  //       .requestDevice({
-  //         filters: [
-  //           {
-  //             services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-  //           },
-  //         ],
-  //       })
-  //       .then((device: any) => {
-  //         console.log('Found ' + device.name);
-  //         console.log('Connecting to GATT Server...');
-  //         return device?.gatt?.connect();
-  //       })
-  //       .then((server: any) =>
-  //         server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-  //       )
-  //       .then((service: any) =>
-  //         service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-  //       )
-  //       .then((characteristic: any) => {
-  //         // Cache the characteristic
-  //         this.printCharacteristic = characteristic;
-  //         this.generateMessageToPrint();
-  //       })
-  //       .catch(() =>
-  //         this.toastService.setToastState(true, 'Error Imprimiendo')
-  //       );
-  //   } else {
-  //     this.generateMessageToPrint();
-  //   }
-  // };
 
   generateMessageToPrint = async () => {
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
