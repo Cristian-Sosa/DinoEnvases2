@@ -31,8 +31,8 @@ export class CargaEnvaseService {
         ],
         cajones: [
           { value: 'coca-cola', description: 'Coca Cola' },
-          { value: 'cia-verde', description: 'Ind. Cervecera (Verde)' },
-          { value: 'cia-marron', description: 'Ind. Cervecera (Marron)' },
+          { value: 'cia-verde', description: 'Cervecera (Verde)' },
+          { value: 'cia-marron', description: 'Cervecera (Marron)' },
           { value: 'quilmes-verde', description: 'Quilmes (Verde)' },
           { value: 'quilmes-marron', description: 'Quilmes (Marron)' },
           { value: 'quilmes-340', description: 'Quilmes 340' },

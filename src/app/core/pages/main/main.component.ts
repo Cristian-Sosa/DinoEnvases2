@@ -96,10 +96,10 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
-      this.cargaToPrint += `$small$Detalle de carga:$intro$`;
+      this.cargaToPrint += `$big$Detalle de carga:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$small$${
+        this.cargaToPrint += `$big$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } `;
 
@@ -113,13 +113,13 @@ export class MainComponent implements OnInit {
       });
 
       this.cargaToPrint += `$intro$`;
-      this.cargaToPrint += `$small$ ------------------------------------------$intro$`;
-      this.cargaToPrint += `$small$ --------- Válido solo en el dia --------$intro$`;
-      this.cargaToPrint += `$small$ ------------------------------------------$intro$$intro$`;
+      this.cargaToPrint += `$small$ -----------------------------------------$intro$`;
+      this.cargaToPrint += `$small$ ------ Valido por el dia de emision -----$intro$`;
+      this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
 
       this.cargaToPrint += `$big$NRO PV: $intro$`;
       this.cargaToPrint += `$big$NRO TICKET: $intro$`;
-      this.cargaToPrint += `$cut$`;
+      this.cargaToPrint += `$intro$$intro$$cutt$`;
 
       this.sendTextData();
     });
