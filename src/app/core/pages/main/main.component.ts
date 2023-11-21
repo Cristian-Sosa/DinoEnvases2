@@ -91,12 +91,14 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
-      this.cargaToPrint += `$big$ ------ DETALLE DE CARGA ------$intro$`;
-
+      this.cargaToPrint += `$big$------ DETALLE DE CARGA ------$intro$`;
+      this.cargaToPrint += `$small$ COD.        DESC.                  CANT.$intro$`
       // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$big$${
+        this.cargaToPrint += `$small$${Math.floor(
+          1000000 + Math.random() * 9000000
+        )}  ${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } `;
 
@@ -105,7 +107,7 @@ export class MainComponent implements OnInit {
           envase.cardEnvase.nombre.toUpperCase()
             ? envase.cardEnvase.tipo.toUpperCase()
             : ''
-        } `;
+        }    `;
         this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
       });
 
