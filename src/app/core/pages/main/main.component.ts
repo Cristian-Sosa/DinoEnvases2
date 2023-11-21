@@ -97,7 +97,7 @@ export class MainComponent implements OnInit {
 
       envases.forEach((envase) => {
         this.cargaToPrint += `$small$${Math.floor(1000000 + Math.random() * 9000000)}`;
-        
+
         let nombreLength: number = 0;
         if (
           envase.cardEnvase.nombre &&
@@ -105,12 +105,12 @@ export class MainComponent implements OnInit {
         ) {
           nombreLength = envase.cardEnvase.nombre
             .concat(envase.cardEnvase.tipo)
-            .length();
+            .length;
           this.cargaToPrint += envase.cardEnvase.nombre.concat(
             envase.cardEnvase.tipo
           );
         } else {
-          nombreLength = envase.cardEnvase.nombre.length();
+          nombreLength = envase.cardEnvase.nombre.length;
           this.cargaToPrint += envase.cardEnvase.nombre;
         }
 
