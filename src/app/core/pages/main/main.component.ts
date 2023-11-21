@@ -44,11 +44,11 @@ export class MainComponent implements OnInit {
     });
   }
 
-  print = async (): Promise<void> => {
+  print = (): void => {
     this.printCharacteristic = null;
 
     if (this.printCharacteristic == null) {
-      await this.bluetooth
+      this.bluetooth
         .requestDevice({
           filters: [
             {
@@ -118,7 +118,7 @@ export class MainComponent implements OnInit {
     });
   };
 
-  sendTextData = async (): Promise<void> => {
+  sendTextData = (): void => {
     // const encoder = new TextEncoder();
     // await this.printCharacteristic.writeValue(encoder.encode(base64Image))
 
@@ -128,7 +128,7 @@ export class MainComponent implements OnInit {
 
     for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
       const chunk = cargaToPrint.slice(i, i + chunkSize);
-      await this.printCharacteristic.writeValue(encoder2.encode(chunk));
+      this.printCharacteristic.writeValue(encoder2.encode(chunk));
     }
   };
 
