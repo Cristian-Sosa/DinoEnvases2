@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1700567970049,
+  "timestamp": 1700569020596,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,13 @@
         "ignoreVary": true
       },
       "urls": [
-        "/315.152d52b9c02ae210.js",
+        "/315.f8fe5a00f0f8f21c.js",
         "/favicon.ico",
         "/index.html",
         "/main.4dbf98faa8c91b69.js",
         "/manifest.webmanifest",
         "/polyfills.71f351df1e6a6e7c.js",
-        "/runtime.1bfb1f64b9273530.js",
+        "/runtime.24b3bbd9287e8ff5.js",
         "/styles.6753abd1fa2c3a10.css"
       ],
       "patterns": []
@@ -54,7 +54,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/315.152d52b9c02ae210.js": "fd748c20b906ba7eb0a93ca3d2b16b1627d8b7c7",
+    "/315.f8fe5a00f0f8f21c.js": "ac6aa911ccb49099840d87ef1225611219f762f2",
     "/Ebony-Bold.cf22107714ecfb8a.woff": "a592dbc9ee68e40042da0e4f31f1aece8ab367ed",
     "/Ebony-Light.2daf9aa32f699367.woff": "8f786ebc52a12c0a769e58c82d9acd7506217e85",
     "/Ebony-Regular.843f228b3e7915a0.woff": "48b167e332ca92b538d3b1ef0a04f87544c71ab2",
@@ -74,11 +74,11 @@
     "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
     "/assets/images/super_mami-logo.svg": "a59112294cb975b40bfca7c4c7ccf6bbaf6376ec",
     "/favicon.ico": "04c278dba3e54393c4c980f7fd4dcd43796ef813",
-    "/index.html": "1cff6a48df934cf51e72b579666e0395d905ed27",
+    "/index.html": "0f49658e7683980c21ad8423939fd048699c3389",
     "/main.4dbf98faa8c91b69.js": "aa2c9106e2bf66956229e82ac67be3ce7015b22b",
     "/manifest.webmanifest": "93503702f1877d716e6dfd9a0e92faa41133b1bf",
     "/polyfills.71f351df1e6a6e7c.js": "0af18f1ef5ce199e69aae9a330dae27671eb6afe",
-    "/runtime.1bfb1f64b9273530.js": "7aff20b73547ea673149dd29854bba8339eea4d4",
+    "/runtime.24b3bbd9287e8ff5.js": "c532b6e9622c91db521b6f04e48527c66ecdc3ee",
     "/styles.6753abd1fa2c3a10.css": "af36db089728977c336d4f2db9d7526bc88512e4"
   },
   "navigationUrls": [
