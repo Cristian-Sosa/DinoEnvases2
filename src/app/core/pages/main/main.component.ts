@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
-import 'web-bluetooth';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-main',
@@ -84,12 +84,14 @@ export class MainComponent implements OnInit {
     const base64Image = `data:image/octet-stream;base64,UklGRr4FAABXRUJQVlA4WAoAAAAgAAAAiAEAfwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg0AMAALAyAJ0BKokBgAA//f7/f7+8v7Is9Suz8D+JZ27dCmdaQXaiWg6z/HU3WBl/5Q6FD7RRFhO9Mh3wqc3d2j7RRFhO+vztTEv2+Zp6elBpGKdl9w18kYxFynbme2LgMkdjxPX/lH1jfWrVBoxn5X33acb9j3/WAFG5g9M5e97zewb82AaYdW+xIo6JeHOaqXQr4CSQprp2yAVNTKmrjyR+yeOJkqcPI3F72Y0LpFyK4tpPsCC3p297Eb9jFpTJYEiBAlJp68sNTdPO36aRgYnd3uXBsnJBVRVbmefURdhwbicWFwQHPSP1inILBfETViZktpOu6SNiAAvZUkziox+09mgUMdg/XZwLjuBRmbrQqWuUkBU3NyDi2x16BNM0EvmWkFvh/Nyvzv38JzBUyC4MGKTKaJkfV0sIP2w69bOdUnBZS5CbjbXwETUEOPUNToloKaFZn/06LoHfJlhqgaVqIutduF2gLBL99+bKn/nfgmsi9YKMiu2WgM0TamH9ve8D3yonxF72KM3U6OYfXnkAoc4fwpZ9OC4IjEEARxD90AD+5Woyvf31hVWUUgIjKFDVKyf1RYMFl5oQbA2hAqNWsgvbrWOiWALJKguTpHJqOGLPUzT+nbEdsOGIpLqg6auwI2DmZQGlIu+B7dEN0uhxV/G7Qq21q8iqRj7UeZ5jH+GWcAZBu/vcTzMp2aiqSwzdA9u8kImZMIVM9amBvTc04TBQ9INIGEyzcYMn6aAqHjve/OtVQVV5KzLHbB0Z1hlHcxS9dZtZwgI+fmQjj+tXQLiav5phpQTrUmbDDnR+As9T1DJhKPUuGYa626a00nHTuT0soR3T5GfUbPuJW630A/X4iLkHvdIGBx2NINv3p76e6T5mn5ymKaIZLy0uOp6Uq6il0pCgWEujMsM3dd3cxYTV3Xnm3ADnJ0tbgkNLFGRK6KHnoBxMpTQoJD+oZLs/YvCnzAv8PVuuA+AccX0mCILhINQ6AvzvUVpqpydL6dUW0S1J7xp2Jod1CC07l8IOPllReEgkmiY1vwzfrbYFzDbsBdJs6CDWDEAovwcv9+suXSRaDLxTR8zLrNjTvu9QCa/ICnBXv2nlPeRd4UMYHMUVbVYysmqxnkKicPp7lMqPMELmN2m8sTFetT6M8mgg42DRsnz4sp0T9zNfkEhsV3PrMa0pK+PQjYIC0n2C5Fp9eDGDrNKhU3T9Q+X3kfRKsST8m5uqSJeq4/MSNAmNYuUpr1Jh3WEEXfK0bDOTIoTXVA4ACM8Sutq8R7cbVkWunAAAAB7Dwa+ZKnQcISAAAAA=`;
     console.log('imprimiendo imagen: ', base64Image)
 
+    const date = DateTime.now()
+
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       this.cargaToPrint = `\n${base64Image.toString()}\n\n`;
       this.cargaToPrint = `\n\nSUPER MAMI ${this.authService.getSucursal()}\n`;
       this.cargaToPrint += `VALE PARA ENVASE\n`;
       this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
-      this.cargaToPrint += `Fecha: 17/11/2023\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
+      this.cargaToPrint += `Fecha: ${date.toLocaleString(DateTime.DATETIME_SHORT)}\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `${
