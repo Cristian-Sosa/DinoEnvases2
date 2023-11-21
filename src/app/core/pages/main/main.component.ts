@@ -131,7 +131,7 @@ export class MainComponent implements OnInit {
 
     const a = document.createElement('a');
 
-    a.href = this.cargaToPrint
+    a.href = 'com.fidelier.printfromweb://'.concat(this.cargaToPrint);
     a.click()
     console.log('Petición hecha')
   };
