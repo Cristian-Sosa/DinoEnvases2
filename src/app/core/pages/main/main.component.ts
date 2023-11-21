@@ -91,7 +91,8 @@ export class MainComponent implements OnInit {
       this.cargaToPrint = `\n\nSUPER MAMI ${this.authService.getSucursal()}\n`;
       this.cargaToPrint += `VALE PARA ENVASE\n`;
       this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
-      this.cargaToPrint += `Fecha: ${date.toLocaleString(DateTime.DATETIME_SHORT)}\nGuardia: ${this.authService.getUsuarioLogged()}\n \n`;
+      this.cargaToPrint += `NRO VALE: ${Math.floor(10000000 + Math.random() * 90000000)}\n`;
+      this.cargaToPrint += `FECHA: ${date.toLocaleString(DateTime.DATETIME_SHORT)}\nGUARDIA: ${this.authService.getUsuarioLogged()}\n\n`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `${
@@ -105,8 +106,8 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `\n`;
 
-      this.cargaToPrint += `Nro PV: \n`;
-      this.cargaToPrint += `Nro Ticket: \n\n`;
+      this.cargaToPrint += `NRO PV: \n`;
+      this.cargaToPrint += `NRO TICKET: \n\n`;
       this.sendTextData();
     });
   };
