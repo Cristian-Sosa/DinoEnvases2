@@ -96,7 +96,7 @@ export class MainComponent implements OnInit {
       // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$small$${Math.floor(1000000 + Math.random() * 9000000)}`;
+        this.cargaToPrint += `$small$${Math.floor(1000000 + Math.random() * 9000000)}  `;
 
         let nombreLength: number = 0;
         if (
@@ -106,19 +106,19 @@ export class MainComponent implements OnInit {
           nombreLength = envase.cardEnvase.nombre
             .concat(envase.cardEnvase.tipo)
             .length;
-          this.cargaToPrint += envase.cardEnvase.nombre.concat(
-            envase.cardEnvase.tipo
+          this.cargaToPrint += envase.cardEnvase.nombre.toUpperCase().concat(
+            envase.cardEnvase.tipo.toUpperCase()
           );
         } else {
           nombreLength = envase.cardEnvase.nombre.length;
-          this.cargaToPrint += envase.cardEnvase.nombre;
+          this.cargaToPrint += envase.cardEnvase.nombre.toUpperCase();
         }
 
         for (let i = 0; i < 29 - nombreLength; i++) {
           this.cargaToPrint += ' ';
         }
 
-        this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
+        this.cargaToPrint += `${envase.cardEnvase.cantidad}$intro$`;
       });
 
       this.cargaToPrint += `$intro$`;
