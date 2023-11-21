@@ -96,10 +96,10 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
-      this.cargaToPrint += `$smallhw$Detalle de carga:$intro$`;
+      this.cargaToPrint += `$small$Detalle de carga:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$smallh$${
+        this.cargaToPrint += `$smal$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } `;
 
@@ -114,7 +114,7 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `$intro$`;
       this.cargaToPrint += `$small$ ------------------------------------------$intro$`;
-      this.cargaToPrint += `$small$ --------- Válido solo en el día --------$intro$`;
+      this.cargaToPrint += `$small$ --------- Válido solo en el dia --------$intro$`;
       this.cargaToPrint += `$small$ ------------------------------------------$intro$$intro$`;
 
       this.cargaToPrint += `$big$NRO PV: $intro$`;
