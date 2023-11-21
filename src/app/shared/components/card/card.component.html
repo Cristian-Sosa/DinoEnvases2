@@ -3,11 +3,11 @@
     details: true,
     remove: remove,
     verde: card.tipo == 'Verde',
-    marron: card.tipo == 'Marrón',
+    marron: card.tipo == 'Marron',
     quilmes:card.tipo == 'Quilmes 340',
     drago:card.tipo.includes('Drago'),
     gaseosa:card.tipo.includes('Coca Cola'),
-    cajon:card.tipo.includes('(Verde)') || card.tipo.includes('(Marrón)'),
+    cajon:card.tipo.includes('(Verde)') || card.tipo.includes('(Marron)'),
   }"
 >
   <h4 class="title">{{ card.nombre | titlecase }} {{ card.tipo }}</h4>

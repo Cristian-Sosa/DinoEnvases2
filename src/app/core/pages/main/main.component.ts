@@ -47,7 +47,8 @@ export class MainComponent implements OnInit {
   print = (): void => {
     this.printCharacteristic = null;
 
-    if (this.printCharacteristic == null) {
+    // if (this.printCharacteristic == null) {
+    if (false) {
       this.bluetooth
         .requestDevice({
           filters: [
@@ -117,8 +118,13 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `$small$ ------ Valido por el dia de emision -----$intro$`;
       this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
 
-      this.cargaToPrint += `$big$NRO PV: $intro$`;
-      this.cargaToPrint += `$big$NRO TICKET: $intro$`;
+      // this.cargaToPrint += `$big$NRO PV: $intro$`;
+      // this.cargaToPrint += `$big$NRO TICKET: $intro$`;
+      // this.cargaToPrint += `$intro$$intro$$cutt$`;
+      
+      this.cargaToPrint +=        `-----------------------------------------`
+      this.cargaToPrint += `$small$    PV                      NRO TICKET   $intro$$intro$`;
+      this.cargaToPrint += `$small$____________               ____________`;
       this.cargaToPrint += `$intro$$intro$$cutt$`;
 
       this.sendTextData();

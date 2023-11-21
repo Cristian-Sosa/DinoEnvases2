@@ -21,13 +21,13 @@ export interface IEnvaseTransfer {
     Nombre: 'drago' | 'cerveza' | 'gaseosa' | 'cajon' | '';
     Tipo:
       | 'Verde'
-      | 'Marrón'
+      | 'Marron'
       | 'Quilmes 340'
       | 'Coca Cola'
       | 'Quilmes Verde'
-      | 'Quilmes Marrón'
+      | 'Quilmes Marron'
       | 'CIA Verde'
-      | 'CIA Marrón'
+      | 'CIA Marron'
       | '';
   };
   Unidades: number;
