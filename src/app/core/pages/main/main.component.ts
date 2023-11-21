@@ -85,8 +85,7 @@ export class MainComponent implements OnInit {
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       this.cargaToPrint = `\n\nSUPER MAMI\n`;
-      this.cargaToPrint += `VALE PARA ENVASE\n`;
-      this.cargaToPrint += `VALIDO POR EL DIA DE EMISION\n\n`;
+      this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
       this.cargaToPrint += `NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
@@ -114,11 +113,12 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `NRO PV: \n`;
       this.cargaToPrint += `NRO TICKET: \n\n`;
+
       this.sendTextData();
     });
   };
 
-  sendTextData = (): void => {
+  sendTextData = async () => {
     // const encoder = new TextEncoder();
     // await this.printCharacteristic.writeValue(encoder.encode(base64Image))
 
@@ -128,7 +128,7 @@ export class MainComponent implements OnInit {
 
     for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
       const chunk = cargaToPrint.slice(i, i + chunkSize);
-      this.printCharacteristic.writeValue(encoder2.encode(chunk));
+      await this.printCharacteristic.writeValue(encoder2.encode(chunk));
     }
   };
 
