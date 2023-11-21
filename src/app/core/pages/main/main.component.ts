@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import { DateTime } from 'luxon';
@@ -12,8 +11,6 @@ export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
   private toastService = inject(ToastService);
   private authService = inject(AuthService);
-
-  private http = inject(HttpClient);
 
   public showModal: string = 'none';
 
