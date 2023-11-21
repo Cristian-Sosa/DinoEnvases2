@@ -84,9 +84,8 @@ export class MainComponent implements OnInit {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `$big$SUPER MAMI 2$intro$`;
-      // this.cargaToPrint = `\nSUPER MAMI\n`;
-      // this.cargaToPrint += `VALE PARA ENVASE\n\n`;
+      this.cargaToPrint = `$bighw$SUPER MAMI 2$intro$`;
+      this.cargaToPrint += `$bigw$VALE PARA ENVASE$intro$$intro$`;
 
       this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
@@ -95,10 +94,10 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
-      )}$intro$small$$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
+      )}$intro$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `${
+        this.cargaToPrint += `$big$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         }  `;
 

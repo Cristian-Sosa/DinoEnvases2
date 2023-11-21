@@ -16,12 +16,12 @@ export class CargaEnvaseService {
         { id: 'cerveza', title: 'Cerveza', name: 'envase' },
         { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
         { id: 'drago', title: 'Drago', name: 'envase' },
-        { id: 'cajon', title: 'Cajon', name: 'envase' },
+        { id: 'cajon', title: 'Cajón', name: 'envase' },
       ],
       tipo: {
         cerveza: [
           { value: 'verde', description: 'Verde' },
-          { value: 'marron', description: 'Marron' },
+          { value: 'marron', description: 'Marrón' },
           { value: 'quilmes-340', description: 'Quilmes 340' },
         ],
         gaseosa: [{ value: 'coca-cola', description: 'Coca Cola' }],
@@ -32,9 +32,9 @@ export class CargaEnvaseService {
         cajones: [
           { value: 'coca-cola', description: 'Coca Cola' },
           { value: 'cia-verde', description: 'Ind. Cervecera (Verde)' },
-          { value: 'cia-marron', description: 'Ind. Cervecera (Marron)' },
+          { value: 'cia-marron', description: 'Ind. Cervecera (Marrón)' },
           { value: 'quilmes-verde', description: 'Quilmes (Verde)' },
-          { value: 'quilmes-marron', description: 'Quilmes (Marron)' },
+          { value: 'quilmes-marron', description: 'Quilmes (Marrón)' },
           { value: 'quilmes-340', description: 'Quilmes 340' },
         ],
       },
