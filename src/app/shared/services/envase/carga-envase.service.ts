@@ -16,12 +16,12 @@ export class CargaEnvaseService {
         { id: 'cerveza', title: 'Cerveza', name: 'envase' },
         { id: 'gaseosa', title: 'Gaseosa', name: 'envase' },
         { id: 'drago', title: 'Drago', name: 'envase' },
-        { id: 'cajon', title: 'Cajón', name: 'envase' },
+        { id: 'cajon', title: 'Cajon', name: 'envase' },
       ],
       tipo: {
         cerveza: [
           { value: 'verde', description: 'Verde' },
-          { value: 'marron', description: 'Marrón' },
+          { value: 'marron', description: 'Marron' },
           { value: 'quilmes-340', description: 'Quilmes 340' },
         ],
         gaseosa: [{ value: 'coca-cola', description: 'Coca Cola' }],
@@ -32,9 +32,9 @@ export class CargaEnvaseService {
         cajones: [
           { value: 'coca-cola', description: 'Coca Cola' },
           { value: 'cia-verde', description: 'Ind. Cervecera (Verde)' },
-          { value: 'cia-marron', description: 'Ind. Cervecera (Marrón)' },
+          { value: 'cia-marron', description: 'Ind. Cervecera (Marron)' },
           { value: 'quilmes-verde', description: 'Quilmes (Verde)' },
-          { value: 'quilmes-marron', description: 'Quilmes (Marrón)' },
+          { value: 'quilmes-marron', description: 'Quilmes (Marron)' },
           { value: 'quilmes-340', description: 'Quilmes 340' },
         ],
       },
@@ -119,7 +119,7 @@ export class CargaEnvaseService {
     let propiedadTemp: any = {};
 
     switch (tipo) {
-      case 'Marrón':
+      case 'Marron':
         propiedadTemp = { contenido: this.getContenidoEnvases().cerveza[0] };
         break;
       case 'Verde':

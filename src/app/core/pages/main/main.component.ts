@@ -85,7 +85,7 @@ export class MainComponent implements OnInit {
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
-      this.cargaToPrint += `$big$VALE PARA ENVASE$intro$$intro$`;
+      this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
 
       this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
@@ -96,23 +96,26 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
+      this.cargaToPrint += `$smallhw$Detalle de carga:$intro$`;
+
       envases.forEach((envase) => {
-        this.cargaToPrint += `$big$${
+        this.cargaToPrint += `$smallh$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } `;
 
         this.cargaToPrint += `${
-          envase.cardEnvase.tipo.toUpperCase() != envase.cardEnvase.nombre.toUpperCase()
+          envase.cardEnvase.tipo.toUpperCase() !=
+          envase.cardEnvase.nombre.toUpperCase()
             ? envase.cardEnvase.tipo.toUpperCase()
             : ''
         } `;
         this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
       });
 
-      this.cargaToPrint += `$intro$$intro$`;
-      this.cargaToPrint += `$small$ -----------------------------$intro$`;
-      this.cargaToPrint += `$small$ ----Válido solo en el día----$intro$`;
-      this.cargaToPrint += `$small$ -----------------------------$intro$$intro$`;
+      this.cargaToPrint += `$intro$`;
+      this.cargaToPrint += `$small$ ------------------------------------------$intro$`;
+      this.cargaToPrint += `$small$ --------- Válido solo en el día --------$intro$`;
+      this.cargaToPrint += `$small$ ------------------------------------------$intro$$intro$`;
 
       this.cargaToPrint += `$big$NRO PV: $intro$`;
       this.cargaToPrint += `$big$NRO TICKET: $intro$$intro$$intro$`;
@@ -134,8 +137,8 @@ export class MainComponent implements OnInit {
     const a = document.createElement('a');
 
     a.href = 'com.fidelier.printfromweb://'.concat(this.cargaToPrint);
-    a.click()
-    console.log('Petición hecha')
+    a.click();
+    console.log('Petición hecha');
   };
 
   notificacionPush = (): void => {
