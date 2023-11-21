@@ -65,8 +65,8 @@ export class MainComponent implements OnInit {
 
       console.log('Found ' + device.name);
       console.log('Connecting to GATT Server...');
-      const server = await device.gatt?.connect();
-      return await server
+      const printCharacteristic = await device.gatt?.connect();
+      return await printCharacteristic
         ?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
         ?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb');
     } catch (error) {
