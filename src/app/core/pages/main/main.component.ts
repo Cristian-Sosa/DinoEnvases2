@@ -84,13 +84,14 @@ export class MainComponent implements OnInit {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `\n\nSUPER MAMI\n`;
+      // this.cargaToPrint = `\nSUPER MAMI\n`;
+      this.cargaToPrint = `[C]<u><font size='big'>SUPER MAMI</font></u>\n`;
       this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
       this.cargaToPrint += `NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
       )}\n`;
-      this.cargaToPrint += `Sucursal ${this.authService.getSucursal()}\n`;
+      this.cargaToPrint += `Sucursal: ${this.authService.getSucursal()}\n`;
 
       this.cargaToPrint += `FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
@@ -102,7 +103,7 @@ export class MainComponent implements OnInit {
         }  `;
 
         this.cargaToPrint += `${
-          envase.cardEnvase.tipo != envase.cardEnvase.nombre
+          envase.cardEnvase.tipo.toUpperCase() != envase.cardEnvase.nombre.toUpperCase()
             ? envase.cardEnvase.tipo.toUpperCase()
             : ''
         }  `;
@@ -112,7 +113,7 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `\n`;
 
       this.cargaToPrint += `NRO PV: \n`;
-      this.cargaToPrint += `NRO TICKET: \n\n`;
+      this.cargaToPrint += `NRO TICKET: \n`;
 
       this.sendTextData();
     });
