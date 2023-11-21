@@ -84,7 +84,7 @@ export class MainComponent implements OnInit {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `SUPER MAMI` + '\x1B' + '\x61' + '\x31' + '\n';
+      this.cargaToPrint = `$small$SUPER MAMI$small$` + '\n';
       // this.cargaToPrint = `\nSUPER MAMI\n`;
       // this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
