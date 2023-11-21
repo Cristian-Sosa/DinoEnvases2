@@ -99,7 +99,7 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `$small$Detalle de carga:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$smal$${
+        this.cargaToPrint += `$small$${
           envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
         } `;
 
@@ -118,7 +118,8 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `$small$ ------------------------------------------$intro$$intro$`;
 
       this.cargaToPrint += `$big$NRO PV: $intro$`;
-      this.cargaToPrint += `$big$NRO TICKET: $intro$$intro$$intro$`;
+      this.cargaToPrint += `$big$NRO TICKET: $intro$`;
+      this.cargaToPrint += `$cut$`;
 
       this.sendTextData();
     });
