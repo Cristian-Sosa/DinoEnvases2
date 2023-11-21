@@ -80,7 +80,7 @@ export class MainComponent implements OnInit {
     }
   };
 
-  generateMessageToPrint = async (): Promise<void> => {
+  generateMessageToPrint = (): void => {
     const date = DateTime.now();
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
