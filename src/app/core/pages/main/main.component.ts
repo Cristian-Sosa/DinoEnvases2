@@ -88,14 +88,14 @@ export class MainComponent implements OnInit {
       // this.cargaToPrint = `\nSUPER MAMI\n`;
       // this.cargaToPrint += `VALE PARA ENVASE\n\n`;
 
-      this.cargaToPrint += `NRO VALE: ${Math.floor(
+      this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
         10000000 + Math.random() * 90000000
       )}$intro$`;
-      this.cargaToPrint += `Sucursal: ${this.authService.getSucursal()}\n`;
+      this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
 
-      this.cargaToPrint += `FECHA: ${date.toLocaleString(
+      this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
-      )}\nGUARDIA: ${this.authService.getUsuarioLogged()}\n\n`;
+      )}$intro$small$$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `${
@@ -107,27 +107,33 @@ export class MainComponent implements OnInit {
             ? envase.cardEnvase.tipo.toUpperCase()
             : ''
         }  `;
-        this.cargaToPrint += `x${envase.cardEnvase.cantidad}u\n`;
+        this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
       });
 
-      this.cargaToPrint += `\n`;
+      this.cargaToPrint += `$intro$`;
 
-      this.cargaToPrint += `NRO PV: \n`;
-      this.cargaToPrint += `NRO TICKET: \n`;
+      this.cargaToPrint += `$big$NRO PV: $intro$`;
+      this.cargaToPrint += `$big$NRO TICKET: $intro$$intro$$cutt$`;
 
       this.sendTextData();
     });
   };
 
   sendTextData = async () => {
-    const encoder2 = new TextEncoder();
-    const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
-    const chunkSize = 512;
+    // const encoder2 = new TextEncoder();
+    // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
+    // const chunkSize = 512;
 
-    for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
-      const chunk = cargaToPrint.slice(i, i + chunkSize);
-      await this.printCharacteristic.writeValue(encoder2.encode(chunk));
-    }
+    // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
+    //   const chunk = cargaToPrint.slice(i, i + chunkSize);
+    //   await this.printCharacteristic.writeValue(encoder2.encode(chunk));
+    // }
+
+    const a = document.createElement('a');
+
+    a.href = this.cargaToPrint
+    a.click()
+    console.log('Petición hecha')
   };
 
   notificacionPush = (): void => {
