@@ -90,31 +90,33 @@ export class MainComponent implements OnInit {
       this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
-
-      this.cargaToPrint += `$big$------ DETALLE DE CARGA -------$intro$`;
+      
+      this.cargaToPrint += `$small$ ------------ DETALLE DEL VALE -----------$intro$`;
       this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
       // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$small$${Math.floor(1000000 + Math.random() * 9000000)}  `;
+        this.cargaToPrint += `$small$${Math.floor(
+          1000000 + Math.random() * 9000000
+        )}  `;
 
         let nombreLength: number = 0;
         if (
           envase.cardEnvase.nombre &&
           envase.cardEnvase != envase.cardEnvase.tipo
         ) {
-          nombreLength = envase.cardEnvase.nombre
-            .concat(envase.cardEnvase.tipo)
-            .length;
-          this.cargaToPrint += envase.cardEnvase.nombre.toUpperCase().concat(
-            envase.cardEnvase.tipo.toUpperCase()
-          );
+          nombreLength = envase.cardEnvase.nombre.concat(
+            envase.cardEnvase.tipo
+          ).length;
+          this.cargaToPrint += envase.cardEnvase.nombre
+            .toUpperCase()
+            .concat(' ', envase.cardEnvase.tipo.toUpperCase());
         } else {
           nombreLength = envase.cardEnvase.nombre.length;
           this.cargaToPrint += envase.cardEnvase.nombre.toUpperCase();
         }
 
-        for (let i = 0; i < 29 - nombreLength; i++) {
+        for (let i = 0; i < 26 - nombreLength; i++) {
           this.cargaToPrint += ' ';
         }
 
