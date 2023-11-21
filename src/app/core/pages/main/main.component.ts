@@ -91,23 +91,33 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
-      this.cargaToPrint += `$big$------ DETALLE DE CARGA ------$intro$`;
-      this.cargaToPrint += `$small$ COD.        DESC.                  CANT.$intro$`
+      this.cargaToPrint += `$big$------ DETALLE DE CARGA -------$intro$`;
+      this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
       // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
-        this.cargaToPrint += `$small$${Math.floor(
-          1000000 + Math.random() * 9000000
-        )}  ${
-          envase.cardEnvase.nombre ? envase.cardEnvase.nombre.toUpperCase() : ''
-        } `;
+        this.cargaToPrint += `$small$${Math.floor(1000000 + Math.random() * 9000000)}`;
+        
+        let nombreLength: number = 0;
+        if (
+          envase.cardEnvase.nombre &&
+          envase.cardEnvase != envase.cardEnvase.tipo
+        ) {
+          nombreLength = envase.cardEnvase.nombre
+            .concat(envase.cardEnvase.tipo)
+            .length();
+          this.cargaToPrint += envase.cardEnvase.nombre.concat(
+            envase.cardEnvase.tipo
+          );
+        } else {
+          nombreLength = envase.cardEnvase.nombre.length();
+          this.cargaToPrint += envase.cardEnvase.nombre;
+        }
 
-        this.cargaToPrint += `${
-          envase.cardEnvase.tipo.toUpperCase() !=
-          envase.cardEnvase.nombre.toUpperCase()
-            ? envase.cardEnvase.tipo.toUpperCase()
-            : ''
-        }    `;
+        for (let i = 0; i < 29 - nombreLength; i++) {
+          this.cargaToPrint += ' ';
+        }
+
         this.cargaToPrint += `x${envase.cardEnvase.cantidad}u$intro$`;
       });
 
