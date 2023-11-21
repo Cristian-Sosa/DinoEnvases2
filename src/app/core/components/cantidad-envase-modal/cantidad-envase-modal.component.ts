@@ -50,8 +50,6 @@ export class CantidadEnvaseModalComponent {
       setTimeout(() => this.toastService.setToastState(false), 3000);
     } else {
       !tipo ? (tipo = this.tipoEnvase[0].description) : undefined;
-
-      console.log(tipo);
       let obj: any = {
         tipo: tipo,
         cantidad: cantidad,

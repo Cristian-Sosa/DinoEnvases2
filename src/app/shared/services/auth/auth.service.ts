@@ -19,7 +19,7 @@ export class AuthService {
     return this.http.get<any>('urlAPI');
   };
 
-  // Validar formulario auth 
+  // Validar formulario auth
   userValidation = (usuario: IUsuario): boolean => {
     let tempUser: IUsuario | undefined = {
       Usuario: usuario.Usuario,
@@ -29,9 +29,8 @@ export class AuthService {
 
     // this.getUser(usuario).subscribe((res) => (tempUser = res));
 
-    console.error(tempUser)
-
     if (tempUser.Usuario === 'csosa' && tempUser.Password === '123') {
+      localStorage.setItem('userdata', JSON.stringify(tempUser));
       this.usuario = tempUser;
       this._usuario.next(this.usuario);
       return true;
@@ -40,7 +39,11 @@ export class AuthService {
     }
   };
 
-  getUsuarioLogged = (): string => this.usuario?.Usuario!
-  
-  getSucursal = (): string => this.usuario?.Sucursal!
+  clearUser = () => localStorage.removeItem('userdata')
+
+  getDataUser = () => JSON.parse(localStorage.getItem('userdata')!)
+
+  getUsuarioLogged = (): string => this.usuario?.Usuario!;
+
+  getSucursal = (): string => this.usuario?.Sucursal!;
 }

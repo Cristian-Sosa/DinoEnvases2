@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ToastService } from 'src/app/shared';
@@ -9,7 +9,7 @@ import { ISelect, IUsuario } from 'src/app/shared/models';
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.sass'],
 })
-export class AuthPage {
+export class AuthPage implements OnInit{
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
   private router = inject(Router);
@@ -38,6 +38,10 @@ export class AuthPage {
       Validators.nullValidator,
     ]),
   });
+
+  ngOnInit(): void {
+    this.authService.clearUser()
+  }
 
   submitForm = () => {
     let usuario: IUsuario = {

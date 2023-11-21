@@ -25,7 +25,7 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  private printCharacteristic: any;
+  // private printCharacteristic: any;
   private cargaToPrint: any;
 
   private bluetooth = (navigator as any).bluetooth;
@@ -45,37 +45,37 @@ export class MainComponent implements OnInit {
   }
 
   print = (): void => {
-    this.printCharacteristic = null;
+    // this.printCharacteristic = null;
 
     // if (this.printCharacteristic == null) {
     if (false) {
-      this.bluetooth
-        .requestDevice({
-          filters: [
-            {
-              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-            },
-          ],
-        })
-        .then((device: any) => {
-          console.log('Found ' + device.name);
-          console.log('Connecting to GATT Server...');
-          return device?.gatt?.connect();
-        })
-        .then((server: any) =>
-          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-        )
-        .then((service: any) =>
-          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-        )
-        .then((characteristic: any) => {
-          // Cache the characteristic
-          this.printCharacteristic = characteristic;
-          this.generateMessageToPrint();
-        })
-        .catch(() =>
-          this.toastService.setToastState(true, 'Error Imprimiendo')
-        );
+      // this.bluetooth
+      //   .requestDevice({
+      //     filters: [
+      //       {
+      //         services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+      //       },
+      //     ],
+      //   })
+      //   .then((device: any) => {
+      //     console.log('Found ' + device.name);
+      //     console.log('Connecting to GATT Server...');
+      //     return device?.gatt?.connect();
+      //   })
+      //   .then((server: any) =>
+      //     server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+      //   )
+      //   .then((service: any) =>
+      //     service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+      //   )
+      //   .then((characteristic: any) => {
+      //     // Cache the characteristic
+      //     this.printCharacteristic = characteristic;
+      //     this.generateMessageToPrint();
+      //   })
+      //   .catch(() =>
+      //     this.toastService.setToastState(true, 'Error Imprimiendo')
+      //   );
     } else {
       this.generateMessageToPrint();
     }
@@ -97,7 +97,9 @@ export class MainComponent implements OnInit {
         DateTime.DATETIME_SHORT
       )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
 
-      this.cargaToPrint += `$big$Detalle de carga:$intro$`;
+      this.cargaToPrint += `$big$ ------ DETALLE DE CARGA ------$intro$`;
+
+      // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `$big$${
@@ -115,21 +117,14 @@ export class MainComponent implements OnInit {
 
       this.cargaToPrint += `$intro$`;
       this.cargaToPrint += `$small$ -----------------------------------------$intro$`;
-      this.cargaToPrint += `$small$ ------ Valido por el dia de emision -----$intro$`;
+      this.cargaToPrint += `$small$ ------ VALIDO POR EL DIA DE EMISION -----$intro$`;
       this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
 
-      // this.cargaToPrint += `$big$NRO PV: $intro$`;
-      // this.cargaToPrint += `$big$NRO TICKET: $intro$`;
-      // this.cargaToPrint += `$intro$$intro$$cutt$`;
-      
-      this.cargaToPrint +=        `-----------------------------------------`
-      this.cargaToPrint += `$small$    PV                      NRO TICKET   $intro$$intro$`;
-      this.cargaToPrint += `$small$____________               ____________`;
+      this.cargaToPrint += `$big$NRO PV: $intro$`;
+      this.cargaToPrint += `$big$NRO TICKET: $intro$`;
       this.cargaToPrint += `$intro$$intro$$cutt$`;
 
       this.sendTextData();
-
-      console.log(this.cargaToPrint)
     });
   };
 
@@ -147,7 +142,6 @@ export class MainComponent implements OnInit {
 
     a.href = 'com.fidelier.printfromweb://'.concat(this.cargaToPrint);
     a.click();
-    console.log('Petición hecha');
   };
 
   notificacionPush = (): void => {
