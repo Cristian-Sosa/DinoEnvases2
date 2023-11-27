@@ -42,6 +42,8 @@ export class MainComponent implements OnInit {
   }
 
   getPrinter = (): void => {
+    this.printCharacteristic = null;
+    this.cargaToPrint = ''
     this.bluetooth
       .requestDevice({
         filters: [
