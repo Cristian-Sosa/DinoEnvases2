@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
 
   getPrinter = (): void => {
     this.printCharacteristic = null;
-    this.cargaToPrint = ''
+    this.cargaToPrint = '';
     this.bluetooth
       .requestDevice({
         filters: [
@@ -69,8 +69,17 @@ export class MainComponent implements OnInit {
       .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
   };
 
+  createValeId = (): void => {
+    let randomNumber = Math.floor(Math.random() * 9999) + 1;
+    let formattedNumber = randomNumber.toString().padStart(4, '0');
+
+    let formattedDate = DateTime.now().toISODate({ format: 'basic' })
+
+    this.cargaToPrint += `$small$NRO VALE: ${formattedNumber + formattedDate}$intro$`;
+  };
+
   addHeaderToPrint = () => {
-    const date = DateTime.now();
+    let date = DateTime.now();
 
     this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
     this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
@@ -78,6 +87,7 @@ export class MainComponent implements OnInit {
     this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
       10000000 + Math.random() * 90000000
     )}$intro$`;
+
     this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
 
     this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
@@ -86,8 +96,8 @@ export class MainComponent implements OnInit {
   };
 
   addCargaToPrint = (): void => {
-    this.cargaToPrint += `$small$ ------------ DETALLE DEL VALE -----------$intro$`;
-    this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
+    this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
+    this.cargaToPrint += `$small$COD.     DESC.                      CANT.$intro$`;
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
       envases.forEach((envase) => {
@@ -122,9 +132,9 @@ export class MainComponent implements OnInit {
 
   addFooterToprint = (): void => {
     this.cargaToPrint += `$intro$`;
-    this.cargaToPrint += `$small$ -----------------------------------------$intro$`;
-    this.cargaToPrint += `$small$ ------ VALIDO POR EL DIA DE EMISION -----$intro$`;
-    this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
+    this.cargaToPrint += `$small$------------------------------------------$intro$`;
+    this.cargaToPrint += `$small$------- VALIDO POR EL DIA DE EMISION -----$intro$`;
+    this.cargaToPrint += `$small$------------------------------------------$intro$$intro$`;
 
     this.cargaToPrint += `$big$NRO PV: $intro$`;
     this.cargaToPrint += `$big$NRO TICKET: $intro$`;
