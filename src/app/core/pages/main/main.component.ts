@@ -44,30 +44,30 @@ export class MainComponent implements OnInit {
   getPrinter = (): void => {
     this.printCharacteristic = null;
     this.cargaToPrint = '';
-    this.printCarga();
-    // this.bluetooth
-    //   .requestDevice({
-    //     filters: [
-    //       {
-    //         services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-    //       },
-    //     ],
-    //   })
-    //   .then((device: any) => {
-    //     console.log('Conectando a ' + device.name);
-    //     return device?.gatt?.connect();
-    //   })
-    //   .then((server: any) =>
-    //     server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-    //   )
-    //   .then((service: any) =>
-    //     service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-    //   )
-    //   .then((characteristic: any) => {
-    //     this.printCharacteristic = characteristic;
-    //     this.printCarga();
-    //   })
-    //   .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
+
+    this.bluetooth
+      .requestDevice({
+        filters: [
+          {
+            services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+          },
+        ],
+      })
+      .then((device: any) => {
+        console.log('Conectando a ' + device.name);
+        return device?.gatt?.connect();
+      })
+      .then((server: any) =>
+        server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+      )
+      .then((service: any) =>
+        service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+      )
+      .then((characteristic: any) => {
+        this.printCharacteristic = characteristic;
+        this.printCarga();
+      })
+      .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
   };
 
   createValeId = (): void => {
@@ -95,7 +95,7 @@ export class MainComponent implements OnInit {
     this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
       DateTime.DATETIME_SHORT
     )}$intro$`;
-    
+
     this.cargaToPrint += `$small$GUARDIA: ${
       this.authService.getUsuarioLogged()
         ? this.authService.getUsuarioLogged()
