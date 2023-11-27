@@ -148,22 +148,21 @@ export class MainComponent implements OnInit {
     this.cargaToPrint += `$big$NRO TICKET: $intro$`;
     this.cargaToPrint += `$intro$$intro$$cutt$`;
 
-    this.printCarga();
+    this.sendTextData();
   };
 
   printCarga = (): void => {
     this.addHeaderToPrint();
     this.addCargaToPrint();
     this.addFooterToprint();
-    this.sendTextData();
   };
 
   sendTextData = async () => {
-    // Dividir texto en fragmentos para imprimir buffer de 250b
     // const encoder = new TextEncoder();
     // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     // const chunkSize = 512;
-
+    
+    // Dividir texto en fragmentos para imprimir buffer de 250b
     // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
     //   const chunk = cargaToPrint.slice(i, i + chunkSize);
     //   await this.printCharacteristic.writeValue(encoder.encode(chunk));
