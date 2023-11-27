@@ -93,7 +93,6 @@ export class MainComponent implements OnInit {
       
       this.cargaToPrint += `$small$ ------------ DETALLE DEL VALE -----------$intro$`;
       this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
-      // this.cargaToPrint += `$big$DETALLE DE CARGA:$intro$`;
 
       envases.forEach((envase) => {
         this.cargaToPrint += `$small$${Math.floor(
@@ -137,14 +136,14 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = async () => {
-    // const encoder2 = new TextEncoder();
-    // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
-    // const chunkSize = 512;
+    const encoder = new TextEncoder();
+    const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
+    const chunkSize = 512;
 
-    // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
-    //   const chunk = cargaToPrint.slice(i, i + chunkSize);
-    //   await this.printCharacteristic.writeValue(encoder2.encode(chunk));
-    // }
+    for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
+      const chunk = cargaToPrint.slice(i, i + chunkSize);
+      await this.printCharacteristic.writeValue(encoder.encode(chunk));
+    }
 
     const a = document.createElement('a');
 
