@@ -104,7 +104,8 @@ export class MainComponent implements OnInit {
   };
 
   addCargaToPrint = async () => {
-    this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
+    this.cargaToPrint += `$small$------------- &#243;&#243;&#243;&#243; -----------$intro$`;
+    // this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
     this.cargaToPrint += `$small$COD.     DESC.                      CANT.$intro$`;
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
