@@ -44,38 +44,42 @@ export class MainComponent implements OnInit {
   getPrinter = (): void => {
     this.printCharacteristic = null;
     this.cargaToPrint = '';
-    this.bluetooth
-      .requestDevice({
-        filters: [
-          {
-            services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-          },
-        ],
-      })
-      .then((device: any) => {
-        console.log('Conectando a ' + device.name);
-        return device?.gatt?.connect();
-      })
-      .then((server: any) =>
-        server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-      )
-      .then((service: any) =>
-        service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-      )
-      .then((characteristic: any) => {
-        this.printCharacteristic = characteristic;
-        this.printCarga();
-      })
-      .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
+    this.printCarga();
+    // this.bluetooth
+    //   .requestDevice({
+    //     filters: [
+    //       {
+    //         services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+    //       },
+    //     ],
+    //   })
+    //   .then((device: any) => {
+    //     console.log('Conectando a ' + device.name);
+    //     return device?.gatt?.connect();
+    //   })
+    //   .then((server: any) =>
+    //     server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+    //   )
+    //   .then((service: any) =>
+    //     service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+    //   )
+    //   .then((characteristic: any) => {
+    //     this.printCharacteristic = characteristic;
+    //     this.printCarga();
+    //   })
+    //   .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
   };
 
   createValeId = (): void => {
-    let randomNumber = Math.floor(Math.random() * 9999) + 1;
-    let formattedNumber = randomNumber.toString().padStart(4, '0');
+    let randomNumber = Math.floor(Math.random() * 999999) + 1;
+    let formattedNumber: string = randomNumber.toString().padStart(6, '0');
 
-    let formattedDate = DateTime.now().toISODate({ format: 'basic' })
+    let formattedDate: string = DateTime.now().toISODate({ format: 'basic' })!;
 
-    this.cargaToPrint += `$small$NRO VALE: ${formattedNumber + formattedDate}$intro$`;
+    this.cargaToPrint += `$small$NRO VALE: ${formattedNumber.concat(
+      '-',
+      formattedDate
+    )}$intro$`;
   };
 
   addHeaderToPrint = () => {
@@ -84,15 +88,19 @@ export class MainComponent implements OnInit {
     this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
     this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
 
-    this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
-      10000000 + Math.random() * 90000000
-    )}$intro$`;
+    this.createValeId();
 
     this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
 
     this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
       DateTime.DATETIME_SHORT
-    )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
+    )}$intro$`;
+    
+    this.cargaToPrint += `$small$GUARDIA: ${
+      this.authService.getUsuarioLogged()
+        ? this.authService.getUsuarioLogged()
+        : this.authService.getSucursal()
+    }$intro$$intro$`;
   };
 
   addCargaToPrint = (): void => {
@@ -140,7 +148,7 @@ export class MainComponent implements OnInit {
     this.cargaToPrint += `$big$NRO TICKET: $intro$`;
     this.cargaToPrint += `$intro$$intro$$cutt$`;
 
-    this.sendTextData();
+    this.printCarga();
   };
 
   printCarga = (): void => {
