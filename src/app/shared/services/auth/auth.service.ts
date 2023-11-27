@@ -30,7 +30,7 @@ export class AuthService {
     // this.getUser(usuario).subscribe((res) => (tempUser = res));
 
     if (tempUser.Usuario === 'csosa' && tempUser.Password === '123') {
-      localStorage.setItem('userdata', JSON.stringify(tempUser));
+      localStorage.setItem('userData', JSON.stringify(tempUser));
       this.usuario = tempUser;
       this._usuario.next(this.usuario);
       return true;
@@ -39,7 +39,7 @@ export class AuthService {
     }
   };
 
-  clearUser = () => localStorage.removeItem('userdata');
+  clearUser = () => localStorage.removeItem('userData');
 
   getDataUser = (): IUsuario => {
     if (this.usuario) {
