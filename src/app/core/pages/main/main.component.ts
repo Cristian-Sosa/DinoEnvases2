@@ -162,10 +162,81 @@ export class MainComponent implements OnInit {
       '<html><head><title>Imprimir</title></head><body>'
     );
     printWindow!.document.write(`
-    <div id="print-container">
-      <app-print-component></app-print-component>
+    <html>
+    <head>
+      <title>Vale de envases</title>
+      <style type="text/css" media="all">
+        @media print {
+          .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 0px auto;
+            text-align: center;
+          }
+          .tg td {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
+          .tg th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
+          .tg .tg-0lax {
+            text-align: center;
+            vertical-align: top;
+          }
+          .tg .tg-0lax:nth-child(2) {
+            text-align: left;
+          }
+          .tg .tg-0lax:nth-child(3) {
+            text-align: left;
+          }
+          thead tr th.tg-0lax {
+            text-align: center;
+          }
+        }
+      </style>
+    </head>
+    <body onload="window.print();window.close()">
+    <div class="tg-wrap">
+      <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-0lax">Cant.</th>
+            <th class="tg-0lax">Descripción</th>
+            <th class="tg-0lax">Tipo / Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${this.envases.map((item: any) => {
+            return `
+              <tr>
+                <td class="tg-0lax">${item.cardEnvase.cantidad}</td>
+                <td class="tg-0lax">${item.cardEnvase.nombre}</td>
+                <td class="tg-0lax">${item.cardEnvase.tipo}</td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
     </div>
-    <button (click)="printService.print()">Imprimir</button>
+    </body>
+    </html>
   `);
     printWindow!.document.write('</body></html>');
     printWindow!.document.close();
