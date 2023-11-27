@@ -85,7 +85,7 @@ export class MainComponent implements OnInit {
   addHeaderToPrint = async () => {
     let date = DateTime.now();
 
-    this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
+    this.cargaToPrint = `$bighw$SPER MAMI$intro$`;
     this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
 
     this.createValeId();
@@ -104,8 +104,7 @@ export class MainComponent implements OnInit {
   };
 
   addCargaToPrint = async () => {
-    this.cargaToPrint += `$small$------------- &#243;&#243;&#243;&#243; -----------$intro$`;
-    // this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
+    this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
     this.cargaToPrint += `$small$COD.     DESC.                      CANT.$intro$`;
 
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
@@ -158,21 +157,36 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = async () => {
-    // const encoder = new TextEncoder();
-    // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
-    // const chunkSize = 512;
-
-    // Dividir texto en fragmentos para imprimir buffer de 250b
-    // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
-    //   const chunk = cargaToPrint.slice(i, i + chunkSize);
-    //   await this.printCharacteristic.writeValue(encoder.encode(chunk));
-    // }
-
-    const a = document.createElement('a');
-
-    a.href = 'com.fidelier.printfromweb://'.concat(this.cargaToPrint);
-    a.click();
+    const printWindow = window.open('', '_blank');
+    printWindow!.document.write(
+      '<html><head><title>Imprimir</title></head><body>'
+    );
+    printWindow!.document.write(`
+    <div id="print-container">
+      <app-print-component></app-print-component>
+    </div>
+    <button (click)="printService.print()">Imprimir</button>
+  `);
+    printWindow!.document.write('</body></html>');
+    printWindow!.document.close();
+    printWindow!.print();
   };
+  // sendTextData = async () => {
+  //   // const encoder = new TextEncoder();
+  //   // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
+  //   // const chunkSize = 512;
+
+  //   // Dividir texto en fragmentos para imprimir buffer de 250b
+  //   // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
+  //   //   const chunk = cargaToPrint.slice(i, i + chunkSize);
+  //   //   await this.printCharacteristic.writeValue(encoder.encode(chunk));
+  //   // }
+
+  //   const a = document.createElement('a');
+
+  //   a.href = 'com.fidelier.printfromweb://'.concat(this.cargaToPrint);
+  //   a.click();
+  // };
 
   notificacionPush = (): void => {
     navigator.serviceWorker
