@@ -82,7 +82,7 @@ export class MainComponent implements OnInit {
     )}$intro$`;
   };
 
-  addHeaderToPrint = () => {
+  addHeaderToPrint = async () => {
     let date = DateTime.now();
 
     this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
@@ -103,7 +103,7 @@ export class MainComponent implements OnInit {
     }$intro$$intro$`;
   };
 
-  addCargaToPrint = (): void => {
+  addCargaToPrint = async () => {
     this.cargaToPrint += `$small$------------- DETALLE DEL VALE -----------$intro$`;
     this.cargaToPrint += `$small$COD.     DESC.                      CANT.$intro$`;
 
@@ -138,7 +138,7 @@ export class MainComponent implements OnInit {
     });
   };
 
-  addFooterToprint = (): void => {
+  addFooterToprint = async () => {
     this.cargaToPrint += `$intro$`;
     this.cargaToPrint += `$small$------------------------------------------$intro$`;
     this.cargaToPrint += `$small$------- VALIDO POR EL DIA DE EMISION -----$intro$`;
@@ -147,21 +147,20 @@ export class MainComponent implements OnInit {
     this.cargaToPrint += `$big$NRO PV: $intro$`;
     this.cargaToPrint += `$big$NRO TICKET: $intro$`;
     this.cargaToPrint += `$intro$$intro$$cutt$`;
-
-    this.sendTextData();
   };
 
-  printCarga = (): void => {
-    this.addHeaderToPrint();
-    this.addCargaToPrint();
-    this.addFooterToprint();
+  printCarga = async (): Promise<any> => {
+    await this.addHeaderToPrint();
+    await this.addCargaToPrint();
+    await this.addFooterToprint();
+    this.sendTextData();
   };
 
   sendTextData = async () => {
     // const encoder = new TextEncoder();
     // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     // const chunkSize = 512;
-    
+
     // Dividir texto en fragmentos para imprimir buffer de 250b
     // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
     //   const chunk = cargaToPrint.slice(i, i + chunkSize);

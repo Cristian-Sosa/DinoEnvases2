@@ -39,11 +39,32 @@ export class AuthService {
     }
   };
 
-  clearUser = () => localStorage.removeItem('userdata')
+  clearUser = () => localStorage.removeItem('userdata');
 
-  getDataUser = () => JSON.parse(localStorage.getItem('userdata')!)
+  getDataUser = (): IUsuario => {
+    if (this.usuario) {
+      return this.usuario;
+    } else {
+      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
+      return this.usuario!;
+    }
+  };
 
-  getUsuarioLogged = (): string => this.usuario?.Usuario!;
+  getUsuarioLogged = (): string => {
+    if (this.usuario?.Sucursal) {
+      return this.usuario.Usuario;
+    } else {
+      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
+      return this.usuario?.Usuario!;
+    }
+  };
 
-  getSucursal = (): string => this.usuario?.Sucursal!;
+  getSucursal = (): string => {
+    if (this.usuario?.Sucursal) {
+      return this.usuario.Sucursal;
+    } else {
+      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
+      return this.usuario?.Sucursal!;
+    }
+  };
 }
