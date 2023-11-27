@@ -136,14 +136,14 @@ export class MainComponent implements OnInit {
   };
 
   sendTextData = async () => {
-    const encoder = new TextEncoder();
-    const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
-    const chunkSize = 512;
+    // const encoder = new TextEncoder();
+    // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
+    // const chunkSize = 512;
 
-    for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
-      const chunk = cargaToPrint.slice(i, i + chunkSize);
-      await this.printCharacteristic.writeValue(encoder.encode(chunk));
-    }
+    // for (let i = 0; i < cargaToPrint.length; i += chunkSize) {
+    //   const chunk = cargaToPrint.slice(i, i + chunkSize);
+    //   await this.printCharacteristic.writeValue(encoder.encode(chunk));
+    // }
 
     const a = document.createElement('a');
 
