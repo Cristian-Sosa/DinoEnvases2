@@ -2,7 +2,83 @@
   <header class="header"><h2 class="title">Carga actual:</h2></header>
 
   <section class="content">
-    <app-lista-envases></app-lista-envases>
+    <!-- <app-lista-envases></app-lista-envases> -->
+    <head>
+      <style id="stylesToPrint" type="text/css">
+        .tg {
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0px auto;
+        }
+        .tg td {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+        .tg th {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          font-weight: normal;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+        .tg .tg-0pky {
+          border-color: inherit;
+          text-align: left;
+          vertical-align: top;
+        }
+        @media screen and (max-width: 767px) {
+          .tg {
+            width: auto !important;
+          }
+          .tg col {
+            width: auto !important;
+          }
+          .tg-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: auto 0px;
+          }
+        }
+      </style>
+    </head>
+    <div class="tg-wrap" id="printThis">
+      <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-0pky">Cód.</th>
+            <th class="tg-0pky">Desc.</th>
+            <th class="tg-0pky">Cant.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-0pky">000025</td>
+            <td class="tg-0pky">Cerveza Marrón</td>
+            <td class="tg-0pky">26u.</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky">000057</td>
+            <td class="tg-0pky">Cajón Cervecera (Marrón)</td>
+            <td class="tg-0pky">2u.</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky">000501</td>
+            <td class="tg-0pky">Quilmes 340</td>
+            <td class="tg-0pky">126u.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <footer class="actions">
@@ -52,4 +128,3 @@
   [tipoEnvase]="tipoEnvase"
   (cantidadEnvase)="cantidadEnvaseSelected($event)"
 ></app-cantidad-envase-modal>
-
