@@ -45,8 +45,7 @@ export class AuthService {
     if (this.usuario) {
       return this.usuario;
     } else {
-      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
-      return this.usuario!;
+      return JSON.parse(localStorage.getItem('userData')!).Usuario
     }
   };
 
@@ -54,8 +53,7 @@ export class AuthService {
     if (this.usuario?.Sucursal) {
       return this.usuario.Usuario;
     } else {
-      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
-      return this.usuario?.Usuario!;
+      return JSON.parse(localStorage.getItem('userData')!).Usuario
     }
   };
 
@@ -63,8 +61,8 @@ export class AuthService {
     if (this.usuario?.Sucursal) {
       return this.usuario.Sucursal;
     } else {
-      this.userValidation(JSON.parse(localStorage.getItem('userData')!));
-      return this.usuario?.Sucursal!;
+      return JSON.parse(localStorage.getItem('userData')!).Sucursal
+      
     }
   };
 }
