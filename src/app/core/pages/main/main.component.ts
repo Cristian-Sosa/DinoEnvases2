@@ -223,7 +223,7 @@ export class MainComponent implements OnInit {
           </tr>
         </thead>
         <tbody>
-          ${this.envases.map((item: any) => {
+          ${this.carga.map((item: any) => {
             return `
               <tr>
                 <td class="tg-0lax">${item.cardEnvase.cantidad}</td>
