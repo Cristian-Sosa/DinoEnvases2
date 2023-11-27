@@ -41,59 +41,53 @@ export class MainComponent implements OnInit {
     });
   }
 
-  print = (): void => {
-    this.printCharacteristic = null;
-
-    if (this.printCharacteristic == null) {
-      this.bluetooth
-        .requestDevice({
-          filters: [
-            {
-              services: ['000018f0-0000-1000-8000-00805f9b34fb'],
-            },
-          ],
-        })
-        .then((device: any) => {
-          console.log('Conectando a ' + device.name);
-          return device?.gatt?.connect();
-        })
-        .then((server: any) =>
-          server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-        )
-        .then((service: any) =>
-          service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-        )
-        .then((characteristic: any) => {
-          this.printCharacteristic = characteristic;
-          this.generateMessageToPrint();
-        })
-        .catch(() =>
-          this.toastService.setToastState(true, 'Error Imprimiendo')
-        );
-    } else {
-      this.generateMessageToPrint();
-    }
+  getPrinter = (): void => {
+    this.bluetooth
+      .requestDevice({
+        filters: [
+          {
+            services: ['000018f0-0000-1000-8000-00805f9b34fb'],
+          },
+        ],
+      })
+      .then((device: any) => {
+        console.log('Conectando a ' + device.name);
+        return device?.gatt?.connect();
+      })
+      .then((server: any) =>
+        server?.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
+      )
+      .then((service: any) =>
+        service?.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
+      )
+      .then((characteristic: any) => {
+        this.printCharacteristic = characteristic;
+        this.printCarga();
+      })
+      .catch(() => this.toastService.setToastState(true, 'Error Imprimiendo'));
   };
 
-  generateMessageToPrint = (): void => {
+  addHeaderToPrint = () => {
     const date = DateTime.now();
 
+    this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
+    this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
+
+    this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
+      10000000 + Math.random() * 90000000
+    )}$intro$`;
+    this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
+
+    this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
+      DateTime.DATETIME_SHORT
+    )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
+  };
+
+  addCargaToPrint = (): void => {
+    this.cargaToPrint += `$small$ ------------ DETALLE DEL VALE -----------$intro$`;
+    this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
+
     this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      this.cargaToPrint = `$bighw$SUPER MAMI$intro$`;
-      this.cargaToPrint += `$big$VALE PARA ENVASE$intro$`;
-
-      this.cargaToPrint += `$small$NRO VALE: ${Math.floor(
-        10000000 + Math.random() * 90000000
-      )}$intro$`;
-      this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
-
-      this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
-        DateTime.DATETIME_SHORT
-      )}$intro$$small$GUARDIA: ${this.authService.getUsuarioLogged()}$intro$$intro$`;
-      
-      this.cargaToPrint += `$small$ ------------ DETALLE DEL VALE -----------$intro$`;
-      this.cargaToPrint += `$small$ COD.    DESC.                      CANT.$intro$`;
-
       envases.forEach((envase) => {
         this.cargaToPrint += `$small$${Math.floor(
           1000000 + Math.random() * 9000000
@@ -121,21 +115,31 @@ export class MainComponent implements OnInit {
 
         this.cargaToPrint += `${envase.cardEnvase.cantidad}$intro$`;
       });
-
-      this.cargaToPrint += `$intro$`;
-      this.cargaToPrint += `$small$ -----------------------------------------$intro$`;
-      this.cargaToPrint += `$small$ ------ VALIDO POR EL DIA DE EMISION -----$intro$`;
-      this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
-
-      this.cargaToPrint += `$big$NRO PV: $intro$`;
-      this.cargaToPrint += `$big$NRO TICKET: $intro$`;
-      this.cargaToPrint += `$intro$$intro$$cutt$`;
-
-      this.sendTextData();
     });
   };
 
+  addFooterToprint = (): void => {
+    this.cargaToPrint += `$intro$`;
+    this.cargaToPrint += `$small$ -----------------------------------------$intro$`;
+    this.cargaToPrint += `$small$ ------ VALIDO POR EL DIA DE EMISION -----$intro$`;
+    this.cargaToPrint += `$small$ -----------------------------------------$intro$$intro$`;
+
+    this.cargaToPrint += `$big$NRO PV: $intro$`;
+    this.cargaToPrint += `$big$NRO TICKET: $intro$`;
+    this.cargaToPrint += `$intro$$intro$$cutt$`;
+
+    this.sendTextData();
+  };
+
+  printCarga = (): void => {
+    this.addHeaderToPrint();
+    this.addCargaToPrint();
+    this.addFooterToprint();
+    this.sendTextData();
+  };
+
   sendTextData = async () => {
+    // Dividir texto en fragmentos para imprimir buffer de 250b
     // const encoder = new TextEncoder();
     // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
     // const chunkSize = 512;
