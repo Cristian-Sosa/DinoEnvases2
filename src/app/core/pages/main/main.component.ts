@@ -311,7 +311,13 @@ export class MainComponent implements OnInit {
       document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
 
-    printWindow!.document.write(`<script type="text/javascript">JsBarcode(".barcode").init();</script></body></html>`);
+    printWindow!.document.write(`<script>
+    JsBarcode("#barcode", "7790070418203", {
+      lineColor: "#333",
+      width: 100,
+      height: 40,
+    });
+  </script></body></html>`);
 
     printWindow!.print();
     printWindow!.document.close();
