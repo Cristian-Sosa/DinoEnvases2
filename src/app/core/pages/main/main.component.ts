@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import { DateTime } from 'luxon';
+import * as JsBarcode from 'jsbarcode';
 
 @Component({
   selector: 'app-main',
@@ -156,6 +157,16 @@ export class MainComponent implements OnInit {
     this.sendTextData();
   };
 
+  public generateEAN13Barcode() {
+    JsBarcode('#barcode', '7790070418203', {
+      format: 'EAN13',
+      lineColor: '#000',
+      width: 2,
+      height: 40,
+      displayValue: true,
+    });
+  }
+
   sendTextData = async () => {
     const printWindow = window.open('', '_blank');
 
@@ -307,9 +318,19 @@ export class MainComponent implements OnInit {
       </style>
     </head>
     <body>`);
+
+    window.onload = function () {};
+
     printWindow!.document.write(
       document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
+
+    printWindow!.document.write(`
+    <script>
+              // Llama a la función para generar el código de barras EAN-13
+              ${this.generateEAN13Barcode.toString()}
+            </script>
+    `);
 
     printWindow!.document.write(`<script>
     function generateBarcode() {
@@ -325,9 +346,10 @@ export class MainComponent implements OnInit {
     generateBarcode();
   </script></body></html>`);
 
-  printWindow!.document.close();
-  printWindow!.print();
+    printWindow!.document.close();
+    printWindow!.print();
   };
+
   // sendTextData = async () => {
   //   // const encoder = new TextEncoder();
   //   // const cargaToPrint = this.cargaToPrint + '\u000A\u000D';
