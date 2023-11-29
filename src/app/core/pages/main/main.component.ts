@@ -164,7 +164,7 @@ export class MainComponent implements OnInit {
       <title>Vale de envases - preview</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended&display=swap" rel="stylesheet">
       <style type="text/css">
       * {
           margin: 0;
@@ -253,10 +253,13 @@ export class MainComponent implements OnInit {
 
         .barcode {
           margin-top: 8px;
-          
-          font-family: 'Libre Barcode 39', cursive;
+
+          font-size: 56px;
+          font-family: 'Libre Barcode 39 Extended', cursive;
+
+          transform: rotate(90deg)
+
           display: inline-block;
-          font-size: 48px;
         }
         
         .footer {
