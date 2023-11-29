@@ -162,6 +162,9 @@ export class MainComponent implements OnInit {
     printWindow!.document.write(`<html>
     <head>
       <title>Vale de envases - preview</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
       <style type="text/css">
       * {
           font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -172,6 +175,10 @@ export class MainComponent implements OnInit {
         body {
           width: 100%;
           height: auto;
+        }
+
+        .barcode {
+          font-family: 'Libre Barcode 39', cursive;
         }
         
         .title, .sub-title {
@@ -193,13 +200,6 @@ export class MainComponent implements OnInit {
         .ticket_header .logo {
           margin-bottom: 16px;
         }
-        
-        /* .ticket_header .title {
-          margin-bottom: 2px;
-        } */
-        /* .ticket_header .sub-title {
-          font-size: 12px;
-        } */
         
         .cabecera {
           padding-top: 16px;
@@ -294,8 +294,8 @@ export class MainComponent implements OnInit {
 
     printWindow!.document.write(`</body></html>`);
 
-    printWindow!.document.close();
     printWindow!.print();
+    printWindow!.document.close();
   };
   // sendTextData = async () => {
   //   // const encoder = new TextEncoder();
