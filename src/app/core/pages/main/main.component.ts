@@ -259,7 +259,8 @@ export class MainComponent implements OnInit {
 
           transform: rotate(90deg)
 
-          display: inline-block;
+          text-align: center;
+          display: block;
         }
         
         .footer {
