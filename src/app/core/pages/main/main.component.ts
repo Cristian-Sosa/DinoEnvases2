@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
 import { DateTime } from 'luxon';
-import * as JsBarcode from 'jsbarcode';
 
 @Component({
   selector: 'app-main',
@@ -157,16 +156,6 @@ export class MainComponent implements OnInit {
     this.sendTextData();
   };
 
-  public generateEAN13Barcode() {
-    JsBarcode('#barcode', '7790070418203', {
-      format: 'EAN13',
-      lineColor: '#000',
-      width: 2,
-      height: 40,
-      displayValue: true,
-    });
-  }
-
   sendTextData = async () => {
     const printWindow = window.open('', '_blank');
 
@@ -176,8 +165,6 @@ export class MainComponent implements OnInit {
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
-      
-      <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
       <style type="text/css">
       * {
@@ -325,26 +312,8 @@ export class MainComponent implements OnInit {
       document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
 
-    printWindow!.document.write(`
-    <script>
-              // Llama a la función para generar el código de barras EAN-13
-              ${this.generateEAN13Barcode.toString()}
-            </script>
-    `);
 
-    printWindow!.document.write(`<script>
-    function generateBarcode() {
-      JsBarcode("#barcode", "1234", {
-        format: "EAN-13",
-        lineColor: "#0aa",
-        width: 4,
-        height: 40,
-        displayValue: false
-      });
-    }
-
-    generateBarcode();
-  </script></body></html>`);
+    printWindow!.document.write(`</body></html>`);
 
     printWindow!.document.close();
     printWindow!.print();

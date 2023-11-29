@@ -20,6 +20,7 @@
     "@angular/router": "^16.0.0",
     "@angular/service-worker": "^16.0.0",
     "html2canvas": "^1.4.1",
+    "jsbarcode": "^3.11.6",
     "luxon": "^3.4.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
