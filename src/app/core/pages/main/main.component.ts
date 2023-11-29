@@ -166,7 +166,7 @@ export class MainComponent implements OnInit {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
       
-      <script src="JsBarcode.all.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
       <style type="text/css">
       * {
@@ -312,11 +312,13 @@ export class MainComponent implements OnInit {
     );
 
     printWindow!.document.write(`<script>
-    generateBarcode() {
-      JsBarcode("#barcode", "7790070418203", {
-        lineColor: "#333",
-        width: 2,
-        height: 100,
+    function generateBarcode() {
+      JsBarcode("#barcode", "1234", {
+        format: "EAN-13",
+        lineColor: "#0aa",
+        width: 4,
+        height: 40,
+        displayValue: false
       });
     }
 
