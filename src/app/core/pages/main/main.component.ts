@@ -179,12 +179,6 @@ export class MainComponent implements OnInit {
           width: 100%;
           height: auto;
         }
-
-        .barcode {
-          font-family: 'Libre Barcode 39', cursive;
-          display: inline-block;
-          font-size: 24px;
-        }
         
         .title, .sub-title {
           color: #222;
@@ -246,6 +240,23 @@ export class MainComponent implements OnInit {
           flex-direction: column;
           justify-content: flex-start;
           align-items: strech;
+        }
+
+        .card_header {     
+          width: 100%;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .barcode {
+          margin-top: 8px;
+          
+          font-family: 'Libre Barcode 39', cursive;
+          display: inline-block;
+          font-size: 48px;
         }
         
         .footer {
