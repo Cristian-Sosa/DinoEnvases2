@@ -164,7 +164,10 @@ export class MainComponent implements OnInit {
       <title>Vale de envases - preview</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+      
+      <script src="JsBarcode.all.min.js"></script>
+
       <style type="text/css">
       * {
           margin: 0;
@@ -255,7 +258,7 @@ export class MainComponent implements OnInit {
           margin-top: 8px;
 
           font-size: 56px;
-          font-family: 'Libre Barcode 39 Extended', cursive;
+          font-family: 'Libre Barcode 39', cursive;
 
           transform: rotate(90deg)
 
@@ -308,7 +311,7 @@ export class MainComponent implements OnInit {
       document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
 
-    printWindow!.document.write(`</body></html>`);
+    printWindow!.document.write(`<script type="text/javascript">JsBarcode(".barcode").init();</script></body></html>`);
 
     printWindow!.print();
     printWindow!.document.close();
