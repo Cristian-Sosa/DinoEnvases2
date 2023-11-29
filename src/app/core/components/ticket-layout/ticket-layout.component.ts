@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import * as JsBarcode from 'jsbarcode';
+import { CargaEnvaseService } from 'src/app/shared';
 
 @Component({
   selector: 'app-ticket-layout',
@@ -7,16 +8,27 @@ import * as JsBarcode from 'jsbarcode';
   styleUrls: ['./ticket-layout.component.sass'],
 })
 export class TicketLayoutComponent implements OnInit {
+  private envaseService = inject(CargaEnvaseService)
+
+  private envases: any = undefined;
+
   ngOnInit(): void {
+    // this.envaseService.observableEnvases().subscribe({
+    //   next: (res) => {
+    //     this.envases = res
+    //   }, error: (err) => {
+
+    //   }
+    // })
     this.generateEAN13Barcode();
   }
 
   generateEAN13Barcode = () => {
-    JsBarcode('#barcode', '7790070418203', {
+    JsBarcode('#barcode', '3311000100001', {
       format: 'EAN13',
-      lineColor: '#000',
-      width: 2,
-      height: 40,
+      lineColor: '#333',
+      width: 1,
+      height: 20,
       displayValue: true,
     });
   };

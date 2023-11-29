@@ -251,18 +251,6 @@ export class MainComponent implements OnInit {
           justify-content: space-between;
           align-items: center;
         }
-
-        .barcode {
-          margin-top: 8px;
-
-          font-size: 56px;
-          font-family: 'Libre Barcode 39', cursive;
-
-          transform: rotate(90deg)
-
-          text-align: center;
-          display: block;
-        }
         
         .footer {
           display: flex;
