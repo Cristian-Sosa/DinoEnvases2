@@ -165,16 +165,21 @@ export class MainComponent implements OnInit {
       <style type="text/css">
       * {
           font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-          font-size: 12px
+          font-size: 8px;
+          font-weight: 400;
         }
         
+        body {
+          width: 100%;
+          height: auto;
+        }
         
         .title, .sub-title {
           color: #000;
         }
         
         h3, p, span { 
-          color: #000;
+          color: #222;
         }
         
         .ticket_header {  
@@ -240,10 +245,6 @@ export class MainComponent implements OnInit {
         }
         
         .card .card_header .unidades {
-          color: #000;
-        }
-        
-        .codigo {
           color: #000;
         }
         
