@@ -255,8 +255,9 @@ export class MainComponent implements OnInit {
           margin-top: 8px;
           
           font-family: 'Libre Barcode 39', cursive;
-          display: inline-block;
           font-size: 48px;
+          text-align: center;
+          display: block;
         }
         
         .footer {
