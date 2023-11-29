@@ -10,6 +10,7 @@ import {
 import { ListaEnvasesComponent } from '../../components/lista-envases/lista-envases.component';
 import {
   CantidadEnvaseModalComponent,
+  TicketLayoutComponent,
   TipoEnvaseModalComponent,
 } from '../../components';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ListaEnvasesComponent,
     TipoEnvaseModalComponent,
     CantidadEnvaseModalComponent,
+    TicketLayoutComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from '../../pages';
-import { CantidadEnvaseModalComponent, TipoEnvaseModalComponent } from '../../components';
+import { CantidadEnvaseModalComponent, TicketLayoutComponent, TipoEnvaseModalComponent } from '../../components';
 
 const routes: Routes = [
   {
@@ -15,6 +15,7 @@ const routes: Routes = [
           { path: 'cantidad-envase', component: CantidadEnvaseModalComponent },
         ],
       },
+      { path: 'ticket-envases', component: TicketLayoutComponent },
     ],
   },
 ];

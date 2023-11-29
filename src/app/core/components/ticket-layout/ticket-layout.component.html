@@ -1,0 +1,43 @@
+<div id="ticketPrintComponent">
+      <main class="ticket">
+        <header class="ticket_header">
+          <img
+            class="logo"
+            src="assets/images/super-mami.svg"
+            alt="logo super mami"
+          />
+          <h1 class="title">VALE PARA ENVASES</h1>
+          <h2 class="sub-title">VÁLIDO POR DÍA DE EMISIÓN</h2>
+        </header>
+        <section class="cabecera">
+          <h3>N° VALE: {{ "977293-20231127" }}</h3>
+          <p>SUCURSAL: {{ "AV" }}</p>
+          <p>FECHA: {{ "27/11/2023, 15:33" }}</p>
+          <p>GUARDIA: {{ "CSOSA" }}</p>
+        </section>
+        <section class="cuerpo">
+          <p class="separador">
+            DETALLE DEL VALE
+          </p>
+          <div class="card">
+            <header class="card_header">
+              <p class="envase">{{ "Cerveza Marrón" }}</p>
+              <p class="unidades">{{ "8 unidades" }}</p>
+            </header>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="footer-firma">
+            <p>FIRMA Y SELLO GUARDIA</p>
+          </div>
+          <div class="firma-container">
+            <div class="footer-firma caja">
+              <p>N° TICKET</p>
+            </div>
+            <div class="footer-firma caja">
+              <p>PV</p>
+            </div>
+          </div>
+        </footer>
+      </main>
+</div>

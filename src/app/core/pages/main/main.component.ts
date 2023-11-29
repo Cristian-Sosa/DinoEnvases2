@@ -158,58 +158,141 @@ export class MainComponent implements OnInit {
 
   sendTextData = async () => {
     const printWindow = window.open('', '_blank');
+
+    printWindow!.document.write(`<html>
+    <head>
+      <title>Vale de envases - preview</title>
+      <style type="text/css">
+      * {
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          font-size: 12px
+        }
+        
+        
+        .title, .sub-title {
+          color: #000;
+        }
+        
+        h3, p, span { 
+          color: #000;
+        }
+        
+        .ticket_header {  
+          padding: 24px 0 8px;
+          
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        .ticket_header .logo {
+          margin-bottom: 16px;
+        }
+        
+        /* .ticket_header .title {
+          margin-bottom: 2px;
+        } */
+        /* .ticket_header .sub-title {
+          font-size: 12px;
+        } */
+        
+        .cabecera {
+          padding-top: 16px;
+        
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          gap: 8px;
+        }
+        
+        .cuerpo {
+          padding: 24px 0;
+        
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: stretch;
+        }
+        
+        .cuerpo .separador {
+          color: #000;
+        }
+        
+        .card {
+          padding: 8px 0;
+        
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+        .card .card_header {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: stretch;
+          gap: 8px;
+        }
+        
+        .card .card_header .envase {
+          color: #000;
+        }
+        
+        .card .card_header .unidades {
+          color: #000;
+        }
+        
+        .codigo {
+          color: #000;
+        }
+        
+        .footer {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        
+        .firma-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 24px;
+        }
+        
+        .footer-firma {
+          width: 160px;
+        
+          margin-top: 64px;
+          padding: 8px 0;
+        
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        
+          border-top: 1px solid #000;
+        }
+        
+        .footer-firma.caja {
+          width: max-content;
+        }
+        
+        .footer-firma p {
+          color: #000;
+          text-align: center;
+        }
+      </style>
+    </head>
+    <body>`);
     printWindow!.document.write(
-      `<html><head><title>Imprimir</title><style id="stylesToPrint" type="text/css">
-      .tg {
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin: 0px auto;
-      }
-      .tg td {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-      }
-      .tg th {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        font-weight: normal;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-      }
-      .tg .tg-0pky {
-        border-color: inherit;
-        text-align: left;
-        vertical-align: top;
-      }
-      @media screen and (max-width: 767px) {
-        .tg {
-          width: auto !important;
-        }
-        .tg col {
-          width: auto !important;
-        }
-        .tg-wrap {
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          margin: auto 0px;
-        }
-      }
-    </style></head><body>`
+      document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
-    printWindow!.document.write(
-      document.querySelector('#printThis')?.innerHTML!
-    );
-    printWindow!.document.write('</body></html>');
+
+    printWindow!.document.write(`</body></html>`);
+
     printWindow!.document.close();
     printWindow!.print();
   };
