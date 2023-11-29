@@ -182,6 +182,8 @@ export class MainComponent implements OnInit {
 
         .barcode {
           font-family: 'Libre Barcode 39', cursive;
+          display: inline-block;
+          font-size: 24px;
         }
         
         .title, .sub-title {
@@ -204,6 +206,7 @@ export class MainComponent implements OnInit {
         .ticket_header .logo {
           margin-bottom: 16px;
         }
+
         .ticket_header .title {
           margin-bottom: 2px;
           font-size: 14px;
@@ -240,9 +243,9 @@ export class MainComponent implements OnInit {
         .card {        
           width: 100%;
           display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: flex-start;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: strech;
         }
         
         .footer {
