@@ -199,7 +199,9 @@ export class MainComponent implements OnInit {
         }
 
         .ticket_header .logo {
+          width: 100%;
           margin-bottom: 16px;
+          object-fit: container;
         }
 
         .ticket_header .title {
