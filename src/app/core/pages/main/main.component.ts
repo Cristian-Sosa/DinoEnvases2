@@ -164,9 +164,12 @@ export class MainComponent implements OnInit {
       <title>Vale de envases - preview</title>
       <style type="text/css">
       * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
           font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
           font-size: 8px;
-          font-weight: 400;
+
         }
         
         body {
@@ -175,7 +178,7 @@ export class MainComponent implements OnInit {
         }
         
         .title, .sub-title {
-          color: #000;
+          color: #222;
         }
         
         h3, p, span { 
@@ -190,16 +193,18 @@ export class MainComponent implements OnInit {
           justify-content: flex-start;
           align-items: center;
         }
+
         .ticket_header .logo {
           margin-bottom: 16px;
         }
-        
-        /* .ticket_header .title {
+        .ticket_header .title {
           margin-bottom: 2px;
-        } */
-        /* .ticket_header .sub-title {
-          font-size: 12px;
-        } */
+          font-size: 14px;
+        }
+        
+        .ticket_header .title {
+          font-size: 10px;
+        }
         
         .cabecera {
           padding-top: 16px;
@@ -208,11 +213,11 @@ export class MainComponent implements OnInit {
           flex-direction: column;
           justify-content: flex-start;
           align-items: flex-start;
-          gap: 8px;
+          gap: 2px;
         }
         
         .cuerpo {
-          padding: 24px 0;
+          padding: 16px 0;
         
           display: flex;
           flex-direction: column;
@@ -221,31 +226,16 @@ export class MainComponent implements OnInit {
         }
         
         .cuerpo .separador {
-          color: #000;
+          margin-bottom: 8px;
+          color: #222;
         }
         
-        .card {
-          padding: 8px 0;
-        
+        .card {        
+          width: 100%;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
           align-items: flex-start;
-        }
-        .card .card_header {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: stretch;
-          gap: 8px;
-        }
-        
-        .card .card_header .envase {
-          color: #000;
-        }
-        
-        .card .card_header .unidades {
-          color: #000;
         }
         
         .footer {
@@ -256,18 +246,18 @@ export class MainComponent implements OnInit {
         }
         
         .firma-container {
+          width: 100%;
+
           display: flex;
           flex-direction: row;
-          justify-content: center;
+          justify-content: space-between;
           align-items: center;
-          gap: 24px;
         }
         
         .footer-firma {
-          width: 160px;
+          width: 80%;
         
-          margin-top: 64px;
-          padding: 8px 0;
+          margin: 32px auto 0;
         
           display: flex;
           flex-direction: column;
@@ -278,11 +268,12 @@ export class MainComponent implements OnInit {
         }
         
         .footer-firma.caja {
-          width: max-content;
+          width: 40%;
         }
         
         .footer-firma p {
-          color: #000;
+          margin-top: 4px;
+          color: #222;
           text-align: center;
         }
       </style>
