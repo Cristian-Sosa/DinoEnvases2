@@ -312,15 +312,19 @@ export class MainComponent implements OnInit {
     );
 
     printWindow!.document.write(`<script>
-    JsBarcode("#barcode", "7790070418203", {
-      lineColor: "#333",
-      width: 100,
-      height: 40,
-    });
+    generateBarcode() {
+      JsBarcode("#barcode", "7790070418203", {
+        lineColor: "#333",
+        width: 2,
+        height: 100,
+      });
+    }
+
+    generateBarcode();
   </script></body></html>`);
 
-    printWindow!.print();
-    printWindow!.document.close();
+  printWindow!.document.close();
+  printWindow!.print();
   };
   // sendTextData = async () => {
   //   // const encoder = new TextEncoder();
