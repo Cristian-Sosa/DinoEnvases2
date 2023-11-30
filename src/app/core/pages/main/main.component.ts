@@ -90,17 +90,13 @@ export class MainComponent implements OnInit {
 
     this.createValeId();
 
-    this.cargaToPrint += `$small$Sucursal: ${this.authService.getSucursal()}$intro$`;
+    this.cargaToPrint += `$small$Sucursal: ${
+      this.authService.getDataUser()?.sucursal
+    }$intro$`;
 
     this.cargaToPrint += `$small$FECHA: ${date.toLocaleString(
       DateTime.DATETIME_SHORT
-    )}$intro$`;
-
-    this.cargaToPrint += `$small$GUARDIA: ${
-      this.authService.getUsuarioLogged()
-        ? this.authService.getUsuarioLogged()
-        : this.authService.getSucursal()
-    }$intro$$intro$`;
+    )}$intro$$intro$`;
   };
 
   addCargaToPrint = async () => {
@@ -301,7 +297,6 @@ export class MainComponent implements OnInit {
     printWindow!.document.write(
       document.querySelector('#ticketPrintComponent')?.innerHTML!
     );
-
 
     printWindow!.document.write(`</body></html>`);
 

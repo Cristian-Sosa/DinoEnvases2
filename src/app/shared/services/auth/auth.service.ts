@@ -5,6 +5,8 @@ import { IUsuario, IUsuarioResponse } from '../../models';
   providedIn: 'root',
 })
 export class AuthService {
+  private userData: IUsuario | null = null;
+
   private usuarios: IUsuario[] = [
     { usuario: 'AV', password: '1234' },
     { usuario: 'R20', password: '1234' },
@@ -33,9 +35,16 @@ export class AuthService {
 
   // Validar formulario auth
   userValidation = (usuario: IUsuario): IUsuarioResponse => {
-    if (this.usuarios.includes(usuario)) {
+    const userToSearch: any = this.usuarios.find(
+      (u) =>
+        u.usuario.toUpperCase() === usuario.usuario.toUpperCase() &&
+        u.password.toUpperCase() === usuario.password.toUpperCase()
+    );
+    if (userToSearch) {
+      console.log({ usuario });
+      this.userData = usuario;
       localStorage.setItem('usuario', JSON.stringify(usuario));
-      return { status: 200, data: usuario };
+      return { status: 200, data: this.userData };
     } else {
       return { status: 401, data: null };
     }
@@ -43,5 +52,14 @@ export class AuthService {
 
   clearUser = () => localStorage.removeItem('usuario');
 
-  getDataUser = (): IUsuario => JSON.parse(localStorage.getItem('usuario')!);
+  getDataUser = (): IUsuario | null => {
+    if (this.userData) {
+      return this.userData;
+    } else if (localStorage.getItem('usuario')) {
+      this.userData = JSON.parse(localStorage.getItem('usuario')!);
+      return this.userData;
+    } else {
+      return null;
+    }
+  };
 }
