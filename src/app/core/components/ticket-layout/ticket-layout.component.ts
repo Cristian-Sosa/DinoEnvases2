@@ -13,13 +13,15 @@ export class TicketLayoutComponent implements OnInit {
   private envases: any = undefined;
 
   ngOnInit(): void {
-    // this.envaseService.observableEnvases().subscribe({
-    //   next: (res) => {
-    //     this.envases = res
-    //   }, error: (err) => {
+    this.envaseService.observableEnvases().subscribe({
+      next: (res) => {
+        this.envases = res
 
-    //   }
-    // })
+        console.log(this.envases)
+      }, error: (err) => {
+
+      }
+    })
     this.generateEAN13Barcode();
   }
 

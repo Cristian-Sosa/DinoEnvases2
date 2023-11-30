@@ -1,5 +1,10 @@
 export interface IUsuario {
-  Usuario: string;
-  Password: string;
-  Sucursal: string;
+  usuario: string;
+  password: string;
+  sucursal?: 'AV' | 'R20' | 'SV' | 'CVL' | 'SAL' | '60C' | 'AG' | 'TLH' | 'TSM' | 'COC';
+}
+
+export interface IUsuarioResponse {
+  status: number;
+  data: IUsuario | null;
 }
