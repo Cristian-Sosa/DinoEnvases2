@@ -14,18 +14,8 @@
         isPrimary: true,
         isDisabled: !cargaExist,
       }"
-      (click)="sendTextData()"
+      (click)="printCarga()"
     ></app-button>
-    <!-- <app-button
-      [button]="{
-        type: 'sumbit',
-        text: 'Imprimir carga',
-        isPrimary: true,
-        isDisabled: !cargaExist,
-      }"
-      (click)="getPrinter()"
-    ></app-button> -->
-
     <button (click)="newEnvase()" class="plus">
       <svg
         width="18"
