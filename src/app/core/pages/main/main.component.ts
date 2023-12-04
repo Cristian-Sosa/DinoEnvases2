@@ -20,8 +20,6 @@ export class MainComponent implements OnInit {
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
 
-  private cargaToPrint: any;
-
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
   }
@@ -35,18 +33,6 @@ export class MainComponent implements OnInit {
       }
     });
   }
-
-  createValeId = (): void => {
-    let randomNumber = Math.floor(Math.random() * 999999) + 1;
-    let formattedNumber: string = randomNumber.toString().padStart(6, '0');
-
-    let formattedDate: string = DateTime.now().toISODate({ format: 'basic' })!;
-
-    this.cargaToPrint += `$small$NRO VALE: ${formattedNumber.concat(
-      '-',
-      formattedDate
-    )}$intro$`;
-  };
 
   printCarga = () => {
     const printWindow = window.open('', '_blank');
