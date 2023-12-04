@@ -158,31 +158,18 @@ export class MainComponent implements OnInit {
     printWindow!.document.write(`<html>
     <head>
       <title>Vale de envases - preview</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
-
       <style type="text/css">
       * {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
           font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-          font-size: 8px;
-
+          color: #000;
         }
         
         body {
           width: 100%;
           height: auto;
-        }
-        
-        .title, .sub-title {
-          color: #222;
-        }
-        
-        h3, p, span { 
-          color: #222;
         }
         
         .ticket_header {  
@@ -196,7 +183,7 @@ export class MainComponent implements OnInit {
 
         .ticket_header .logo {
           width: 100%;
-          margin-bottom: 16px;
+          margin-bottom: 8px;
           object-fit: container;
         }
 
@@ -205,8 +192,9 @@ export class MainComponent implements OnInit {
           font-size: 14px;
         }
         
-        .ticket_header .title {
+        .ticket_header .sub-title {
           font-size: 10px;
+          font-weight: 500;
         }
         
         .cabecera {
@@ -215,8 +203,11 @@ export class MainComponent implements OnInit {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          align-items: flex-start;
+          align-items: stretch;
           gap: 2px;
+
+          font-size: 8px;
+          font-weight: 500;
         }
         
         .cuerpo {
@@ -226,11 +217,14 @@ export class MainComponent implements OnInit {
           flex-direction: column;
           justify-content: flex-start;
           align-items: stretch;
+
+          font-size: 10px;
+          font-weight: 500;
         }
         
         .cuerpo .separador {
           margin-bottom: 8px;
-          color: #222;
+          font-size: 8px;
         }
         
         .card {        
@@ -259,6 +253,7 @@ export class MainComponent implements OnInit {
         
         .firma-container {
           width: 100%;
+          margin-top: 8px;
 
           display: flex;
           flex-direction: row;
@@ -285,14 +280,16 @@ export class MainComponent implements OnInit {
         
         .footer-firma p {
           margin-top: 4px;
-          color: #222;
           text-align: center;
+          font-size: 8px;
+        }
+
+        main svg {
+          margin: 8px auto 16px;
         }
       </style>
     </head>
     <body>`);
-
-    window.onload = function () {};
 
     printWindow!.document.write(
       document.querySelector('#ticketPrintComponent')?.innerHTML!
