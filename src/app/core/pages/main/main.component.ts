@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { EnvasesDataService } from 'src/app/shared';
+import { AuthService, EnvasesDataService } from 'src/app/shared';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -9,12 +9,17 @@ import { DateTime } from 'luxon';
 })
 export class MainComponent implements OnInit {
   private envasesDataService = inject(EnvasesDataService);
+  private authService = inject(AuthService);
 
   public showModal: string = 'none';
   public generateTicket: boolean = false;
 
   public cargaExist: boolean = false;
-  public date: string = '';
+  public cabecera: { fecha: string; sucursal: string; ticket: string } = {
+    fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm'),
+    sucursal: this.authService.getDataUser()?.sucursal!,
+    ticket: 'xxxxxxxxxxxx',
+  };
 
   public envaseDTO: {
     envaseId: number | null;
@@ -43,10 +48,15 @@ export class MainComponent implements OnInit {
     }
   }
 
-  printCarga = () => {
-    this.date = DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm');
+  generarCodigoAleatorio = (): number => {
+    const codigo = Math.floor(100000 + Math.random() * 900000);
+    return codigo;
+  }
 
-    console.log(this.date)
+  printCarga = () => {
+    this.cabecera.fecha = DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm');
+    this.cabecera.sucursal = this.authService.getDataUser()?.sucursal!;
+    this.cabecera.ticket = this.generarCodigoAleatorio().toString().concat(DateTime.now().toFormat('hhmmss'));
 
     const printWindow = window.open('', '_blank');
 

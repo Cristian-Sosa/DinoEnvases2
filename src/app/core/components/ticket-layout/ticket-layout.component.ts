@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import * as JsBarcode from 'jsbarcode';
 import { EnvasesDataService } from 'src/app/shared';
-import { DateTime, DateTimeFormatOptions } from 'luxon';
+
 @Component({
   selector: 'app-ticket-layout',
   templateUrl: './ticket-layout.component.html',
@@ -10,9 +10,9 @@ import { DateTime, DateTimeFormatOptions } from 'luxon';
 export class TicketLayoutComponent implements OnInit {
   private envasesDataService = inject(EnvasesDataService);
 
-  private envases: any = [];
+  public envases: any = [];
 
-  @Input() date!: string;
+  @Input() cabecera!: {fecha: string, sucursal: string, ticket: string};
 
   ngOnInit(): void {
     this.envasesDataService.getEnvasesObservable().subscribe({
