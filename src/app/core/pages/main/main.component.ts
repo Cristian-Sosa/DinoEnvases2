@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService, CargaEnvaseService, ToastService } from 'src/app/shared';
+import { AuthService, CargaEnvaseService, EnvasesDataService, ToastService } from 'src/app/shared';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 })
 export class MainComponent implements OnInit {
   private cargaEnvaseService = inject(CargaEnvaseService);
+  private envasesDataService = inject(EnvasesDataService);
 
   public showModal: string = 'none';
 
@@ -19,6 +20,16 @@ export class MainComponent implements OnInit {
   private nombreEnvase: any;
 
   public carga = JSON.parse(localStorage.getItem('carga')!);
+
+  public envaseDTO: {
+    envaseId: number | null;
+    tipoEnvaseId: number | null;
+    cantidad: number | null;
+  } = {
+    envaseId: null,
+    tipoEnvaseId: null,
+    cantidad: null,
+  };
 
   constructor() {
     this.envases = this.cargaEnvaseService.getTipoEnvases();
@@ -193,52 +204,34 @@ export class MainComponent implements OnInit {
 
   newEnvase = (): string => (this.showModal = 'tipoEnvase');
 
-  tipoEnvaseSelected = (envase: string | null): void => {
-    this.tipoEnvase = {};
-    switch (envase) {
-      case 'cerveza':
-        this.tipoEnvase = this.envases.cerveza;
-        this.showModal = 'cantidadEnvase';
-        this.nombreEnvase = envase!;
-        break;
-
-      case 'gaseosa':
-        this.tipoEnvase = this.envases.gaseosa;
-        this.showModal = 'cantidadEnvase';
-        this.nombreEnvase = envase!;
-        break;
-
-      case 'drago':
-        this.tipoEnvase = this.envases.drago;
-        this.showModal = 'cantidadEnvase';
-        this.nombreEnvase = envase!;
-        break;
-
-      case 'cajon':
-        this.tipoEnvase = this.envases.cajones;
-        this.showModal = 'cantidadEnvase';
-        this.nombreEnvase = envase!;
-        break;
-
-      default:
-        this.showModal = 'none';
-        break;
+  tipoEnvaseSelected = (tipoEnvaseId: number): void => {
+    console.log({ tipoEnvaseId: tipoEnvaseId });
+    if (tipoEnvaseId !== 0) {
+      this.envaseDTO.tipoEnvaseId = tipoEnvaseId!;
+      this.showModal = 'cantidadEnvase';
+    } else {
+      this.showModal = 'none';
     }
   };
 
   cantidadEnvaseSelected = (
-    obj: { tipo: any; cantidad: string | number } | null
+    obj:
+      | {
+          envaseId: number;
+          cantidad: number;
+        }
+      | 0
   ): void => {
     if (obj) {
-      let envaseDTO: any = {
-        nombre: this.nombreEnvase,
-        tipo: obj?.tipo,
-        cantidad: obj.cantidad,
-      };
-      this.cargaEnvaseService.setEnvase(envaseDTO);
+      this.envaseDTO.envaseId = obj.envaseId!;
+      this.envaseDTO.cantidad = obj.cantidad!;
+      // this.cargaEnvaseService.setEnvase(this.envaseDTO);
+      this.envasesDataService.cargarEnvase(this.envaseDTO)
       this.showModal = 'none';
     } else {
       this.showModal = 'tipoEnvase';
     }
+    
+    console.log({envaseDTO: this.envaseDTO})
   };
 }

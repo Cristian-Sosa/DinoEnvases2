@@ -3,7 +3,6 @@
 
   <section class="content">
     <app-lista-envases></app-lista-envases>
-    <app-ticket-layout class="ticket"></app-ticket-layout>
   </section>
 
   <footer class="actions">
@@ -40,7 +39,7 @@
 
 <app-cantidad-envase-modal
   *ngIf="showModal === 'cantidadEnvase'"
-  [tipoEnvase]="tipoEnvase"
+  [tipoEnvaseId]="envaseDTO.tipoEnvaseId"
   (cantidadEnvase)="cantidadEnvaseSelected($event)"
 ></app-cantidad-envase-modal>
 

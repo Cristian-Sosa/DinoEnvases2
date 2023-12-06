@@ -33,7 +33,6 @@ export class AuthService {
     { usuario: 'gtevez', password: '1234' },
   ];
 
-  // Validar formulario auth
   userValidation = (usuario: IUsuario): IUsuarioResponse => {
     const userToSearch: any = this.usuarios.find(
       (u) =>
@@ -50,7 +49,7 @@ export class AuthService {
     }
   };
 
-  clearUser = () => localStorage.removeItem('usuario');
+  clearUser = (): void => localStorage.removeItem('usuario');
 
   getDataUser = (): IUsuario | null => {
     if (this.userData) {
