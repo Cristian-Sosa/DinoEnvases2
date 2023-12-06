@@ -1,27 +1,28 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import * as JsBarcode from 'jsbarcode';
-import { CargaEnvaseService } from 'src/app/shared';
-
+import { EnvasesDataService } from 'src/app/shared';
+import { DateTime, DateTimeFormatOptions } from 'luxon';
 @Component({
   selector: 'app-ticket-layout',
   templateUrl: './ticket-layout.component.html',
   styleUrls: ['./ticket-layout.component.sass'],
 })
 export class TicketLayoutComponent implements OnInit {
-  private envaseService = inject(CargaEnvaseService)
+  private envasesDataService = inject(EnvasesDataService);
 
-  private envases: any = undefined;
+  private envases: any = [];
+
+  @Input() date!: string;
 
   ngOnInit(): void {
-    this.envaseService.observableEnvases().subscribe({
-      next: (res) => {
-        this.envases = res
-
-        console.log(this.envases)
-      }, error: (err) => {
-
-      }
-    })
+    this.envasesDataService.getEnvasesObservable().subscribe({
+      next: (envases) => {
+        this.envases = envases;
+      },
+      error: (err) => {
+        this.envases = [];
+      },
+    });
     this.generateEAN13Barcode();
   }
 

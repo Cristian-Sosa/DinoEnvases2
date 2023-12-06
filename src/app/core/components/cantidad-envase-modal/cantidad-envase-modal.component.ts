@@ -43,7 +43,7 @@ export class CantidadEnvaseModalComponent implements OnInit {
     // { value: string; description: string }
     this.envasesDataService.getEnvases().map((envase) => {
       if (envase.tipoEnvaseID === this.tipoEnvaseId) {
-        let envaseTemp: any = {
+        let envaseTemp: { value: number; description: string } = {
           value: envase.id,
           description: this.capitalizarTexto(envase.descripcion),
         };
@@ -52,7 +52,9 @@ export class CantidadEnvaseModalComponent implements OnInit {
       }
     });
 
-    this.tipoEnvaseForm.controls['tipoControl'].setValue(this.envases2[0]);
+    this.tipoEnvaseForm.controls['tipoControl'].setValue(
+      this.envases2[0].value
+    );
   }
 
   capitalizarTexto(texto: string): string {
@@ -64,17 +66,16 @@ export class CantidadEnvaseModalComponent implements OnInit {
   returnProcess = (): void => this.cantidadEnvase.emit(0);
 
   forwardProcess = (): void => {
-    let tipo: any = this.tipoEnvaseForm.get('tipoControl')?.value;
-    let cantidad: string | null | undefined =
-      this.tipoEnvaseForm.get('cantidadControl')?.value;
+    let envase: string | null =
+      this.tipoEnvaseForm.controls['tipoControl'].value;
+    let cantidad: string | null =
+      this.tipoEnvaseForm.controls['cantidadControl'].value;
 
     if (!cantidad) {
       this.toastService.setToastState(true, 'Cantidad inválida');
-
-      setTimeout(() => this.toastService.setToastState(false), 3000);
     } else {
       let obj: { envaseId: number; cantidad: number } = {
-        envaseId: tipo.value,
+        envaseId: parseInt(envase!),
         cantidad: parseInt(cantidad),
       };
 

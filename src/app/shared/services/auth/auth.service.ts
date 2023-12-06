@@ -40,7 +40,6 @@ export class AuthService {
         u.password.toUpperCase() === usuario.password.toUpperCase()
     );
     if (userToSearch) {
-      console.log({ usuario });
       this.userData = usuario;
       localStorage.setItem('usuario', JSON.stringify(usuario));
       return { status: 200, data: this.userData };

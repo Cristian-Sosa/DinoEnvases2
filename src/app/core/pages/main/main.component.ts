@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService, CargaEnvaseService, EnvasesDataService, ToastService } from 'src/app/shared';
+import { EnvasesDataService } from 'src/app/shared';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -8,18 +8,13 @@ import { DateTime } from 'luxon';
   styleUrls: ['./main.component.sass'],
 })
 export class MainComponent implements OnInit {
-  private cargaEnvaseService = inject(CargaEnvaseService);
   private envasesDataService = inject(EnvasesDataService);
 
   public showModal: string = 'none';
+  public generateTicket: boolean = false;
 
   public cargaExist: boolean = false;
-  public tipoEnvase: any;
-  public envases: any;
-
-  private nombreEnvase: any;
-
-  public carga = JSON.parse(localStorage.getItem('carga')!);
+  public date: string = '';
 
   public envaseDTO: {
     envaseId: number | null;
@@ -31,21 +26,28 @@ export class MainComponent implements OnInit {
     cantidad: null,
   };
 
-  constructor() {
-    this.envases = this.cargaEnvaseService.getTipoEnvases();
-  }
-
   ngOnInit(): void {
-    this.cargaEnvaseService.observableEnvases().subscribe((envases) => {
-      if (envases.length > 0) {
-        this.cargaExist = true;
-      } else {
+    this.envasesDataService.getEnvasesObservable().subscribe({
+      next: (res) => {
+        res.length > 0 ? (this.cargaExist = true) : (this.cargaExist = false);
+      },
+      error: () => {
         this.cargaExist = false;
-      }
+      },
     });
+
+    if (localStorage.getItem('carga_pendiente')) {
+      this.notificacionPush(
+        'Hay cargas pendientes de subir, conectate a internet para subirlas'
+      );
+    }
   }
 
   printCarga = () => {
+    this.date = DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm');
+
+    console.log(this.date)
+
     const printWindow = window.open('', '_blank');
 
     printWindow!.document.write(`<html>
@@ -194,18 +196,15 @@ export class MainComponent implements OnInit {
     printWindow!.print();
   };
 
-  notificacionPush = (): void => {
+  notificacionPush = (message: string): void => {
     navigator.serviceWorker
       .getRegistration()
-      .then((reg) =>
-        reg?.showNotification(`Se recuperó una carga pendiente de imprimir`)
-      );
+      .then((reg) => reg?.showNotification(message));
   };
 
   newEnvase = (): string => (this.showModal = 'tipoEnvase');
 
   tipoEnvaseSelected = (tipoEnvaseId: number): void => {
-    console.log({ tipoEnvaseId: tipoEnvaseId });
     if (tipoEnvaseId !== 0) {
       this.envaseDTO.tipoEnvaseId = tipoEnvaseId!;
       this.showModal = 'cantidadEnvase';
@@ -225,13 +224,10 @@ export class MainComponent implements OnInit {
     if (obj) {
       this.envaseDTO.envaseId = obj.envaseId!;
       this.envaseDTO.cantidad = obj.cantidad!;
-      // this.cargaEnvaseService.setEnvase(this.envaseDTO);
-      this.envasesDataService.cargarEnvase(this.envaseDTO)
+      this.envasesDataService.cargarEnvase(this.envaseDTO);
       this.showModal = 'none';
     } else {
       this.showModal = 'tipoEnvase';
     }
-    
-    console.log({envaseDTO: this.envaseDTO})
   };
 }

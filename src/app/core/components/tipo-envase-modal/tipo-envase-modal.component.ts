@@ -1,10 +1,6 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {
-  CargaEnvaseService,
-  EnvasesDataService,
-  TipoEnvase,
-} from 'src/app/shared';
+import { EnvasesDataService } from 'src/app/shared';
 import { ToastService } from 'src/app/shared';
 
 @Component({
@@ -37,8 +33,6 @@ export class TipoEnvaseModalComponent implements OnInit {
 
       this.tipoEnvases2.push(envaseTemp);
     });
-
-    console.log({envases: this.tipoEnvases2})
   }
 
   capitalizarTexto(texto: string): string {
@@ -55,8 +49,6 @@ export class TipoEnvaseModalComponent implements OnInit {
 
     if (!envase) {
       this.toastService.setToastState(true, 'Seleccioná un envase para seguir');
-
-      setTimeout(() => this.toastService.setToastState(false), 3000);
     } else {
       this.tipoEnvase.emit(envase);
     }
