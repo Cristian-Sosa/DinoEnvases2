@@ -15,9 +15,9 @@ export class MainComponent implements OnInit {
   public generateTicket: boolean = false;
 
   public cargaExist: boolean = false;
-  public cabecera: { fecha: string; sucursal: string; ticket: string } = {
-    fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm'),
-    sucursal: this.authService.getDataUser()?.sucursal!,
+  public cabecera: { fecha: string; usuario: string | undefined; ticket: string } = {
+    fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm:ss'),
+    usuario: this.authService.getDataUser()?.Usuario,
     ticket: 'xxxxxxxxxxxx',
   };
 
@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
 
   printCarga = () => {
     this.cabecera.fecha = DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm');
-    this.cabecera.sucursal = this.authService.getDataUser()?.sucursal!;
+    this.cabecera.usuario = this.authService.getDataUser()?.Usuario!;
     this.cabecera.ticket = this.generarCodigoAleatorio().toString().concat(DateTime.now().toFormat('hhmmss'));
 
     const printWindow = window.open('', '_blank');

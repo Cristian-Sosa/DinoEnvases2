@@ -50,13 +50,12 @@ export class AuthPage implements OnInit {
 
   submitForm = () => {
     let usuario: IUsuario = {
-      usuario: this.authForm.get('userControl')?.value!,
-      password: this.authForm.get('passControl')?.value!,
-      sucursal: this.authForm.get('sucursalControl')?.value!,
+      Usuario: this.authForm.get('userControl')?.value!,
+      Password: this.authForm.get('passControl')?.value!,
+      // Sucursal: this.authForm.get('sucursalControl')?.value!,
     };
 
-    let isUserRegistered: boolean =
-      this.authService.userValidation(usuario).status === 200 ? true : false;
+    let isUserRegistered: boolean = this.authService.userValidation(usuario);
 
     if (isUserRegistered) {
       this.router.navigate(['carga']);

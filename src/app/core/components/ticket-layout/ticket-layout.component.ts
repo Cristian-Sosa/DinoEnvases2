@@ -12,7 +12,7 @@ export class TicketLayoutComponent implements OnInit {
 
   public envases: any = [];
 
-  @Input() cabecera!: {fecha: string, sucursal: string, ticket: string};
+  @Input() cabecera!: {fecha: string, usuario: string | undefined, ticket: string};
 
   ngOnInit(): void {
     this.envasesDataService.getEnvasesObservable().subscribe({
