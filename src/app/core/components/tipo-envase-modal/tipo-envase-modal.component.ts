@@ -48,7 +48,7 @@ export class TipoEnvaseModalComponent implements OnInit {
       this.tipoEnvaseForm.get('envaseControl')?.value;
 
     if (!envase) {
-      this.toastService.setToastState(true, 'Seleccioná un envase para seguir');
+      this.toastService.setToastState('Seleccioná un envase para seguir');
     } else {
       this.tipoEnvase.emit(envase);
     }

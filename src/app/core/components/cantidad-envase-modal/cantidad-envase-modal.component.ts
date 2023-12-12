@@ -72,7 +72,7 @@ export class CantidadEnvaseModalComponent implements OnInit {
       this.tipoEnvaseForm.controls['cantidadControl'].value;
 
     if (!cantidad) {
-      this.toastService.setToastState(true, 'Cantidad inválida');
+      this.toastService.setToastState('Cantidad inválida');
     } else {
       let obj: { envaseId: number; cantidad: number } = {
         envaseId: parseInt(envase!),

@@ -19,9 +19,9 @@ export class ToastService {
 
   getToastObservable = (): Observable<IToast> => this._toast.asObservable();
 
-  setToastState = (newState: boolean, title = 'Cargando mensaje...'): void => {
+  setToastState = (title = 'Cargando mensaje...'): void => {
     this.toast.text = title;
-    this.toast.show = newState;
+    this.toast.show = true;
     this._toast.next(this.toast);
 
     setTimeout(() => {

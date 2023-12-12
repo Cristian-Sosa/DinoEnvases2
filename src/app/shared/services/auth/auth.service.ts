@@ -1,8 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { IUsuario } from '../../models';
+import {
+  IActiveUsersResponse,
+  IFullUser,
+  IShortUser,
+  IUserToVerify,
+  IValidateUserResponse,
+} from '../../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable, take } from 'rxjs';
 import { ToastService } from '../toast';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +18,9 @@ export class AuthService {
   private http = inject(HttpClient);
   private toastService = inject(ToastService);
 
-  private userData: IUsuario | null = null;
+  private userData: IShortUser | null = null;
 
-  private usuarios: IUsuario[] = [
+  private usuarios: IFullUser[] = [
     {
       Id: 1,
       DNI: '22595900',
@@ -142,8 +149,19 @@ export class AuthService {
     },
   ];
 
-  getAllActiveUsers = (): Observable<any> => {
-    return this.http.get<any>('http://localhost:3000/api/v1/AllActiveUsers');
+  getAllActiveUsers = (): Observable<IActiveUsersResponse> => {
+    return this.http.get<IActiveUsersResponse>(
+      environment.apiUrl.concat('/AllActiveUsers')
+    );
+  };
+
+  validateUser = (
+    usuario: IUserToVerify
+  ): Observable<IValidateUserResponse> => {
+    return this.http.post<IValidateUserResponse>(
+      environment.apiUrl.concat('/ValidateUser'),
+      usuario
+    );
   };
 
   updateActiveUsers = (): void => {
@@ -152,31 +170,39 @@ export class AuthService {
       .subscribe({
         next: (res) => (this.usuarios = res.data),
         error: (err) =>
-          this.toastService.setToastState(
-            true,
-            'no se actualizaron los usuarios'
-          ),
+          this.toastService.setToastState('no se actualizaron los usuarios'),
       });
   };
 
-  userValidation = (usuario: IUsuario): boolean => {
-    const userToSearch: any = this.usuarios.find(
+  userValidation = (usuario: IUserToVerify): any => {
+    const userToSearch: IFullUser | IShortUser | undefined = this.usuarios.find(
       (u) =>
         u.Usuario.toUpperCase() === usuario.Usuario.toUpperCase() &&
         u.Password.toUpperCase() === usuario.Password.toUpperCase()
     );
     if (userToSearch) {
-      this.userData = usuario;
-      localStorage.setItem('usuario', JSON.stringify(usuario));
+      let usuarioDTO = {
+        Id: userToSearch.Id,
+        Nombre: userToSearch.Nombre,
+        Apellido: userToSearch.Apellido,
+        Usuario: userToSearch.Usuario,
+        Habilitado: userToSearch.Habilitado,
+      };
+      this.setUsuario(usuarioDTO);
       return true;
     } else {
       return false;
     }
   };
 
+  setUsuario = (usuario: IShortUser): void => {
+    this.userData = usuario;
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  };
+
   clearUser = (): void => localStorage.removeItem('usuario');
 
-  getDataUser = (): IUsuario | null => {
+  getDataUser = (): IShortUser | null => {
     if (this.userData) {
       return this.userData;
     } else if (localStorage.getItem('usuario')) {
