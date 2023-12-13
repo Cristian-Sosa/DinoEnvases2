@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService, EnvasesDataService } from 'src/app/shared';
+import { AuthService, EnvasesDataService, ValeService } from 'src/app/shared';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -10,17 +10,25 @@ import { DateTime } from 'luxon';
 export class MainComponent implements OnInit {
   private envasesDataService = inject(EnvasesDataService);
   private authService = inject(AuthService);
+  private valeService = inject(ValeService);
 
   public showModal: string = 'none';
   public generateTicket: boolean = false;
 
   public cargaExist: boolean = false;
-  public cabecera: { fecha: string; usuario: string | undefined; ticket: string } = {
-    fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm:ss'),
-    usuario: this.authService.getDataUser()?.Usuario,
-    ticket: 'xxxxxxxxxxxx',
+  public datos: {
+    fecha: string;
+    usuario: string | undefined;
+    ticket: string;
   };
 
+  constructor() {
+    this.datos = {
+      fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm:ss'),
+      usuario: this.authService.getDataUser()?.Nombre,
+      ticket: this.generarCodigoAleatorio(),
+    };
+  }
   public envaseDTO: {
     envaseId: number | null;
     tipoEnvaseId: number | null;
@@ -48,15 +56,27 @@ export class MainComponent implements OnInit {
     }
   }
 
-  generarCodigoAleatorio = (): number => {
-    const codigo = Math.floor(100000 + Math.random() * 900000);
-    return codigo;
-  }
+  generarCodigoAleatorio = (): string => {
+    const codigo = Math.floor(100 + Math.random() * 900);
+    return codigo.toString().concat(DateTime.now().toFormat('ssSSS'));
+  };
 
   printCarga = () => {
-    this.cabecera.fecha = DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm');
-    this.cabecera.usuario = this.authService.getDataUser()?.Usuario!;
-    this.cabecera.ticket = this.generarCodigoAleatorio().toString().concat(DateTime.now().toFormat('hhmmss'));
+    this.datos = {
+      fecha: DateTime.now().toFormat('LLL dd/MM/yyyy, hh:mm').toUpperCase(),
+      usuario: this.authService.getDataUser()?.Nombre,
+      ticket: this.generarCodigoAleatorio(),
+    };
+
+    this.valeService.sendVale(this.datos.ticket).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.valeService.setEan(res.barcode.CodBarra1);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
 
     const printWindow = window.open('', '_blank');
 

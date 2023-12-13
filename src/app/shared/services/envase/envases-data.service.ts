@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Envase, EnvaseDTO, TipoEnvase } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -108,12 +109,13 @@ export class EnvasesDataService {
     this.cargaEnvases
   );
 
-  constructor() {}
-
-  getEnvases = (): Array<Envase> => this.envases;
 
   getTiposEnvases = (): Array<TipoEnvase> =>
     this.tipoEnvases.filter((envase) => envase.habilitado === true);
+
+
+
+  getEnvases = (): Array<Envase> => this.envases;
 
   getEnvasesObservable = () => {
     if (this.cargaEnvases && localStorage.getItem('carga_actual')) {
@@ -123,6 +125,8 @@ export class EnvasesDataService {
 
     return this._cargaEnvases.asObservable();
   };
+
+
 
   cargarEnvase = (envaseDTO: EnvaseDTO): void => {
     let envaseFiltrado: Envase[] = [];
@@ -142,6 +146,7 @@ export class EnvasesDataService {
     }
   };
 
+
   addEnvase = (envase: Envase): void => {
     this.cargaEnvases.push(envase);
     this._cargaEnvases.next(this.cargaEnvases);
@@ -151,84 +156,23 @@ export class EnvasesDataService {
   removeEnvase = (envaseObj: any): void => {
     let index: number = -1; // Inicializa el índice en -1 para verificar si se encontró una coincidencia
 
-  for (let i = 0; i < this.cargaEnvases.length; i++) {
-    const element = this.cargaEnvases[i];
-    if (
-      element.descripcion === envaseObj.descripcion &&
-      element.id === envaseObj.id &&
-      element.cantidades === envaseObj.cantidades
-    ) {
-      index = i;
-      break; // Termina el bucle cuando se encuentra la coincidencia
-    }
-  }
-
-  if (index !== -1) {
-    this.cargaEnvases.splice(index, 1);
-    this._cargaEnvases.next(this.cargaEnvases);
-
-    localStorage.setItem('carga_actual', JSON.stringify(this.cargaEnvases));
-  }
-  };
-
-  sendCarga = (): void => {
-    try {
-      if (!localStorage.getItem('carga_pendiente')) {
-        console.log(this.envases);
-      } else {
-        let cargasPendientes: Array<Envase[]> = JSON.parse(
-          localStorage.getItem('cargaPendiente')!
-        );
-        cargasPendientes.push(this.cargaEnvases);
-
-        for (let i = 0; i < cargasPendientes.length; i++) {
-          const element = cargasPendientes[i];
-
-          // console.log(element);
-        }
-      }
-    } catch (error) {
-      if (localStorage.getItem('carga_pendiente')) {
-        let cargaPendiente: Array<Envase[]> = JSON.parse(
-          localStorage.getItem('carga_pendiente')!
-        );
-
-        cargaPendiente.push(this.cargaEnvases);
-
-        localStorage.setItem('carga_pendiente', JSON.stringify(cargaPendiente));
-      } else {
-        localStorage.setItem(
-          'carga_pendiente',
-          JSON.stringify(this.cargaEnvases)
-        );
+    for (let i = 0; i < this.cargaEnvases.length; i++) {
+      const element = this.cargaEnvases[i];
+      if (
+        element.descripcion === envaseObj.descripcion &&
+        element.id === envaseObj.id &&
+        element.cantidades === envaseObj.cantidades
+      ) {
+        index = i;
+        break; // Termina el bucle cuando se encuentra la coincidencia
       }
     }
+
+    if (index !== -1) {
+      this.cargaEnvases.splice(index, 1);
+      this._cargaEnvases.next(this.cargaEnvases);
+
+      localStorage.setItem('carga_actual', JSON.stringify(this.cargaEnvases));
+    }
   };
-}
-
-export interface EnvaseDTO {
-  envaseId: number | null;
-  tipoEnvaseId: number | null;
-  cantidad: number | null;
-}
-
-export interface Envase {
-  id: number;
-  codigo: string;
-  descripcion: string;
-  ean: string;
-  precio?: number;
-  tipoEnvaseID: number;
-  cantidades?: number;
-}
-
-export interface TipoEnvase {
-  id: number;
-  nombre: 'cerveza' | 'gaseosa' | 'drago' | 'cajón';
-  habilitado: boolean;
-}
-
-export interface IEnvaseResponse {
-  status: number;
-  data: Envase[] | null;
 }

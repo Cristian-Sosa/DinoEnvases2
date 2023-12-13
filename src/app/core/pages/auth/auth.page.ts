@@ -45,6 +45,7 @@ export class AuthPage implements OnInit {
         next: (res) => {
           if (res.status === 200) {
             isUserRegistered = true;
+            console.log(res.data)
             this.authService.setUsuario(res.data);
           } else {
             isUserRegistered = false;

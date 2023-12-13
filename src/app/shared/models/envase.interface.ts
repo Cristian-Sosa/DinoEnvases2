@@ -1,35 +1,33 @@
-export interface IEnvaseModel {
-  envase: IEnvase;
-  unidad: number;
-  peso?: number;
+export interface EnvaseDTO {
+  envaseId: number | null;
+  tipoEnvaseId: number | null;
+  cantidad: number | null;
 }
 
-export interface IEnvase {
-  tipo: 'drago' | 'cerveza' | 'gaseosa' | 'cajon';
-  peso?: '1kg' | '250g';
-  color?: 'verde' | 'marron' | 'quilmes 340';
-  cantidad: number | string;
+export interface Envase {
+  id: number;
+  codigo: string;
+  descripcion: string;
+  ean: string;
+  precio?: number;
+  tipoEnvaseID: number;
+  cantidades?: number;
 }
 
-export interface ICajon {
-  tipo: 'quilmes' | 'cia' | 'quilmes 340' | 'gaseosa';
-  cantidad: string;
+export interface TipoEnvase {
+  id: number;
+  nombre: 'cerveza' | 'gaseosa' | 'drago' | 'cajón';
+  habilitado: boolean;
 }
 
-export interface IEnvaseTransfer {
-  TipoEnvase: {
-    Nombre: 'drago' | 'cerveza' | 'gaseosa' | 'cajon' | '';
-    Tipo:
-      | 'Verde'
-      | 'Marron'
-      | 'Quilmes 340'
-      | 'Coca Cola'
-      | 'Quilmes Verde'
-      | 'Quilmes Marron'
-      | 'CIA Verde'
-      | 'CIA Marron'
-      | '';
-  };
-  Unidades: number;
-  contenido: '1l' | '330ml' | '250g' | '2kg' | '2l' | '2.5l' | '';
+export interface IEnvaseResponse {
+  status: number;
+  data: Envase[] | null;
+}
+
+
+export interface IVale {
+    NombreSucursal: string;
+    nroVale:        string;
+    items:          Envase[];
 }

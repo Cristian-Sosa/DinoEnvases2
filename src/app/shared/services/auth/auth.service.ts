@@ -147,11 +147,20 @@ export class AuthService {
       Password: '1234',
       Habilitado: true,
     },
+    {
+      Id: 15,
+      DNI: '44653284',
+      Nombre: 'Cristian',
+      Apellido: 'Sosa',
+      Usuario: 'csosa',
+      Password: '1234',
+      Habilitado: true
+    }
   ];
 
   getAllActiveUsers = (): Observable<IActiveUsersResponse> => {
     return this.http.get<IActiveUsersResponse>(
-      environment.apiUrl.concat('/AllActiveUsers')
+      environment.apiUrl.concat('/user/AllActiveUsers')
     );
   };
 
@@ -159,7 +168,7 @@ export class AuthService {
     usuario: IUserToVerify
   ): Observable<IValidateUserResponse> => {
     return this.http.post<IValidateUserResponse>(
-      environment.apiUrl.concat('/ValidateUser'),
+      environment.apiUrl.concat('/user/ValidateUser'),
       usuario
     );
   };
