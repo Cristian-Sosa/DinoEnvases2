@@ -37,7 +37,10 @@ export class TicketLayoutComponent implements OnInit, OnChanges {
         this.envases = [];
       },
     });
-    this.valeService.getEAN().subscribe(res => this.ean = res)
+    this.valeService.getEAN().subscribe((res) => {
+      this.ean = res;
+      console.log(this.ean);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
