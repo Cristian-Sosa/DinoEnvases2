@@ -52,13 +52,7 @@ export class AuthPage implements OnInit {
           }
         },
         error: (err) => {
-          if (err.error.mensaje === 'Usuario no encontrado') {
-            isUserRegistered = false;
-          } else if (err.error.mensaje.includes('son obligatorios')) {
-            this.toastService.setToastState('Campos vacíos o inválidos');
-          } else {
-            isUserRegistered = this.authService.userValidation(usuario);
-          }
+          isUserRegistered = this.authService.userValidation(usuario);
         },
       })
       .add(() => {

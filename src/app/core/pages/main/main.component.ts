@@ -114,11 +114,11 @@ export class MainComponent implements OnInit {
 
         .ticket_header .title {
           margin-bottom: 2px;
-          font-size: 14px;
+          font-size: 18px;
         }
         
         .ticket_header .sub-title {
-          font-size: 10px;
+          font-size: 14px;
           font-weight: 500;
         }
         
@@ -131,7 +131,7 @@ export class MainComponent implements OnInit {
           align-items: stretch;
           gap: 2px;
 
-          font-size: 8px;
+          font-size: 12px;
           font-weight: 500;
         }
         
@@ -143,13 +143,13 @@ export class MainComponent implements OnInit {
           justify-content: flex-start;
           align-items: stretch;
 
-          font-size: 10px;
+          font-size: 14px;
           font-weight: 500;
         }
         
         .cuerpo .separador {
           margin-bottom: 8px;
-          font-size: 8px;
+          font-size: 12px;
         }
         
         .card {        
@@ -206,7 +206,7 @@ export class MainComponent implements OnInit {
         .footer-firma p {
           margin-top: 4px;
           text-align: center;
-          font-size: 8px;
+          font-size: 12px;
         }
 
         main svg {
